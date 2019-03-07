@@ -13,41 +13,222 @@ import RctCollapsibleCard from 'Components/RctCollapsibleCard/RctCollapsibleCard
 // intl messages
 import IntlMessages from 'Util/IntlMessages';
 
+import IconButton from '@material-ui/core/IconButton';
+
+// app config
+import AppConfig from '../../../constants/AppConfig';
+
 class DataTable extends React.Component {
+	state = {
+		theuserslist: []
+	}
+	componentDidMount = () => {		
+		// (async () => {
+		// const rawResponse = await fetch(AppConfig.baseURL + '/permission/user/filter', {
+		// 	method: 'POST',
+		// 	headers: {
+		// 		'Content-Type': 'application/json',
+		// 		'Authorization': 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlzcyI6Imh0dHA6Ly9wYXMua2lzaGlzYy5jby5pciIsImlhdCI6MTU1MTk2ODU3MSwiZXhwIjoxNTUxOTg2NTcxfQ.CBgJ-W0AMINGHxhQUcBxwzsOAqpTl5BS3LB0t0L5IRg'
+		// 	},
+		// 	body: JSON.stringify({
+		// 		"fromDate": "",
+		// 		"groupId": 0,
+		// 		"needPaginate": true,
+		// 		"pageNumber": 0,
+		// 		"pageSize": 10,
+		// 		"productProviderId": 76,
+		// 		"resultSize": 0,
+		// 		"roleId": 0,
+		// 		"toDate": "",
+		// 		"termToFind": ""
+		// 	  })
+		// });
+		// const content = await rawResponse.json();
+		// console.log(content);
+		// if (content.status == 200 ){
+		// 	console.log('success');
+		// }
+		// })();
+		const the_data = {
+			"status": 200,
+			"message": "success",
+			"token": "",
+			"result": {
+				"messageModel": {
+					"type": "success",
+					"title": null,
+					"text": "درخواست با موفقیت آمیز انجام گرفت",
+					"messagesKey": "requestSuccess",
+					"violations": null
+				},
+				"paginateModel": {
+					"pages": [],
+					"currentPage": 0,
+					"pageSize": 10
+				},
+				"dtos": [
+					{
+						"id": 185,
+						"username": "test-user2",
+						"password": "$2a$10$kRZE52.oAzZ55MgTA8nK2eNsjw9BuH8FRYhlMVr99xcABLys8XkRC",
+						"password2": null,
+						"description": "test-user2",
+						"fullName": "test user 2",
+						"email": "test-user2@gmail.com",
+						"mobile": null,
+						"creationDate": "1397/11/14 13:3",
+						"editionDate": null,
+						"productproviderDTO": {
+							"id": 76,
+							"productproviderLangDTOS": [
+								{
+									"productProviderId": 76,
+									"name": "چونک",
+									"companyName": "چونک ستر ایران",
+									"mainOfficeAddress": "آدرس چونک",
+									"mainOfficeTel": "454654",
+									"mainOfficeFax": "646546",
+									"managerFullname": null,
+									"describtion": "توضیحات چونک",
+									"languageDTO": {
+										"id": 1,
+										"code": "fa",
+										"title": "فارسی"
+									}
+								},
+								{
+									"productProviderId": 76,
+									"name": "choonak",
+									"companyName": "Choonak goster",
+									"mainOfficeAddress": "Address choonak",
+									"mainOfficeTel": "454654",
+									"mainOfficeFax": "646546",
+									"managerFullname": null,
+									"describtion": "choonak desc",
+									"languageDTO": {
+										"id": 2,
+										"code": "en",
+										"title": "English"
+									}
+								}
+							]
+						}
+					},
+					{
+						"id": 165,
+						"username": "user_test",
+						"password": "$2a$10$rxHoy6LXZwW0x7Kr3wD1n.wBAkPbfM4ka2Ks19EIDsr/t2fGTPhMq",
+						"password2": null,
+						"description": null,
+						"fullName": "User Test",
+						"email": "user_test@kisc.co.ir",
+						"mobile": null,
+						"creationDate": "1397/11/10 12:46",
+						"editionDate": null,
+						"productproviderDTO": {
+							"id": 76,
+							"productproviderLangDTOS": [
+								{
+									"productProviderId": 76,
+									"name": "چونک",
+									"companyName": "چونک ستر ایران",
+									"mainOfficeAddress": "آدرس چونک",
+									"mainOfficeTel": "454654",
+									"mainOfficeFax": "646546",
+									"managerFullname": null,
+									"describtion": "توضیحات چونک",
+									"languageDTO": {
+										"id": 1,
+										"code": "fa",
+										"title": "فارسی"
+									}
+								},
+								{
+									"productProviderId": 76,
+									"name": "choonak",
+									"companyName": "Choonak goster",
+									"mainOfficeAddress": "Address choonak",
+									"mainOfficeTel": "454654",
+									"mainOfficeFax": "646546",
+									"managerFullname": null,
+									"describtion": "choonak desc",
+									"languageDTO": {
+										"id": 2,
+										"code": "en",
+										"title": "English"
+									}
+								}
+							]
+						}
+					}
+				]
+			}
+		}
+		// it should be gotten from sth like localstorage
+		const currentlanguage = 'fa'
+		// it should be gotten from sth like localstorage
+		let nameinCurrentLang = {}
+		const theList = the_data.result.dtos.map(each => {			
+			each.productproviderDTO.productproviderLangDTOS.map(eachlang => {
+				if (currentlanguage == eachlang.languageDTO.code){
+					nameinCurrentLang = {
+						lang_code: eachlang.languageDTO.code,
+						nameinthisLang: eachlang.name,
+						companynameinthislang: eachlang.companyName,
+						descriptioninthislang: eachlang.describtion
+					}
+				}
+			})
+			
+			return({
+				id: each.id,
+				username: each.username,
+				name: each.fullName,
+				productOwnerID: each.productproviderDTO.id,
+				productOwnerName: nameinCurrentLang.nameinthisLang,
+				userState: each.editionDate, //shouldbe sth like each.UserState
+				email: each.email,
+			})
+		})
+		
+		this.setState(
+			{theuserslist: theList})
+		}
+
+	actionClickhandler = (event) => {
+		console.log(event.target);
+		
+	}
+
 	render() {
-		const columns = ["Username", "Name", "ProductOwner", "UserSate", "email"];
-		const data = [
-			["Gabby George", "Business Analyst", "Minneapolis", 30, "$100,000"],
-			["Aiden Lloyd", "Business Consultant", "Dallas", 55, "$200,000"],
-			["Jaden Collins", "Attorney", "Santa Ana", 27, "$500,000"],
-			["Franky Rees", "Business Analyst", "St. Petersburg", 22, "$50,000"],
-			["Aaren Rose", "Business Consultant", "Toledo", 28, "$75,000"],
-			["Blake Duncan", "Business Management Analyst", "San Diego", 65, "$94,000"],
-			["Frankie Parry", "Agency Legal Counsel", "Jacksonville", 71, "$210,000"],
-			["Lane Wilson", "Commercial Specialist", "Omaha", 19, "$65,000"],
-			["Robin Duncan", "Business Analyst", "Los Angeles", 20, "$77,000"],
-			["Mel Brooks", "Business Consultant", "Oklahoma City", 37, "$135,000"],
-			["Harper White", "Attorney", "Pittsburgh", 52, "$420,000"],
-			["Kris Humphrey", "Agency Legal Counsel", "Laredo", 30, "$150,000"],
-			["Frankie Long", "Industrial Analyst", "Austin", 31, "$170,000"],
-			["Brynn Robbins", "Business Analyst", "Norfolk", 22, "$90,000"],
-			["Justice Mann", "Business Consultant", "Chicago", 24, "$133,000"],
-			["Addison Navarro", "Business Management Analyst", "New York", 50, "$295,000"],
-			["Jesse Welch", "Agency Legal Counsel", "Seattle", 28, "$200,000"],
-			["Eli Mejia", "Commercial Specialist", "Long Beach", 65, "$400,000"],
-			["Gene Leblanc", "Industrial Analyst", "Hartford", 34, "$110,000"],
-			["Danny Leon", "Computer Scientist", "Newark", 60, "$220,000"],
-			["Lane Lee", "Corporate Counselor", "Cincinnati", 52, "$180,000"],
-			["Jesse Hall", "Business Analyst", "Baltimore", 44, "$99,000"],
-			["Danni Hudson", "Agency Legal Counsel", "Tampa", 37, "$90,000"],
-			["Terry Macdonald", "Commercial Specialist", "Miami", 39, "$140,000"],
-			["Justice Mccarthy", "Attorney", "Tucson", 26, "$330,000"],
-			["Silver Carey", "Computer Scientist", "Memphis", 47, "$250,000"],
-			["Franky Miles", "Industrial Analyst", "Buffalo", 49, "$190,000"],
-			["Glen Nixon", "Corporate Counselor", "Arlington", 44, "$80,000"],
-			["Gabby Strickland", "Business Process Consultant", "Scottsdale", 26, "$45,000"],
-			["Mason Ray", "Computer Scientist", "San Francisco", 39, "$142,000"]
-		];
+		const columns = ["Username", "Name", "ProductOwner", "UserSate", "email", "Actions"];
+		const data = this.state.theuserslist.map(eachuser => {
+			return(
+				[eachuser.username, eachuser.name, eachuser.productOwnerName, eachuser.userState, eachuser.email, 
+					<div>
+						<IconButton className="text-danger" onClick={this.actionClickhandler} data-id={eachuser.id} data-action="delete" aria-label="Delete">
+							<i className="zmdi zmdi-close" data-id={eachuser.id} data-action="delete"></i>
+						</IconButton>
+						<IconButton className="text-success" onClick={this.actionClickhandler} data-id={eachuser.id} data-action="edit" aria-label="Edit">
+							<i className="zmdi zmdi-edit" data-id={eachuser.id} data-action="edit"></i>
+						</IconButton>
+						<IconButton className="text-danger" onClick={this.actionClickhandler} data-id={eachuser.id} data-action="changepass" aria-label="changepass">
+							<i className="zmdi zmdi-key" data-id={eachuser.id} data-action="changepass"></i>
+						</IconButton>
+						<IconButton className="text-success" onClick={this.actionClickhandler} data-id={eachuser.id} data-action="groups" aria-label="groups">
+							<i className="zmdi zmdi-accounts-alt" data-id={eachuser.id} data-action="groups"></i>
+						</IconButton>
+						<IconButton className="text-success" onClick={this.actionClickhandler} data-id={eachuser.id} data-action="roles" aria-label="roles">
+							<i className="zmdi zmdi-account-circle" data-id={eachuser.id} data-action="roles"></i>
+						</IconButton>
+					</div>
+				]
+			)
+		})
+		// const data = [
+		// 	["Gabby George", "Business Analyst", "Minneapolis", 30, "$100,000"],
+		// 	["Aiden Lloyd", "Business Consultant", "Dallas", 55, "$200,000"],
+		// ];
 		const options = {
 			filterType: 'dropdown',
 			responsive: 'stacked'
@@ -63,7 +244,7 @@ class DataTable extends React.Component {
 				</div>
 				<RctCollapsibleCard heading="Data Table" fullBlock>
 					<MUIDataTable
-						title={"Employee list"}
+						title={"Users list"}
 						data={data}
 						columns={columns}
 						options={options}
