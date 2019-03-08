@@ -28,8 +28,6 @@ class PAS_Auth {
                 localStorage.setItem("given_token", content.token);
                 localStorage.setItem("isAuthenticated", true);
                 cb();
-                // this.setsessiondata(content.token, AppConfig.expiresIn)
-                // this.props.history.push('/horizontal/dashboard/saas');
             }
         })();
     }

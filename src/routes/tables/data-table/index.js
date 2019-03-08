@@ -224,7 +224,7 @@ class DataTable extends React.Component {
 			} 
 			case "roles": { 
 				this.props.history.push({
-					pathname: '/horizontal/changePass',
+					pathname: '/horizontal/changeRoles',
 					state: { username: uname, user_id: id }
 				})
 				break; 

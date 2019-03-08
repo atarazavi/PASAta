@@ -19,6 +19,7 @@ import VideoPlayer from 'Routes/video-player';
 import Dropzone from 'Routes/dropzone';
 import changePass from 'Routes/changePass';
 import editUser from 'Routes/editUser';
+import changeRoles from 'Routes/changeRoles';
 
 // async component
 import {
@@ -124,5 +125,9 @@ export default [
 	{
 		path: 'editUser',
 		component: editUser
+	},
+	{
+		path: 'changeRoles',
+		component: changeRoles
 	}
 ]
