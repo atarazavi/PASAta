@@ -48,7 +48,7 @@ class Signin extends Component {
   onUserLogin() {
     if (this.state.email !== '' && this.state.password !== '' && this.state.isverifiedCaptcha) {
       PAS_Authentication.login(this.state.email, this.state.password ,() => {
-        this.props.history.push('/horizontal/dashboard/saas');
+        this.props.history.push('/horizontal/tables/data-table');
       });
     }
   }

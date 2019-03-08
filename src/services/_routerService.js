@@ -18,6 +18,7 @@ import ImageCropper from 'Routes/image-cropper';
 import VideoPlayer from 'Routes/video-player';
 import Dropzone from 'Routes/dropzone';
 import changePass from 'Routes/changePass';
+import editUser from 'Routes/editUser';
 
 // async component
 import {
@@ -119,5 +120,9 @@ export default [
 	{
 		path: 'changePass',
 		component: changePass
+	},
+	{
+		path: 'editUser',
+		component: editUser
 	}
 ]

@@ -207,7 +207,7 @@ class DataTable extends React.Component {
 			} 
 			case "edit": { 
 				this.props.history.push({
-					pathname: '/horizontal/changePass',
+					pathname: '/horizontal/editUser',
 					state: { username: uname, user_id: id }
 				})
 				break; 
@@ -274,12 +274,6 @@ class DataTable extends React.Component {
 		return (
 			<div className="data-table-wrapper">
 				<PageTitleBar title={<IntlMessages id="sidebar.dataTable" />} match={this.props.match} />
-				<div className="alert alert-info">
-					<p>MUI-Datatables is a data tables component built on Material-UI V1.
-            It comes with features like filtering, view/hide columns, search, export to CSV download, printing, pagination, and sorting.
-            On top of the ability to customize styling on most views, there are two responsive modes "stacked" and "scroll" for mobile/tablet
-            devices. If you want more customize option please <a href="https://github.com/gregnb/mui-datatables" className="btn btn-danger btn-small mx-10">Click </a> here</p>
-				</div>
 				<RctCollapsibleCard heading="Data Table" fullBlock>
 					<MUIDataTable
 						title={"Users list"}
