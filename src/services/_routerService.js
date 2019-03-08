@@ -17,6 +17,7 @@ import Dashboard from 'Routes/dashboard';
 import ImageCropper from 'Routes/image-cropper';
 import VideoPlayer from 'Routes/video-player';
 import Dropzone from 'Routes/dropzone';
+import changePass from 'Routes/changePass';
 
 // async component
 import {
@@ -114,5 +115,9 @@ export default [
 	{
 		path: 'dropzone',
 		component: Dropzone
+	},
+	{
+		path: 'changePass',
+		component: changePass
 	}
 ]

@@ -14,6 +14,7 @@ import RctCollapsibleCard from 'Components/RctCollapsibleCard/RctCollapsibleCard
 import IntlMessages from 'Util/IntlMessages';
 
 import IconButton from '@material-ui/core/IconButton';
+import { Route, Redirect } from "react-router-dom";
 
 // app config
 import AppConfig from '../../../constants/AppConfig';
@@ -195,8 +196,45 @@ class DataTable extends React.Component {
 			{theuserslist: theList})
 		}
 
-	actionClickhandler = (event) => {
-		console.log(event.target);
+	actionClickhandler = (id, uname, action) => {
+		switch(action) { 
+			case "changepass": { 
+				this.props.history.push({
+					pathname: '/horizontal/changePass',
+					state: { username: uname, user_id: id }
+				})
+				break;  
+			} 
+			case "edit": { 
+				this.props.history.push({
+					pathname: '/horizontal/changePass',
+					state: { username: uname, user_id: id }
+				})
+				break; 
+			}
+			case "groups": { 
+				this.props.history.push({
+					pathname: '/horizontal/changePass',
+					state: { username: uname, user_id: id }
+				})
+				break; 
+			} 
+			case "roles": { 
+				this.props.history.push({
+					pathname: '/horizontal/changePass',
+					state: { username: uname, user_id: id }
+				})
+				break; 
+			}  
+			default: { 
+				console.log("Invalid choice"); 
+				break;              
+			} 
+		} 
+	}
+
+	deletehandler = (userid) => {
+		console.log('going to delete', userid);
 		
 	}
 
@@ -206,20 +244,20 @@ class DataTable extends React.Component {
 			return(
 				[eachuser.username, eachuser.name, eachuser.productOwnerName, eachuser.userState, eachuser.email, 
 					<div>
-						<IconButton className="text-danger" onClick={this.actionClickhandler} data-id={eachuser.id} data-action="delete" aria-label="Delete">
-							<i className="zmdi zmdi-close" data-id={eachuser.id} data-action="delete"></i>
+						<IconButton className="text-danger" onClick={() => { if (window.confirm('Are you sure you wish to delete'+ eachuser.username +'?')) this.deletehandler(eachuser.id) } } aria-label="Delete">
+							<i className="zmdi zmdi-close"></i>
 						</IconButton>
-						<IconButton className="text-success" onClick={this.actionClickhandler} data-id={eachuser.id} data-action="edit" aria-label="Edit">
-							<i className="zmdi zmdi-edit" data-id={eachuser.id} data-action="edit"></i>
+						<IconButton className="text-success" onClick={() => this.actionClickhandler(eachuser.id, eachuser.username, 'edit')} aria-label="Edit">
+							<i className="zmdi zmdi-edit"></i>
 						</IconButton>
-						<IconButton className="text-danger" onClick={this.actionClickhandler} data-id={eachuser.id} data-action="changepass" aria-label="changepass">
-							<i className="zmdi zmdi-key" data-id={eachuser.id} data-action="changepass"></i>
+						<IconButton className="text-danger" onClick={() => this.actionClickhandler(eachuser.id, eachuser.username, 'changepass')} aria-label="changepass">
+							<i className="zmdi zmdi-key"></i>
 						</IconButton>
-						<IconButton className="text-success" onClick={this.actionClickhandler} data-id={eachuser.id} data-action="groups" aria-label="groups">
-							<i className="zmdi zmdi-accounts-alt" data-id={eachuser.id} data-action="groups"></i>
+						<IconButton className="text-success" onClick={() => this.actionClickhandler(eachuser.id, eachuser.username, 'groups')} aria-label="groups">
+							<i className="zmdi zmdi-accounts-alt"></i>
 						</IconButton>
-						<IconButton className="text-success" onClick={this.actionClickhandler} data-id={eachuser.id} data-action="roles" aria-label="roles">
-							<i className="zmdi zmdi-account-circle" data-id={eachuser.id} data-action="roles"></i>
+						<IconButton className="text-success" onClick={() => this.actionClickhandler(eachuser.id, eachuser.username, 'roles')} aria-label="roles">
+							<i className="zmdi zmdi-account-circle"></i>
 						</IconButton>
 					</div>
 				]
