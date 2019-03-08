@@ -34,7 +34,7 @@ export default class AutoComplete extends Component {
 		familyanme: '',
 		mobileNumber: '',
 		description: '',
-        productownerid: '',
+        productownerid: 0,
         productownerName: '',
 		userState : 'active'
 	}
@@ -248,6 +248,7 @@ export default class AutoComplete extends Component {
 	}
 
 	handleChangeOnOwner = (result) => {
+		result == 0 && this.setState({productownerid: 0})
 		this.suggestions.map( owner => {
 			owner.value == result ? this.setState({productownerid: owner.id}) : null
 		})
