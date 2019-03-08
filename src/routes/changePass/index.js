@@ -17,6 +17,8 @@ import RctCollapsibleCard from 'Components/RctCollapsibleCard/RctCollapsibleCard
 // intl messages
 import IntlMessages from 'Util/IntlMessages';
 
+const giventoken = localStorage.getItem('given_token')
+
 export default class AutoComplete extends Component {
 	state = {
 		username: '',

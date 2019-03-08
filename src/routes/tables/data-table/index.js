@@ -19,10 +19,13 @@ import { Route, Redirect } from "react-router-dom";
 // app config
 import AppConfig from '../../../constants/AppConfig';
 
+const giventoken = localStorage.getItem('given_token')
+
 class DataTable extends React.Component {
 	state = {
 		theuserslist: []
 	}
+
 	componentDidMount = () => {		
 		// (async () => {
 		// const rawResponse = await fetch(AppConfig.baseURL + '/permission/user/filter', {

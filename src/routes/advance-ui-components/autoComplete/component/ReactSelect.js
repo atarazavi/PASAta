@@ -201,9 +201,9 @@ class IntegrationReactSelect extends React.Component {
   render() {
     
     suggestions = this.props.suggestions
-    const { classes, id } = this.props;
+    const { classes, id, defaultValue } = this.props;
     const { single, multi } = this.state;
-
+    
     return (
         <div className="col-md-6">
           <Input
@@ -213,7 +213,7 @@ class IntegrationReactSelect extends React.Component {
               classes,
               value: single,
               onChange: this.handleChangeSingle,
-              placeholder: 'Product Owner',
+              placeholder: defaultValue,
               instanceId: 'react-select-single',
               id: 'react-select-single',
               name: 'react-select-single',
