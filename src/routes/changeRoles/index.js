@@ -16,8 +16,8 @@ import Button from '@material-ui/core/Button';
 // Components
 import ReactSelect from '../advance-ui-components/autoComplete/component/ReactSelect';
 
-// page title bar
-import PageTitleBar from 'Components/PageTitleBar/PageTitleBar';
+// app config
+import AppConfig from '../../constants/AppConfig';
 
 // rct card box
 import RctCollapsibleCard from 'Components/RctCollapsibleCard/RctCollapsibleCard';
@@ -38,247 +38,68 @@ export default class AutoComplete extends Component {
         chosenNEWroleid: 0
 	}
 
-    componentDidMount = () => {      
-        // (async () => {
-        //     const rawResponse = await fetch(AppConfig.baseURL + 'permission/role/findbyuserid', {
-        //         method: 'POST',
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //             'Authorization': givenToken
-        //         },
-        //         body: JSON.stringify({
-        //             "id": this.state.user_id
-        //         })
-        //     });
-        //     const response = await rawResponse.json();
-        //     console.log(response);
-        //     if (response.status == 200 ){
-        //         console.log('success');
-        //         this.userRoles = response.result.dtos.map(eachrole => {
-        //             return({
-        //                 roleID: eachrole.roleDTO.id,
-        //                 roleName: eachrole.roleDTO.name,
-        //                 roleDescription: eachrole.roleDTO.description
-        //             })
-        //         })
-        //     }
-        // })();
-
-        let response = {
-            "status": 200,
-            "message": "success",
-            "token": "",
-            "result": {
-                "messageModel": {
-                    "type": "success",
-                    "title": null,
-                    "text": "درخواست با موفقیت آمیز انجام گرفت",
-                    "messagesKey": "requestSuccess",
-                    "violations": null
+    componentDidMount = () => {  
+        console.log('this.props.location.state.user_id', this.props.location.state.user_id);
+                   
+        (async () => {
+            const rawResponse = await fetch(AppConfig.baseURL + '/permission/role/findbyuserid', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': giventoken
                 },
-                "paginateModel": {
-                    "pages": [],
-                    "currentPage": 0,
-                    "pageSize": 0
-                },
-                "dtos": [
-                    {
-                        "roleDTO": {
-                            "id": 47,
-                            "name": "null",
-                            "description": "null"
-                        },
-                        "userDTO": {
-                            "id": 165,
-                            "username": "user_test",
-                            "password": "$2a$10$rxHoy6LXZwW0x7Kr3wD1n.wBAkPbfM4ka2Ks19EIDsr/t2fGTPhMq",
-                            "password2": null,
-                            "description": null,
-                            "fullName": "User Test",
-                            "email": "user_test@kisc.co.ir",
-                            "mobile": null,
-                            "creationDate": "1397/11/10 12:46",
-                            "editionDate": null,
-                            "productproviderDTO": {
-                                "id": 76,
-                                "productproviderLangDTOS": [
-                                    {
-                                        "productProviderId": 76,
-                                        "name": "چونک",
-                                        "companyName": "چونک ستر ایران",
-                                        "mainOfficeAddress": "آدرس چونک",
-                                        "mainOfficeTel": "454654",
-                                        "mainOfficeFax": "646546",
-                                        "managerFullname": null,
-                                        "describtion": "توضیحات چونک",
-                                        "languageDTO": {
-                                            "id": 1,
-                                            "code": "fa",
-                                            "title": "فارسی"
-                                        }
-                                    },
-                                    {
-                                        "productProviderId": 76,
-                                        "name": "choonak",
-                                        "companyName": "Choonak goster",
-                                        "mainOfficeAddress": "Address choonak",
-                                        "mainOfficeTel": "454654",
-                                        "mainOfficeFax": "646546",
-                                        "managerFullname": null,
-                                        "describtion": "choonak desc",
-                                        "languageDTO": {
-                                            "id": 2,
-                                            "code": "en",
-                                            "title": "English"
-                                        }
-                                    }
-                                ]
-                            }
-                        }
-                    },
-                    {
-                        "roleDTO": {
-                            "id": 62,
-                            "name": "Test Group 1234",
-                            "description": "Test Group Desc"
-                        },
-                        "userDTO": {
-                            "id": 165,
-                            "username": "user_test",
-                            "password": "$2a$10$rxHoy6LXZwW0x7Kr3wD1n.wBAkPbfM4ka2Ks19EIDsr/t2fGTPhMq",
-                            "password2": null,
-                            "description": null,
-                            "fullName": "User Test",
-                            "email": "user_test@kisc.co.ir",
-                            "mobile": null,
-                            "creationDate": "1397/11/10 12:46",
-                            "editionDate": null,
-                            "productproviderDTO": {
-                                "id": 76,
-                                "productproviderLangDTOS": [
-                                    {
-                                        "productProviderId": 76,
-                                        "name": "چونک",
-                                        "companyName": "چونک ستر ایران",
-                                        "mainOfficeAddress": "آدرس چونک",
-                                        "mainOfficeTel": "454654",
-                                        "mainOfficeFax": "646546",
-                                        "managerFullname": null,
-                                        "describtion": "توضیحات چونک",
-                                        "languageDTO": {
-                                            "id": 1,
-                                            "code": "fa",
-                                            "title": "فارسی"
-                                        }
-                                    },
-                                    {
-                                        "productProviderId": 76,
-                                        "name": "choonak",
-                                        "companyName": "Choonak goster",
-                                        "mainOfficeAddress": "Address choonak",
-                                        "mainOfficeTel": "454654",
-                                        "mainOfficeFax": "646546",
-                                        "managerFullname": null,
-                                        "describtion": "choonak desc",
-                                        "languageDTO": {
-                                            "id": 2,
-                                            "code": "en",
-                                            "title": "English"
-                                        }
-                                    }
-                                ]
-                            }
-                        }
-                    },
-                    {
-                        "roleDTO": {
-                            "id": 69,
-                            "name": "ProductProvider",
-                            "description": "Product Provider Role"
-                        },
-                        "userDTO": {
-                            "id": 165,
-                            "username": "user_test",
-                            "password": "$2a$10$rxHoy6LXZwW0x7Kr3wD1n.wBAkPbfM4ka2Ks19EIDsr/t2fGTPhMq",
-                            "password2": null,
-                            "description": null,
-                            "fullName": "User Test",
-                            "email": "user_test@kisc.co.ir",
-                            "mobile": null,
-                            "creationDate": "1397/11/10 12:46",
-                            "editionDate": null,
-                            "productproviderDTO": {
-                                "id": 76,
-                                "productproviderLangDTOS": [
-                                    {
-                                        "productProviderId": 76,
-                                        "name": "چونک",
-                                        "companyName": "چونک ستر ایران",
-                                        "mainOfficeAddress": "آدرس چونک",
-                                        "mainOfficeTel": "454654",
-                                        "mainOfficeFax": "646546",
-                                        "managerFullname": null,
-                                        "describtion": "توضیحات چونک",
-                                        "languageDTO": {
-                                            "id": 1,
-                                            "code": "fa",
-                                            "title": "فارسی"
-                                        }
-                                    },
-                                    {
-                                        "productProviderId": 76,
-                                        "name": "choonak",
-                                        "companyName": "Choonak goster",
-                                        "mainOfficeAddress": "Address choonak",
-                                        "mainOfficeTel": "454654",
-                                        "mainOfficeFax": "646546",
-                                        "managerFullname": null,
-                                        "describtion": "choonak desc",
-                                        "languageDTO": {
-                                            "id": 2,
-                                            "code": "en",
-                                            "title": "English"
-                                        }
-                                    }
-                                ]
-                            }
-                        }
-                    }
-                ]
+                body: JSON.stringify({
+                    "id": this.state.user_id
+                })
+            });
+            const response = await rawResponse.json();
+            console.log('changerole',response);
+            if (response.status == 200 ){
+                const userRoles = response.result.dtos.map(eachrole => {
+                    return({
+                        roleID: eachrole.roleDTO.id,
+                        roleName: eachrole.roleDTO.name,
+                        roleDescription: eachrole.roleDTO.description
+                    })
+                })        
+                this.setState({
+                    userRoles
+                })
+                
             }
-        }
-        
-        const userRoles = response.result.dtos.map(eachrole => {
-            return({
-                roleID: eachrole.roleDTO.id,
-                roleName: eachrole.roleDTO.name,
-                roleDescription: eachrole.roleDTO.description
-            })
-        })
-        
-        const suggestions = userRoles.map(eachRole => {
-            return({label: eachRole.roleName, value: eachRole.roleName, id: eachRole.roleID})
-        })
+        })();
 
-        this.setState({
-            userRoles,
-            suggestions
-        })
-
-		// // it should be gotten from sth like localstorage
-		// const currentlanguage = 'fa'
-		// // it should be gotten from sth like localstorage
-		// let nameinCurrentLang = {}
-		// response.result.dtos.productproviderDTO.productproviderLangDTOS.map(each => {	
-        //     if (currentlanguage == each.languageDTO.code){
-        //         nameinCurrentLang = {
-        //             lang_code: each.languageDTO.code,
-        //             nameinthisLang: each.name,
-        //             companynameinthislang: each.companyName,
-        //             descriptioninthislang: each.describtion
-        //         }
-        //     }
-        // })
+        (async () => {
+            const rawResponse = await fetch(AppConfig.baseURL + '/permission/role/filter', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': giventoken
+                },
+                body: JSON.stringify({
+                    "fromDate": "",
+                    "needPaginate": true,
+                    "pageNumber": 0,
+                    "pageSize": 10,
+                    "resultSize": 0,
+                    "termToFind": "",
+                    "toDate": ""
+                  })
+            });
+            const response = await rawResponse.json();
+            console.log('changerole',response);
+            if (response.status == 200 ){
+                console.log('success');
+                const suggestions = response.result.dtos.map(eachRole => {
+                    console.log('eachRole', eachRole);
+                    
+                    return({label: eachRole.name, value: eachRole.name, id: eachRole.id, description: eachRole.description})
+                })
+                this.setState({
+                    suggestions
+                })
+            }
+        })();
     } 
 
 	handleChangeOnRoleSelection = (result) => {
@@ -287,16 +108,71 @@ export default class AutoComplete extends Component {
 		})
 	}
 
-	handleSubmit = (e) => {
-		// e.preventDefault()
-		console.log('submit');
+	handleSubmit = () => {
+        (async () => {
+            const rawResponse = await fetch(AppConfig.baseURL + '/permission/role/userassigntorole', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': giventoken
+                },
+                body: JSON.stringify({
+                    "userDTO": {
+                      "id": this.state.user_id
+                    },
+                    "roleDTO": {
+                      "id": this.state.chosenNEWroleid
+                    }
+                  })
+            });
+            const response = await rawResponse.json();
+            console.log('addrole',response);
+            if (response.result.messageModel.type == 'success' ){
+                this.state.suggestions.map(roles => {
+                    roles.id == this.state.chosenNEWroleid && this.setState({userRoles: [...this.state.userRoles, {
+                        roleID: roles.id,
+                        roleName: roles.value,
+                        roleDescription: roles.description
+                    }]})
+                })
+            }
+        })();
 		const toBsentData = 
         {
             "id": this.state.user_id,
         }
     }
-    
-    deletehandler = () => {
+    deletehandler = (toBdeletedRoleID) => {
+        console.log('delete', toBdeletedRoleID);
+        
+        // (async () => {
+        //     const rawResponse = await fetch(AppConfig.baseURL + '/permission/role/userunassignfromrole', {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //             'Authorization': giventoken
+        //         },
+        //         body: JSON.stringify({
+        //             "userDTO": {
+        //               "id": this.state.user_id
+        //             },
+        //             "roleDTO": {
+        //               "id": toBdeletedRoleID
+        //             }
+        //           })
+        //     });
+        //     const response = await rawResponse.json();
+        //     if (response.result.messageModel.type == 'success' ){
+        //         console.log('delete response', response);
+        //         this.setState(state => {
+        //             const userRoles = state.userRoles.filter(role => role.roleID !== toBdeletedRoleID);
+        //             console.log('delete after filter', userRoles);
+        //             return {
+        //                 userRoles,
+        //             };
+        //         });
+        //     }
+        // })();
     }
 
     returntolist = () => {
@@ -325,7 +201,7 @@ export default class AutoComplete extends Component {
                                                 return(<tr>
                                                     <td> {eachRole.roleName} </td>
                                                     <td style={{padding:0}}> 
-                                                        <IconButton className="text-danger" onClick={() => { if (window.confirm('Are you sure you wish to delete'+ this.state.username +"'s role?")) this.deletehandler } } aria-label="Delete">
+                                                        <IconButton className="text-danger" onClick={() => { if (window.confirm('Are you sure you wish to delete'+ this.state.username +"'s role?")) this.deletehandler(eachRole.roleID) } } aria-label="Delete">
                                                             <i className="zmdi zmdi-close"></i>
                                                         </IconButton>
                                                     </td>
@@ -351,6 +227,7 @@ export default class AutoComplete extends Component {
 								</FormGroup>
                                 <div className="d-flex">
                                     <Button
+                                        onClick={this.handleSubmit}
                                         variant="raised"
                                         color="primary"
                                         className="text-white mr-10 mb-10 btn-xs"
