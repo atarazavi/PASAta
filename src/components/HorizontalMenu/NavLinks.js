@@ -512,9 +512,15 @@ export default {
             "child_routes": null
         },
         {
-            "menu_title": "sidebar.dropzone",
+            "menu_title": "sidebar.addNewGroup",
             "menu_icon": "zmdi zmdi-dropbox",
-            "path": "/horizontal/dropzone",
+            "path": "/horizontal/addNewGroup",
+            "child_routes": null
+        },
+        {
+            "menu_title": "sidebar.addNewRole",
+            "menu_icon": "zmdi zmdi-dropbox",
+            "path": "/horizontal/addNewRole",
             "child_routes": null
         }
     ]

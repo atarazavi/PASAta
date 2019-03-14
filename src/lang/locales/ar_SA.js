@@ -4,6 +4,7 @@ module.exports = {
 	"button.return_to_table_list": "بازگشت به لیست کاربران",
 	"sidebar.addUser": "ایجاد کاربر جدید",
 	"sidebar.groupsList": "لیست گروه ها",
+	"sidebar.addNewGroup": "اضافه کردن گروه کاربران",
 	"sidebar.app": "التطبيق",
 	"sidebar.news": "أخبار",
 	"sidebar.horizontal": "أفقي",

@@ -4,6 +4,7 @@ module.exports = {
 	"button.return_to_table_list": "Return to User List",
 	"sidebar.addUser": "Register new User",
 	"sidebar.groupsList": "Groups List",
+	"sidebar.addNewGroup": "Add new Group",
 	"sidebar.app": "App",
 	"sidebar.news":"News",
 	"sidebar.horizontal": "Horizontal",

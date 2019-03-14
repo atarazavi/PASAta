@@ -24,6 +24,8 @@ import changeRoles from 'Routes/changeRoles';
 import groupsList from 'Routes/groupsList';
 import editGroup from 'Routes/editGroup';
 import changeGroupRole from 'Routes/changeGroupRole';
+import addNewGroup from 'Routes/addNewGroup';
+import addNewRole from 'Routes/addNewRole';
 
 
 // async component
@@ -150,5 +152,13 @@ export default [
 	{
 		path: 'changeGroupRole',
 		component: changeGroupRole
+	},
+	{
+		path: 'addNewGroup',
+		component: addNewGroup
+	},
+	{
+		path: 'addNewRole',
+		component: addNewRole
 	}
 ]
