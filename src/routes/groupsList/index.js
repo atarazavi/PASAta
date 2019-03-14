@@ -128,10 +128,6 @@ class DataTable extends React.Component {
 				]
 			)
 		})
-		// const data = [
-		// 	["Gabby George", "Business Analyst", "Minneapolis", 30, "$100,000"],
-		// 	["Aiden Lloyd", "Business Consultant", "Dallas", 55, "$200,000"],
-		// ];
 		const options = {
 			filterType: 'dropdown',
 			responsive: 'stacked'
