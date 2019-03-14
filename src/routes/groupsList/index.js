@@ -102,7 +102,7 @@ class DataTable extends React.Component {
 				})
 			});
 			const response = await rawResponse.json();
-			console.log(response);
+			console.log('delete response',response);
 			if (response.status == 200 ){
 				this.forceUpdate()
 			}
