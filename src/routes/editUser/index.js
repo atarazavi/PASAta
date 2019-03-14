@@ -2,15 +2,16 @@
  * Auto Complete Advance UI Components
  */
 import React, { Component } from 'react';
+import { NotificationContainer, NotificationManager } from 'react-notifications';
 import {
-	Button,
 	Form,
 	FormGroup,
 	Label,
 	Input,
 	Col,
 } from 'reactstrap';
-
+import Button from '@material-ui/core/Button';
+import EmailReg from "../../constants/AppConfig"
 // Components
 import ReactSelect from '../advance-ui-components/autoComplete/component/ReactSelect';
 
@@ -123,6 +124,8 @@ export default class AutoComplete extends Component {
 	}
 
 	handleChangeOnOwner = (result) => {
+		console.log("idid");
+		
 		result == 0 && this.setState({productownerid: 0})
 		this.state.suggestions.map( owner => {
 			owner.value == result && this.setState({productownerid: owner.id})
@@ -142,6 +145,35 @@ export default class AutoComplete extends Component {
                 "id": this.state.productownerid
             }
 		}
+		const User= this.state.username;
+		const describtion= this.state.description
+		const name= this.state.familyanme
+		const Email= this.state.email
+		const regex= EmailReg.RegExpEmail
+		const Mnumber= this.state.mobileNumber
+		if (User.length>35){
+			NotificationManager.error(<IntlMessages id="notif.exceed"/>);
+		} else {
+			if (describtion.length>128){
+				NotificationManager.error(<IntlMessages id="notif.exceed"/>);
+			} else {
+				if (name.length>128){
+					NotificationManager.error(<IntlMessages id="notif.exceed"/>);
+				} else {
+					if (Email.match(regex)&&Email.length<150){
+						if (Mnumber.length>30){
+							NotificationManager.error(<IntlMessages id="notif.Mobile"/>)
+						}
+					} else {
+						NotificationManager.error(<IntlMessages id="notif.Email"/>)
+					}
+				}
+			}
+		}
+		
+		
+		
+		
 		console.log(toBsentData);
 		
 		(async () => {
@@ -161,6 +193,13 @@ export default class AutoComplete extends Component {
 		  }
 		})();
 	}
+	sss (){
+		console.log("Sss");
+		
+	}
+    returntolist = () => {
+        this.props.history.push('/horizontal/tables/data-table');
+    }
 
 	render() {
 		return (
@@ -219,7 +258,22 @@ export default class AutoComplete extends Component {
 									</Col>
 								</FormGroup>
 								<FormGroup check className="p-0">
-									<Button onClick={this.handleSubmit} color="primary">Submit</Button>
+								<Button
+                                        onClick={this.handleSubmit}
+                                        variant="raised"
+                                        color="primary"
+                                        className="text-white mr-10 mb-10 btn-xs"
+                                    >
+                                        <IntlMessages id="components.submit" />
+                                    </Button>
+									<Button
+                                        onClick={this.returntolist}
+                                        variant="raised"
+                                        color="secondary"
+                                        className="text-white btn-xs mb-10"
+                                    >
+                                        <IntlMessages id="button.return_to_table_list" />
+                                    </Button>
 								</FormGroup>
 							</Form>
 						</RctCollapsibleCard>

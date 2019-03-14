@@ -748,5 +748,19 @@ module.exports = {
 	"button.useDefaultImage": "Use Default Image",
 	"button.cropImage": "Crop Image",
 	"widgets.preview": "Preview",
-	"widgets.croppedImage":"Cropped Image"
+	"widgets.croppedImage":"Cropped Image",
+	"Login.Title": "Coin Authentication Service",
+	"Login.log": "Log In",
+	"Login.alert": "Forbidden Character",
+	"Login.auth": "Invalid User Name or Password",
+	"Login.server": "Problem With Server",
+	"tooltip.error": "Delete",
+	"tooltip.edit": "Edit",
+	"tooltip.changepass": "Change Password",
+	"tooltip.groups": "List of Groups",
+	"tooltip.roles": "List of Roles",
+	"table.username": "User Name",
+	"notif.exceed": "exceed characters limit",
+	"notif.Email": "Type your Email correctly",
+	"notif.Mobile": "Type your Phone number correctly"
 }

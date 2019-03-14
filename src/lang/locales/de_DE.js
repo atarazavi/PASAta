@@ -751,4 +751,5 @@ module.exports = {
 	"button.cropImage": "Bild zuschneiden",
 	"widgets.preview": "Vorschau",
 	"widgets.croppedImage": "Bild abgeschnitten"
+	
 }

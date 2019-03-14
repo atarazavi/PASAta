@@ -42,9 +42,15 @@ class Option extends React.Component {
       </MenuItem>
     );
   }
+  delete ( ) {
+console.log("dffg");
+
+  }
 }
 
+
 function SelectWrapped(props) {
+  
   const { classes, ...other } = props;
   return (
     <Select
@@ -57,18 +63,21 @@ function SelectWrapped(props) {
       valueComponent={valueProps => {
         const { value, children, onRemove } = valueProps;
         const onDelete = event => {
+          alert("ididddd");
+          
           event.preventDefault();
-          event.stopPropagation();
-          onRemove(value);
+          // event.stopPropagation();
+          // onRemove(value);
         };
+        
         if (onRemove) {
           return (
             <Chip
               tabIndex={-1}
               label={children}
               className={classes.chip}
-              deleteIcon={<CancelIcon onTouchEnd={onDelete} />}
-              onDelete={onDelete}
+              deleteIcon={<CancelIcon onClick={this.delete} />}
+              onDelete={this.delete}
             />
           );
         }

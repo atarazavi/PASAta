@@ -19,7 +19,7 @@ export default class Notification extends React.Component {
     return () => {
       switch (type) {
         case 'info':
-          NotificationManager.info('Info message');
+          NotificationManager.info(<IntlMessages id="sidebar.autoComplete"/>);
           break;
         case 'success':
           NotificationManager.success('Success message', 'Title here');

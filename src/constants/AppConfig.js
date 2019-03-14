@@ -9,7 +9,9 @@ const AppConfig = {
     navCollapsed: false,                                      // Sidebar collapse
     darkMode: false,                                          // Dark Mode
     boxLayout: false,                                         // Box Layout
-    rtlLayout: false,                                         // RTL Layout
+    rtlLayout: false,  
+    RegExpEmail:/\S+@\S+\.\S+/,
+    RegExp: /[<>]/g,                                         // RTL Layout
     miniSidebar: false,                                       // Mini Sidebar
     enableSidebarBackgroundImage: true,                      // Enable Sidebar Background Image
     sidebarImage: require('Assets/img/sidebar-4.jpg'),     // Select sidebar image

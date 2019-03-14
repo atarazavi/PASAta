@@ -18,12 +18,15 @@ import { Route, Redirect } from "react-router-dom";
 
 // app config
 import AppConfig from '../../../constants/AppConfig';
+import Tooltip from '@material-ui/core/Tooltip';
+import reactElementToJSXString from 'react-element-to-jsx-string';
 
 const giventoken = localStorage.getItem('given_token')
 
 class DataTable extends React.Component {
 	state = {
-		theuserslist: []
+		theuserslist: [],
+		open: false
 	}
 
 	componentDidMount = () => {		
@@ -103,7 +106,7 @@ class DataTable extends React.Component {
 			}
 			case "groups": { 
 				this.props.history.push({
-					pathname: '/horizontal/changePass',
+					// pathname: '/horizontal/changePass',
 					state: { username: uname, user_id: id }
 				})
 				break; 
@@ -126,28 +129,43 @@ class DataTable extends React.Component {
 		console.log('going to delete', userid);
 		
 	}
-
-	render() {
-		const columns = ["Username", "Name", "ProductOwner", "UserSate", "email", "Actions"];
+	handleTooltipClose = () => {
+		this.setState({ open: false });
+	};
+	handleTooltipOpen = () => {
+		this.setState({ open: true });
+	};
+	render() {		
+		const columns = ["Name", "Name", "ProductOwner", "UserSate", "email","email"];
 		const data = this.state.theuserslist.map(eachuser => {
 			return(
 				[eachuser.username, eachuser.name, eachuser.productOwnerName, eachuser.userState, eachuser.email, 
 					<div>
-						<IconButton className="text-danger" onClick={() => { if (window.confirm('Are you sure you wish to delete'+ eachuser.username +'?')) this.deletehandler(eachuser.id) } } aria-label="Delete">
+						<Tooltip id="tooltip-fab" title={<IntlMessages id="tooltip.error" />}>
+							<IconButton className="text-danger" onClick={() => { if (window.confirm('Are you sure you wish to delete'+ eachuser.username +'?')) this.deletehandler(eachuser.id) } } aria-label="Delete" id="delete">
 							<i className="zmdi zmdi-close"></i>
-						</IconButton>
-						<IconButton className="text-success" onClick={() => this.actionClickhandler(eachuser.id, eachuser.username, 'edit')} aria-label="Edit">
-							<i className="zmdi zmdi-edit"></i>
-						</IconButton>
-						<IconButton className="text-danger" onClick={() => this.actionClickhandler(eachuser.id, eachuser.username, 'changepass')} aria-label="changepass">
-							<i className="zmdi zmdi-key"></i>
-						</IconButton>
-						<IconButton className="text-success" onClick={() => this.actionClickhandler(eachuser.id, eachuser.username, 'groups')} aria-label="groups">
-							<i className="zmdi zmdi-accounts-alt"></i>
-						</IconButton>
-						<IconButton className="text-success" onClick={() => this.actionClickhandler(eachuser.id, eachuser.username, 'roles')} aria-label="roles">
-							<i className="zmdi zmdi-account-circle"></i>
-						</IconButton>
+							</IconButton>
+						</Tooltip>
+						<Tooltip id="tooltip-fab" title={<IntlMessages id="tooltip.edit" />}>
+							<IconButton className="text-success" onClick={() => this.actionClickhandler(eachuser.id, eachuser.username, 'edit')} aria-label="Edit" id="Edit">
+								<i className="zmdi zmdi-edit"></i>
+							</IconButton>
+						</Tooltip>	
+						<Tooltip id="tooltip-fab" title={<IntlMessages id="tooltip.changepass" />}>
+							<IconButton className="text-danger" onClick={() => this.actionClickhandler(eachuser.id, eachuser.username, 'changepass')} aria-label="changepass" id="changepass">
+								<i className="zmdi zmdi-key"></i>
+							</IconButton>
+						</Tooltip>
+						<Tooltip id="tooltip-fab" title={<IntlMessages id="tooltip.groups" />}>
+							<IconButton className="text-success" onClick={() => this.actionClickhandler(eachuser.id, eachuser.username, 'groups')} aria-label="groups" id="groups">
+									<i className="zmdi zmdi-accounts-alt"></i>
+							</IconButton>
+						</Tooltip>
+						<Tooltip id="tooltip-fab" title={<IntlMessages id="tooltip.roles" />}classes={{ label: 'my-class-name' }}>
+							<IconButton className="text-success" onClick={() => this.actionClickhandler(eachuser.id, eachuser.username, 'roles')} aria-label="roles" id="roles">
+								<i className="zmdi zmdi-account-circle"></i>
+							</IconButton>
+						</Tooltip>
 					</div>
 				]
 			)
@@ -158,18 +176,22 @@ class DataTable extends React.Component {
 		// ];
 		const options = {
 			filterType: 'dropdown',
-			responsive: 'stacked'
+			responsive: 'stacked',
+			selectableRows: false
 		};
 		return (
 			<div className="data-table-wrapper">
 				<PageTitleBar title={<IntlMessages id="sidebar.dataTable" />} match={this.props.match} />
 				<RctCollapsibleCard heading="Data Table" fullBlock>
+
 					<MUIDataTable
+					
 						title={"Users list"}
 						data={data}
 						columns={columns}
 						options={options}
 					/>
+					
 				</RctCollapsibleCard>
 			</div>
 		);

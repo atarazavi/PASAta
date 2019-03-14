@@ -35,7 +35,8 @@ export default class AutoComplete extends Component {
         user_id: this.props.location.state.user_id,
         userRoles: [],
         suggestions: [],
-        chosenNEWroleid: 0
+        chosenNEWroleid: 0,
+        emptyArr:false
 	}
 
     componentDidMount = () => {  
@@ -55,17 +56,20 @@ export default class AutoComplete extends Component {
             const response = await rawResponse.json();
             console.log('changerole',response);
             if (response.status == 200 ){
-                const userRoles = response.result.dtos.map(eachrole => {
-                    return({
-                        roleID: eachrole.roleDTO.id,
-                        roleName: eachrole.roleDTO.name,
-                        roleDescription: eachrole.roleDTO.description
+                if(response.result.dtos){
+                    const userRoles = response.result.dtos.map(eachrole => {
+                        return({
+                            roleID: eachrole.roleDTO.id,
+                            roleName: eachrole.roleDTO.name,
+                            roleDescription: eachrole.roleDTO.description
+                        })
+                    })        
+                    this.setState({
+                        userRoles,
+                        emptyArr:true
                     })
-                })        
-                this.setState({
-                    userRoles
-                })
-                
+                }
+               
             }
         })();
 
@@ -100,6 +104,8 @@ export default class AutoComplete extends Component {
                 })
             }
         })();
+        console.log(this.state,"state");
+        
     } 
 
 	handleChangeOnRoleSelection = (result) => {
@@ -141,6 +147,7 @@ export default class AutoComplete extends Component {
         {
             "id": this.state.user_id,
         }
+        this.forceUpdate()
     }
     deletehandler = (toBdeletedRoleID) => {
         console.log('delete', toBdeletedRoleID);
@@ -178,11 +185,14 @@ export default class AutoComplete extends Component {
     returntolist = () => {
         this.props.history.push('/horizontal/tables/data-table');
     }
-
+    sd =()=> {
+        console.log(this.state,"state");
+        
+    }
 	render() {
         
 		return (
-			<div className="formelements-wrapper">
+			<div className="formelements-wrapper" onMouseEnter={this.sd}>
 				<div className="row">
 					<div className="col-sm-12 col-md-12 col-xl-6">
                         <RctCollapsibleCard heading={this.state.username + "'s current Roles"}>
@@ -196,18 +206,24 @@ export default class AutoComplete extends Component {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        {
-                                            this.state.userRoles.map(eachRole => {
-                                                return(<tr>
-                                                    <td> {eachRole.roleName} </td>
-                                                    <td style={{padding:0}}> 
-                                                        <IconButton className="text-danger" onClick={() => { if (window.confirm('Are you sure you wish to delete'+ this.state.username +"'s role?")) this.deletehandler(eachRole.roleID) } } aria-label="Delete">
-                                                            <i className="zmdi zmdi-close"></i>
-                                                        </IconButton>
-                                                    </td>
-                                                </tr>)
-                                            })
-                                        }
+                                            {
+                                                this.state.emptyArr?
+                                                this.state.userRoles.map(eachRole => {
+                                                    return(<tr>
+                                                        <td> {eachRole.roleName} </td>
+                                                        <td style={{padding:0}}> 
+                                                            <IconButton className="text-danger" onClick={() => { if (window.confirm('Are you sure you wish to delete'+ this.state.username +"'s role?")) this.deletehandler(eachRole.roleID) } } aria-label="Delete">
+                                                                <i className="zmdi zmdi-close"></i>
+                                                            </IconButton>
+                                                        </td>
+                                                    </tr>)
+                                                })
+                                                :
+                                                <tr>
+                                                <td>NoRole</td>
+                                                </tr>
+                                            }
+                                        
                                         </tbody>
                                     </table>
                                 </div>

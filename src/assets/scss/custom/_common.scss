@@ -1,4 +1,5 @@
 /*======= All Common Style Mention Here ======*/
+
 html {
   font-size: $html-font-size;
 }
@@ -41,6 +42,7 @@ body{
   position: relative;
   overflow:hidden;
   width: 100%;
+  
 }
 [tabindex='-1']:focus {
   outline: none;

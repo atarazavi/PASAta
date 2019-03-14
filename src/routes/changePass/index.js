@@ -3,14 +3,13 @@
  */
 import React, { Component } from 'react';
 import {
-	Button,
 	Form,
 	FormGroup,
 	Label,
 	Input,
 	Col
 } from 'reactstrap';
-
+import Button from '@material-ui/core/Button';
 // rct card box
 import RctCollapsibleCard from 'Components/RctCollapsibleCard/RctCollapsibleCard';
 
@@ -76,7 +75,9 @@ export default class AutoComplete extends Component {
 		//   }
 		// })();
 	}
-
+	returntolist = () => {
+        this.props.history.push('/horizontal/tables/data-table');
+    }
 	render() {
 		return (
 			<div className="formelements-wrapper">
@@ -103,7 +104,22 @@ export default class AutoComplete extends Component {
 									</Col>
 								</FormGroup>
 								<FormGroup check className="p-0">
-									<Button color="primary">Submit</Button>
+								<Button
+                                        // onClick={this.handleSubmit}
+                                        variant="raised"
+                                        color="primary"
+                                        className="text-white mr-10 mb-10 btn-xs"
+                                    >
+                                        <IntlMessages id="components.submit" />
+                                    </Button>
+									<Button
+                                        onClick={this.returntolist}
+                                        variant="raised"
+                                        color="secondary"
+                                        className="text-white btn-xs mb-10"
+                                    >
+                                        <IntlMessages id="button.return_to_table_list" />
+                                    </Button>
 								</FormGroup>
 							</Form>
 						</RctCollapsibleCard>

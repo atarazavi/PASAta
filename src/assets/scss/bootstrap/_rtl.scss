@@ -1,7 +1,20 @@
+body {
+  font-family: IRANSans !important;
+  font-weight: 300;
+}
+
 .rtl {
   direction: rtl;
   text-align: right;
+  .MuiTable-root-195{
+    font-family: IRANSans !important;
+  font-weight: 300;
+  }
 
+  .my-class-name{
+    font-family: IRANSans !important;
+    font-weight: 300;
+  }
   .nav {
     padding-right: 0;
   }

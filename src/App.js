@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import MomentUtils from 'material-ui-pickers/utils/moment-utils';
 import MuiPickersUtilsProvider from 'material-ui-pickers/utils/MuiPickersUtilsProvider';
+import {AsyncSessionPage404Component} from "./components/AsyncComponent/AsyncComponent"
 
 // css
 import './lib/reactifyCss';
@@ -24,6 +25,7 @@ const MainApp = () => (
 			<Router>
 				<Switch>
 					<Route path="/" component={App} />
+					<Route component={AsyncSessionPage404Component} />
 				</Switch>
 			</Router>
 		</MuiPickersUtilsProvider>

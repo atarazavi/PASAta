@@ -125,7 +125,7 @@ class App extends Component {
 					path="/session/forgot-password"
 					component={AsyncSessionForgotPasswordComponent}
 				/>
-				<Route path="/session/404" component={AsyncSessionPage404Component} />
+				{/* <Route component={AsyncSessionPage404Component} /> */}
 				<Route path="/session/500" component={AsyncSessionPage500Component} />
 				<Route path="/terms-condition" component={AsyncTermsConditionComponent} />
 				<Route path="/callback" render={(props) => {

@@ -27,7 +27,7 @@ import IntlMessages from 'Util/IntlMessages';
 
 export default class AutoComplete extends Component {
 	state = {
-		username: '',
+		username: 'df',
 		email: '',
 		password: '',
 		password_2: '',
