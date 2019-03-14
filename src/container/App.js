@@ -80,7 +80,7 @@ class App extends Component {
 		const { location, match, user } = this.props;
 		const isPermitted = localStorage.getItem('isAuthenticated')
 		const ispermitted2 = PAS_Authentication.authenticated
-		console.log('auth from localstorage', isPermitted);
+		console.log('isPermitted', isPermitted);
 		console.log('auth from localstorage', localStorage.getItem('given_token'));
 		console.log('auth from PAS', ispermitted2);
 		
@@ -88,7 +88,7 @@ class App extends Component {
 		if (location.pathname !== '/session/login') {
 			console.log('location.pathname', location.pathname);
 			
-			if (!isPermitted) {
+			if (isPermitted == undefined || isPermitted == null || isPermitted == '') {
 				return (<Redirect to={'/session/login'} />);
 			} else {
 				console.log('Welcome');
