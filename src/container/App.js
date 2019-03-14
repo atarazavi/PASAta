@@ -95,13 +95,16 @@ class App extends Component {
 			}
 		}		
 
-		// if (location.pathname === '/') {
-		// 	if (user === null) {
-		// 		return (<Redirect to={'/signin'} />);
-		// 	} else {
-		// 		return (<Redirect to={'/app/dashboard/ecommerce'} />);
-		// 	}
-		// }
+		if (location.pathname === '/') {
+			// here, the token should be checked with server
+			// unless we are in login page
+			// be careful about getting in infinit loop
+			if (!localStorage.getItem('given_token')) {
+				return (<Redirect to={'/session/login'} />);
+			} else {
+				return (<Redirect to={'/horizontal/tables/data-table'} />);
+			}
+		}
 		return (
 			<RctThemeProvider>
 				<NotificationContainer />
