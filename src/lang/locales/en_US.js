@@ -6,6 +6,8 @@ module.exports = {
 	"sidebar.groupsList": "Groups List",
 	"sidebar.addNewGroup": "Add new Group",
 	"sidebar.RoleList": "List of Roles",
+	"sidebar.ActionList": "List of Actions",
+	"sidebar.addNewAction": "Add New Action",
 	"sidebar.app": "App",
 	"sidebar.news":"News",
 	"sidebar.horizontal": "Horizontal",

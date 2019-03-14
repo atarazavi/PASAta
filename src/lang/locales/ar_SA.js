@@ -6,6 +6,8 @@ module.exports = {
 	"sidebar.groupsList": "لیست گروه ها",
 	"sidebar.addNewGroup": "اضافه کردن گروه کاربران",
 	"sidebar.RoleList": "لیست نقش ها",
+	"sidebar.ActionList": "لیست مجوز ها",
+	"sidebar.addNewAction": "اضافه کردن مجوز جدید",
 	"sidebar.app": "التطبيق",
 	"sidebar.news": "أخبار",
 	"sidebar.horizontal": "أفقي",

@@ -25,11 +25,13 @@ import groupsList from 'Routes/groupsList';
 import roleList from 'Routes/roleList';
 import editGroup from 'Routes/editGroup';
 import editRole from 'Routes/editRole';
+import editAction from 'Routes/editAction';
 import changeGroupRole from 'Routes/changeGroupRole';
 import addNewGroup from 'Routes/addNewGroup';
 import addNewRole from 'Routes/addNewRole';
+import addNewAction from 'Routes/addNewAction';
 import addAction2Role from 'Routes/addAction2Role';
-
+import actionList from 'Routes/actionList';
 
 // async component
 import {
@@ -153,12 +155,20 @@ export default [
 		component: roleList
 	},
 	{
+		path: 'actionList',
+		component: actionList
+	},
+	{
 		path: 'editGroup',
 		component: editGroup
 	},
 	{
 		path: 'editRole',
 		component: editRole
+	},
+	{
+		path: 'editAction',
+		component: editAction
 	},
 	{
 		path: 'changeGroupRole',
@@ -175,5 +185,9 @@ export default [
 	{
 		path: 'addAction2Role',
 		component: addAction2Role
+	},
+	{
+		path: 'addNewAction',
+		component: addNewAction
 	}
-]
+] 

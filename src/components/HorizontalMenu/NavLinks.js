@@ -528,6 +528,18 @@ export default {
             "menu_icon": "zmdi zmdi-dropbox",
             "path": "/horizontal/roleList",
             "child_routes": null
+        },
+        {
+            "menu_title": "sidebar.addNewAction",
+            "menu_icon": "zmdi zmdi-dropbox",
+            "path": "/horizontal/addNewAction",
+            "child_routes": null
+        },
+        {
+            "menu_title": "sidebar.ActionList",
+            "menu_icon": "zmdi zmdi-dropbox",
+            "path": "/horizontal/actionList",
+            "child_routes": null
         }
     ]
 }
