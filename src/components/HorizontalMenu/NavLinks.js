@@ -497,5 +497,25 @@ export default {
             "path": "/horizontal/dropzone",
             "child_routes": null
         }
+    ],
+    category7: [
+        {
+            "menu_title": "sidebar.addUser",
+            "menu_icon": "zmdi zmdi-plus",
+            "path": "/horizontal/addUser",
+            "child_routes": null
+        },
+        {
+            "menu_title": "sidebar.groupsList",
+            "menu_icon": "zmdi zmdi-collection-video",
+            "path": "/horizontal/groupsList",
+            "child_routes": null
+        },
+        {
+            "menu_title": "sidebar.dropzone",
+            "menu_icon": "zmdi zmdi-dropbox",
+            "path": "/horizontal/dropzone",
+            "child_routes": null
+        }
     ]
 }

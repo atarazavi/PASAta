@@ -2,6 +2,8 @@ module.exports = {
 	"form.username": "نام کاربری",
 	"button.add_the_new_role": "اضافه کردن نقش جدید",
 	"button.return_to_table_list": "بازگشت به لیست کاربران",
+	"sidebar.addUser": "ایجاد کاربر جدید",
+	"sidebar.groupsList": "لیست گروه ها",
 	"sidebar.app": "التطبيق",
 	"sidebar.news": "أخبار",
 	"sidebar.horizontal": "أفقي",

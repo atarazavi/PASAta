@@ -2,6 +2,8 @@ module.exports = {
 	"form.username": "Username",
 	"button.add_the_new_role": "Add the new Role",
 	"button.return_to_table_list": "Return to User List",
+	"sidebar.addUser": "Register new User",
+	"sidebar.groupsList": "Groups List",
 	"sidebar.app": "App",
 	"sidebar.news":"News",
 	"sidebar.horizontal": "Horizontal",

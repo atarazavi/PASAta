@@ -92,10 +92,10 @@ class HorizontalMenu extends Component {
                     <li className="nav-item">
                         <a href="javascript:void(0);" className="nav-link">
                             <i className="zmdi zmdi-assignment-check"></i>
-                            <span className="menu-title"><IntlMessages id="sidebar.extensions" /></span>
+                            <span className="menu-title">مجوزهای دسترسی</span>
                         </a>
                         <ul className="list-unstyled sub-menu">
-                            {navLinks.category6.map((menu, key) => (
+                            {navLinks.category7.map((menu, key) => (
                                 <NavMenuItem
                                     menu={menu}
                                     key={key}
