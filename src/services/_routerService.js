@@ -22,6 +22,9 @@ import editUser from 'Routes/editUser';
 import addUser from 'Routes/addUser';
 import changeRoles from 'Routes/changeRoles';
 import groupsList from 'Routes/groupsList';
+import editGroup from 'Routes/editGroup';
+import changeGroupRole from 'Routes/changeGroupRole';
+
 
 // async component
 import {
@@ -139,5 +142,13 @@ export default [
 	{
 		path: 'groupsList',
 		component: groupsList
+	},
+	{
+		path: 'editGroup',
+		component: editGroup
+	},
+	{
+		path: 'changeGroupRole',
+		component: changeGroupRole
 	}
 ]
