@@ -522,6 +522,12 @@ export default {
             "menu_icon": "zmdi zmdi-dropbox",
             "path": "/horizontal/addNewRole",
             "child_routes": null
+        },
+        {
+            "menu_title": "sidebar.RoleList",
+            "menu_icon": "zmdi zmdi-dropbox",
+            "path": "/horizontal/roleList",
+            "child_routes": null
         }
     ]
 }
