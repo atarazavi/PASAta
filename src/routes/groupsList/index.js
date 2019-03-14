@@ -35,14 +35,14 @@ class DataTable extends React.Component {
 				'Authorization': giventoken
 			},
 			body: JSON.stringify({
-                "fromDate": "",
-                "needPaginate": true,
-                "pageNumber": 0,
-                "pageSize": 10,
-                "resultSize": 0,
-                "termToFind": "",
-                "toDate": ""
-              })
+				"fromDate": "",
+				"needPaginate": true,
+				"pageNumber": 0,
+				"pageSize": 10,
+				"resultSize": 0,
+				"termToFind": "",
+				"toDate": ""
+			  })
 			});
 			const response = await rawResponse.json();
 			console.log(response);
@@ -60,40 +60,27 @@ class DataTable extends React.Component {
 				this.setState(
 					{thegroupslist: theList}
 				)
+				console.log('state', this.state.thegroupslist);
 			}
 		})();
-		}
+	}
 
 	actionClickhandler = (id, uname, action) => {
 		switch(action) { 
-			case "changepass": { 
+			case "changeGroupRole": { 
 				this.props.history.push({
-					pathname: '/horizontal/changePass',
-					state: { username: uname, user_id: id }
+					pathname: '/horizontal/changeGroupRole',
+					state: { groupname: uname, group_id: id }
 				})
 				break;  
 			} 
 			case "edit": { 
 				this.props.history.push({
-					pathname: '/horizontal/editUser',
-					state: { username: uname, user_id: id }
+					pathname: '/horizontal/editGroup',
+					state: { grouupname: uname, grouup_id: id }
 				})
 				break; 
 			}
-			case "groups": { 
-				this.props.history.push({
-					pathname: '/horizontal/changePass',
-					state: { username: uname, user_id: id }
-				})
-				break; 
-			} 
-			case "roles": { 
-				this.props.history.push({
-					pathname: '/horizontal/changeRoles',
-					state: { username: uname, user_id: id }
-				})
-				break; 
-			}  
 			default: { 
 				console.log("Invalid choice"); 
 				break;              
@@ -101,8 +88,25 @@ class DataTable extends React.Component {
 		} 
 	}
 
-	deletehandler = (userid) => {
-		console.log('going to delete', userid);
+	deletehandler = (groupID) => {
+		console.log('going to delete', groupID);
+		(async () => {
+			const rawResponse = await fetch(AppConfig.baseURL + '/permission/group/delete', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					'Authorization': giventoken
+				},
+				body: JSON.stringify({
+					"id": groupID
+				})
+			});
+			const response = await rawResponse.json();
+			console.log(response);
+			if (response.status == 200 ){
+				this.forceUpdate()
+			}
+		})();
 	}
 
 	render() {
@@ -117,7 +121,7 @@ class DataTable extends React.Component {
 						<IconButton className="text-success" onClick={() => this.actionClickhandler(eachgroup.id, eachgroup.name, 'edit')} aria-label="Edit">
 							<i className="zmdi zmdi-edit"></i>
 						</IconButton>
-						<IconButton className="text-danger" onClick={() => this.actionClickhandler(eachgroup.id, eachgroup.name, 'changepass')} aria-label="changepass">
+						<IconButton className="text-danger" onClick={() => this.actionClickhandler(eachgroup.id, eachgroup.name, 'changeGroupRole')} aria-label="changeGroupRole">
 							<i className="zmdi zmdi-account-circle"></i>
 						</IconButton>
 					</div>
