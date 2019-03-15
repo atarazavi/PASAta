@@ -762,5 +762,6 @@ module.exports = {
 	"table.username": "User Name",
 	"notif.exceed": "exceed characters limit",
 	"notif.Email": "Type your Email correctly",
-	"notif.Mobile": "Type your Phone number correctly"
+	"notif.Mobile": "Type your Phone number correctly",
+	"Report.Owner": "Owner"
 }

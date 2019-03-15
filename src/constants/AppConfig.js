@@ -24,7 +24,7 @@ const AppConfig = {
         icon: 'en',
     },
     enableUserTour: process.env.NODE_ENV === 'production' ? true : false,  // Enable / Disable User Tour
-    copyRightText: 'Reactify © 2018 All Rights Reserved.',      // Copy Right Text
+    copyRightText: ' © 2018 Kish Informatics Services Corporation',      // Copy Right Text
     // light theme colors
     themeColors: {
         'primary': '#5D92F4',

@@ -413,7 +413,7 @@ module.exports = {
 	"widgets.support": "الدعم",
 	"widgets.faq(s)": "أسئلة وأجوبة (ق)",
 	"widgets.upgradePlains": "ترقية السهول",
-	"widgets.logOut": "الخروج",
+	"widgets.logOut": "خروج",
 	"widgets.mail": "بريد",
 	"widgets.adminTheme": "موضوع المسؤول",
 	"widgets.wordpressTheme": "وورد الموضوع",
@@ -770,5 +770,6 @@ module.exports = {
 	"table.username": "نام کاربری",
 	"notif.exceed": "تعداد کاراکترها زیاد است",
 	"notif.Email": "آدرس ایمیل اشتباه وارد شده است",
-	"notif.Mobile": "شماره تلفن صحیح نمی باشد"
+	"notif.Mobile": "شماره تلفن صحیح نمی باشد",
+	"Report.Owner": "صاحب کالا"
 }

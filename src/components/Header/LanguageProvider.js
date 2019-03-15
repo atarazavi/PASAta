@@ -28,6 +28,7 @@ class LanguageProvider extends Component {
 	// on change language
 	onChangeLanguage(lang) {
 		this.setState({ langDropdownOpen: false });
+		localStorage.setItem("Current_lang", lang.locale);
 		this.props.setLanguage(lang);
 		if (lang.locale === 'ar' || lang.locale === 'he') {
 			this.rtlLayoutHanlder(true);

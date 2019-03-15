@@ -25,7 +25,6 @@ const MainApp = () => (
 			<Router>
 				<Switch>
 					<Route path="/" component={App} />
-					<Route component={AsyncSessionPage404Component} />
 				</Switch>
 			</Router>
 		</MuiPickersUtilsProvider>

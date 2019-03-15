@@ -3,9 +3,9 @@
  */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Redirect, Route } from 'react-router-dom';
+import { Redirect, Route,Link } from 'react-router-dom';
 import { NotificationContainer } from 'react-notifications';
-
+import AppConfig from 'Constants/AppConfig';
 // rct theme provider
 import RctThemeProvider from './RctThemeProvider';
 
@@ -47,8 +47,27 @@ const auth = new Auth();
 
 //PAS_Authentication
 import PAS_Authentication from '../Auth/PAS_Auth'
-
-
+import { privateEncrypt, privateDecrypt } from 'crypto';
+const isPermitted = localStorage.getItem('isAuthenticated')
+const ispermitted2 = PAS_Authentication.authenticated
+ function PrivateRoute({...rest }) {
+	return (
+	  <Route
+		{...rest}
+		render={props =>
+		  isPermitted ? null : (
+			<Redirect
+			  to={{
+				pathname: "/session/login",
+				state: { from: props.location }
+			  }}
+			/>
+		  )
+		}
+	  />
+	);
+  }
+ 
 const handleAuthentication = ({ location }) => {
 	if (/access_token|id_token|error/.test(location.hash)) {
 		auth.handleAuthentication();
@@ -75,36 +94,47 @@ const InitialPath = ({ component: Component, ...rest, authUser }) =>
 	/>;
 
 class App extends Component {
+	componentDidMount(){
+	
+	}
 
 	render() {
 		const { location, match, user } = this.props;
-		const isPermitted = localStorage.getItem('isAuthenticated')
-		const ispermitted2 = PAS_Authentication.authenticated
+		// const isPermitted = localStorage.getItem('isAuthenticated')
+		// const ispermitted2 = PAS_Authentication.authenticated
+		const giventoken = localStorage.getItem('given_token')
 		console.log('auth from localstorage', isPermitted);
 		console.log('auth from localstorage', localStorage.getItem('given_token'));
+
 		console.log('auth from PAS', ispermitted2);
+
+		console.log(location.pathname);
 		
-
-		if (location.pathname !== '/session/login') {
-			console.log('location.pathname', location.pathname);
-			
-			if (!isPermitted) {
-				return (<Redirect to={'/session/login'} />);
-			} else {
-				console.log('Welcome');
-			}
-		}		
-
-		if (location.pathname === '/') {
-			// here, the token should be checked with server
-			// unless we are in login page
-			// be careful about getting in infinit loop
-			if (!localStorage.getItem('given_token')) {
-				return (<Redirect to={'/session/login'} />);
-			} else {
-				return (<Redirect to={'/horizontal/tables/data-table'} />);
-			}
+		if (location.pathname !== '/session/login'){
+		(async () => {
+			const rawResponse = await fetch(AppConfig.baseURL + '/permission/user/findbyid', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					'Authorization': giventoken
+				},
+				body: JSON.stringify({
+					"id":20
+				  })
+				});
+				console.log('rawResponse.status', rawResponse.status);
+				if (rawResponse.status == 200){
+					
+				} else {
+					console.log("falseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+					this.props.history.push({
+						pathname: '/session/login',
+						state: {from: window.location.href}
+					})
+				}
+			})();
 		}
+
 		return (
 			<RctThemeProvider>
 				<NotificationContainer />
@@ -113,6 +143,7 @@ class App extends Component {
 					authUser={user}
 					component={RctDefaultLayout}
 				/>
+				<PrivateRoute path="/session/login"/>
 				<Route path="/horizontal" component={HorizontalLayout} />
 				<Route path="/agency" component={AgencyLayout} />
 				<Route path="/boxed" component={RctBoxedLayout} />

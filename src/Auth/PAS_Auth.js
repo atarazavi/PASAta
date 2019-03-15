@@ -9,7 +9,7 @@ class PAS_Auth {
       this.lastToken = '';
     }
   
-    login(uName, password, cb, response) {
+    login(uName, password, fromlink, cb, response) {
         (async () => {
             const rawResponse = await fetch(AppConfig.baseURL + '/user/login', {
                 method: 'POST',
@@ -27,7 +27,9 @@ class PAS_Auth {
                 this.lastToken = content.token;
                 localStorage.setItem("given_token", content.token);
                 localStorage.setItem("isAuthenticated", true);
-                cb();
+                if (fromlink){
+                  this.props.history.push(fromlink);
+                }else{cb();}
             }else {
                 response(content.status)
               }

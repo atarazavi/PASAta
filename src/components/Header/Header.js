@@ -30,6 +30,7 @@ import SearchForm from './SearchForm';
 import QuickLinks from './QuickLinks';
 import MobileSearchForm from './MobileSearchForm';
 import Cart from './Cart';
+import PAS_Authentication from '../../Auth/PAS_Auth'
 
 // intl messages
 import IntlMessages from 'Util/IntlMessages';
@@ -130,32 +131,19 @@ class Header extends Component {
 						}
 					</div>
 					<ul className="navbar-right list-inline mb-0">
-						<li className="list-inline-item summary-icon">
-							<Tooltip title="Summary" placement="bottom">
-								<a href="javascript:void(0)" className="header-icon tour-step-3" onClick={() => this.openDashboardOverlay()}>
-									<i className="zmdi zmdi-info-outline"></i>
+						<li className="list-inline-item">
+								<a 
+									onClick={() => { 
+										PAS_Authentication.logout(()=>{this.props.history.push('/session/login');})
+									}} 
+									href="javascript:void(0);" 
+									className="nav-link"
+										>
+									<i className="zmdi zmdi-lock"></i>
+									<span><IntlMessages id="widgets.logOut"/></span>
 								</a>
-							</Tooltip>
 						</li>
-						{!horizontalMenu &&
-							<li className="list-inline-item">
-								<Tooltip title="Upgrade" placement="bottom">
-								<Button component={Link} to={`/${getAppLayout(location)}/pages/pricing`} variant="raised" className="upgrade-btn tour-step-4 text-white" color="primary">
-										<IntlMessages id="widgets.upgrade" />
-									</Button>
-								</Tooltip>
-							</li>
-						}
 						<LanguageProvider />
-						<Notifications />
-						<Cart />
-						<li className="list-inline-item setting-icon">
-							<Tooltip title="Chat" placement="bottom">
-								<IconButton aria-label="settings" onClick={() => this.setState({ customizer: true })}>
-									<i className="zmdi zmdi-comment"></i>
-								</IconButton>
-							</Tooltip>
-						</li>
 						<li className="list-inline-item">
 							<Tooltip title="Full Screen" placement="bottom">
 								<IconButton aria-label="settings" onClick={() => this.toggleScreenFull()}>

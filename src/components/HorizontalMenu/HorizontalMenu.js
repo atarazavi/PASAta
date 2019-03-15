@@ -103,18 +103,6 @@ class HorizontalMenu extends Component {
                             ))}
                         </ul>
                     </li>
-                    <li className="nav-item">
-                        <a 
-                            onClick={() => { 
-                                PAS_Authentication.logout(()=>{this.props.history.push('/session/login');})
-                            }} 
-                            href="javascript:void(0);" 
-                            className="nav-link"
-                        >
-                            <i className="zmdi zmdi-lock"></i>
-                            <span>Logout</span>
-                        </a>
-                    </li>
                 </ul>
             </div>
         );
