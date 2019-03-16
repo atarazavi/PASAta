@@ -6,6 +6,9 @@ const AppConfig = {
     appLogo2: require('Assets/img/application-logo.png'),        // 2nd App Logo
     brandName: 'PAS',                                           // Brand Name
     baseURL: 'https://pas.kishisc.ir:8444',                     // REST-server Address
+    tagBulkRequestMinimum: 1,                                   // Minimum number of tag request in tagBulkOrder page
+    tagBulkRequestMaximum: 50,                                  // Maximum number of tag request in tagBulkOrder page
+    toBshownResultNumberOptions: [10,20,30,40,50],              // number of result options for client
     navCollapsed: false,                                      // Sidebar collapse
     darkMode: false,                                          // Dark Mode
     boxLayout: false,                                         // Box Layout

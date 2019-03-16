@@ -541,5 +541,25 @@ export default {
             "path": "/horizontal/actionList",
             "child_routes": null
         }
-    ]
+    ],
+    category8: [
+        {
+            "menu_title": "sidebar.tagBulkOrder",
+            "menu_icon": "zmdi zmdi-crop",
+            "path": "/horizontal/tagBulkOrder",
+            "child_routes": null
+        },
+        {
+            "menu_title": "sidebar.tagInventory",
+            "menu_icon": "zmdi zmdi-collection-video",
+            "path": "/horizontal/tagInventory",
+            "child_routes": null
+        },
+        {
+            "menu_title": "sidebar.dropzone",
+            "menu_icon": "zmdi zmdi-dropbox",
+            "path": "/horizontal/dropzone",
+            "child_routes": null
+        }
+    ],
 }
