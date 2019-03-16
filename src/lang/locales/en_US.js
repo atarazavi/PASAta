@@ -7,6 +7,8 @@ module.exports = {
 	"sidebar.addNewGroup": "Add new Group",
 	"sidebar.RoleList": "List of Roles",
 	"sidebar.ActionList": "List of Actions",
+	"sidebar.tagInventory": "Tag inventory",
+	"sidebar.tagBulkOrder": "تولید برچسب جدید",
 	"sidebar.addNewAction": "Add New Action",
 	"sidebar.app": "App",
 	"sidebar.news":"News",

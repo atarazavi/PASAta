@@ -32,6 +32,13 @@ import addNewRole from 'Routes/addNewRole';
 import addNewAction from 'Routes/addNewAction';
 import addAction2Role from 'Routes/addAction2Role';
 import actionList from 'Routes/actionList';
+import tagBulkOrder from 'Routes/tagBulkOrder';
+import viewTags from 'Routes/viewTags';
+import editTags from 'Routes/editTags';
+import tagChangeStatus from 'Routes/tagChangeStatus';
+import tagDelete from 'Routes/tagDelete';
+import tagInventory from 'Routes/tagInventory';
+import tagMoreinfo from 'Routes/tagMoreinfo';
 
 // async component
 import {
@@ -189,5 +196,34 @@ export default [
 	{
 		path: 'addNewAction',
 		component: addNewAction
-	}
+	},
+	{
+		path: 'tagBulkOrder',
+		component: tagBulkOrder
+	},
+	{
+		path: 'viewTags',
+		component: viewTags
+	},
+	{
+		path: 'editTags',
+		component: editTags
+	},
+	{
+		path: 'tagChangeStatus',
+		component: tagChangeStatus
+	},
+	{
+		path: 'tagMoreinfo',
+		component: tagMoreinfo
+	},
+	{
+		path: 'tagDelete',
+		component: tagDelete
+	},,
+	{
+		path: 'tagInventory',
+		component: tagInventory
+	},
+	
 ] 
