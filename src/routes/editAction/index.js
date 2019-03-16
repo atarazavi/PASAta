@@ -11,9 +11,6 @@ import {
 	Col,
 } from 'reactstrap';
 
-// Components
-import ReactSelect from '../advance-ui-components/autoComplete/component/ReactSelect';
-
 // page title bar
 import PageTitleBar from 'Components/PageTitleBar/PageTitleBar';
 
