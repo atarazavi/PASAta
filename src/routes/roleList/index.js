@@ -103,7 +103,6 @@ class DataTable extends React.Component {
 			}
 		})();
 	}
-
 	render() {
 		const columns = ["Group Username", "Description", "Actions"];
 		const data = this.state.theRoleslist.map(eachrole => {
