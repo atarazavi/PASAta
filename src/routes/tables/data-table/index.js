@@ -135,8 +135,15 @@ class DataTable extends React.Component {
 	handleTooltipOpen = () => {
 		this.setState({ open: true });
 	};
-	render() {		
+	render() {	
+		const lang=localStorage.getItem('Current_lang')
+		console.log(lang,"lang");
+		
+		const columnsFa = ["نام", "نام", "صاحب محصول", "وضعیت کاربر", "ایمیل","ایمیل"];
 		const columns = ["Name", "Name", "ProductOwner", "UserSate", "email","email"];
+		var logic = lang=="en"?columns
+		:
+		columnsFa
 		const data = this.state.theuserslist.map(eachuser => {
 			return(
 				[eachuser.username, eachuser.name, eachuser.productOwnerName, eachuser.userState, eachuser.email, 
@@ -188,7 +195,9 @@ class DataTable extends React.Component {
 					
 						title={"Users list"}
 						data={data}
-						columns={columns}
+						columns={
+							logic
+						}
 						options={options}
 					/>
 					

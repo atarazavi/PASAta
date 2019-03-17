@@ -771,5 +771,6 @@ module.exports = {
 	"notif.exceed": "تعداد کاراکترها زیاد است",
 	"notif.Email": "آدرس ایمیل اشتباه وارد شده است",
 	"notif.Mobile": "شماره تلفن صحیح نمی باشد",
-	"Report.Owner": "صاحب کالا"
+	"Report.Owner": "صاحب کالا",
+	"Login.captcha": "چک امنیتی انجام نشده است"
 }

@@ -763,5 +763,6 @@ module.exports = {
 	"notif.exceed": "exceed characters limit",
 	"notif.Email": "Type your Email correctly",
 	"notif.Mobile": "Type your Phone number correctly",
-	"Report.Owner": "Owner"
+	"Report.Owner": "Owner",
+	"Login.captcha": "Captcha is empty"
 }

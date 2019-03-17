@@ -60,8 +60,9 @@ class Signin extends Component {
     
   }
   onUserLogin() {
-    console.log(navigator.language);
-    
+    if (this.state.isverifiedCaptcha==false) {
+      NotificationManager.error(<IntlMessages id="Login.captcha"/>)
+    }
     if (this.state.email !== '' && this.state.password !== '' && this.state.isverifiedCaptcha) {
       PAS_Authentication.login(this.state.email, this.state.password, this.state.from ,() => {
         this.props.history.push('/horizontal/tables/data-table');
@@ -74,7 +75,6 @@ class Signin extends Component {
     localStorage.setItem('access_token', token);
     localStorage.setItem('expires_at', expiresAt);
     console.log('setsessiondataDONE!!!');
-    
   }
   callback = (response) => {
     if (response){
@@ -84,7 +84,7 @@ class Signin extends Component {
         console.log("didcaptcha");
         
       })
-    } console.log("didcall");
+    } 
   }
   onloadcallback() {
     console.log("didload");
