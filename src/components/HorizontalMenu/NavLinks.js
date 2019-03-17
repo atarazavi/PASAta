@@ -512,10 +512,54 @@ export default {
             "child_routes": null
         },
         {
+            "menu_title": "sidebar.addNewGroup",
+            "menu_icon": "zmdi zmdi-dropbox",
+            "path": "/horizontal/addNewGroup",
+            "child_routes": null
+        },
+        {
+            "menu_title": "sidebar.addNewRole",
+            "menu_icon": "zmdi zmdi-dropbox",
+            "path": "/horizontal/addNewRole",
+            "child_routes": null
+        },
+        {
+            "menu_title": "sidebar.RoleList",
+            "menu_icon": "zmdi zmdi-dropbox",
+            "path": "/horizontal/roleList",
+            "child_routes": null
+        },
+        {
+            "menu_title": "sidebar.addNewAction",
+            "menu_icon": "zmdi zmdi-dropbox",
+            "path": "/horizontal/addNewAction",
+            "child_routes": null
+        },
+        {
+            "menu_title": "sidebar.ActionList",
+            "menu_icon": "zmdi zmdi-dropbox",
+            "path": "/horizontal/actionList",
+            "child_routes": null
+        }
+    ],
+    category8: [
+        {
+            "menu_title": "sidebar.tagBulkOrder",
+            "menu_icon": "zmdi zmdi-crop",
+            "path": "/horizontal/tagBulkOrder",
+            "child_routes": null
+        },
+        {
+            "menu_title": "sidebar.tagInventory",
+            "menu_icon": "zmdi zmdi-collection-video",
+            "path": "/horizontal/tagInventory",
+            "child_routes": null
+        },
+        {
             "menu_title": "sidebar.dropzone",
             "menu_icon": "zmdi zmdi-dropbox",
             "path": "/horizontal/dropzone",
             "child_routes": null
         }
-    ]
+    ],
 }

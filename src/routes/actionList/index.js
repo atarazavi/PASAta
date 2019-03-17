@@ -23,61 +23,54 @@ const giventoken = localStorage.getItem('given_token')
 
 class DataTable extends React.Component {
 	state = {
-		thegroupslist: []
+		theactionslist: []
 	}
 
 	componentDidMount = () => {		
 		(async () => {
-		const rawResponse = await fetch(AppConfig.baseURL + '/permission/group/filter', {
+		const rawResponse = await fetch(AppConfig.baseURL + '/permission/action/filter', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
 				'Authorization': giventoken
 			},
 			body: JSON.stringify({
-				"fromDate": "",
-				"needPaginate": true,
-				"pageNumber": 0,
-				"pageSize": 10,
-				"resultSize": 0,
-				"termToFind": "",
-				"toDate": ""
-			  })
+                "fromDate": "",
+                "needPaginate": true,
+                "pageNumber": 0,
+                "pageSize": 500,
+                "resultSize": 0,
+                "termToFind": "",
+                "toDate": ""
+              })
 			});
 			const response = await rawResponse.json();
 			console.log(response);
 			if (response.status == 200 ){
 				console.log('success');
 				
-				const theList = response.result.dtos.map(each => {	
+				const theactionslist = response.result.dtos.map(each => {	
 					return({
 						id: each.id,
 						name: each.name,
-						description: each.description
+						description: each.description,
+						path: each.path
 					})
 				})
 				
 				this.setState(
-					{thegroupslist: theList}
+					{theactionslist}
 				)
-				console.log('state', this.state.thegroupslist);
 			}
 		})();
 	}
 
 	actionClickhandler = (id, uname, action) => {
 		switch(action) { 
-			case "changeGroupRole": { 
-				this.props.history.push({
-					pathname: '/horizontal/changeGroupRole',
-					state: { groupname: uname, group_id: id }
-				})
-				break;  
-			} 
 			case "edit": { 
 				this.props.history.push({
-					pathname: '/horizontal/editGroup',
-					state: { grouupname: uname, grouup_id: id }
+					pathname: '/horizontal/editAction',
+					state: { actionname: uname, action_id: id }
 				})
 				break; 
 			}
@@ -88,17 +81,17 @@ class DataTable extends React.Component {
 		} 
 	}
 
-	deletehandler = (groupID) => {
-		console.log('going to delete', groupID);
+	deletehandler = (actionID) => {
+		console.log('going to delete', actionID);
 		(async () => {
-			const rawResponse = await fetch(AppConfig.baseURL + '/permission/group/delete', {
+			const rawResponse = await fetch(AppConfig.baseURL + '/permission/action/delete', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
 					'Authorization': giventoken
 				},
 				body: JSON.stringify({
-					"id": groupID
+					"id": actionID
 				})
 			});
 			const response = await rawResponse.json();
@@ -107,22 +100,19 @@ class DataTable extends React.Component {
 				this.forceUpdate()
 			}
 		})();
-	}
+	} 
 
 	render() {
-		const columns = ["Group Username", "Description", "Actions"];
-		const data = this.state.thegroupslist.map(eachgroup => {
+		const columns = ["Action Title", "Action Path", "Action Description", "Actions"];
+		const data = this.state.theactionslist.map(eachaction => {
 			return(
-				[eachgroup.name, eachgroup.description, 
+				[eachaction.name, eachaction.path , eachaction.description, 
 					<div>
-						<IconButton className="text-danger" onClick={() => { if (window.confirm('Are you sure you wish to delete'+ eachgroup.name +'?')) this.deletehandler(eachgroup.id) } } aria-label="Delete">
+						<IconButton className="text-danger" onClick={() => { if (window.confirm('Are you sure you wish to delete'+ eachaction.name +'?')) this.deletehandler(eachaction.id) } } aria-label="Delete">
 							<i className="zmdi zmdi-close"></i>
 						</IconButton>
-						<IconButton className="text-success" onClick={() => this.actionClickhandler(eachgroup.id, eachgroup.name, 'edit')} aria-label="Edit">
+						<IconButton className="text-success" onClick={() => this.actionClickhandler(eachaction.id, eachaction.name, 'edit')} aria-label="Edit">
 							<i className="zmdi zmdi-edit"></i>
-						</IconButton>
-						<IconButton className="text-danger" onClick={() => this.actionClickhandler(eachgroup.id, eachgroup.name, 'changeGroupRole')} aria-label="changeGroupRole">
-							<i className="zmdi zmdi-account-circle"></i>
 						</IconButton>
 					</div>
 				]
@@ -137,7 +127,7 @@ class DataTable extends React.Component {
 				<PageTitleBar title={<IntlMessages id="sidebar.dataTable" />} match={this.props.match} />
 				<RctCollapsibleCard heading="Data Table" fullBlock>
 					<MUIDataTable
-						title={"Users list"}
+						title={"Action List"}
 						data={data}
 						columns={columns}
 						options={options}

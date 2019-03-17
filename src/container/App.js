@@ -104,10 +104,12 @@ class App extends Component {
 		// const ispermitted2 = PAS_Authentication.authenticated
 		const giventoken = localStorage.getItem('given_token')
 		console.log('auth from localstorage', isPermitted);
+		const isPermitted = localStorage.getItem('isAuthenticated')
+		const ispermitted2 = PAS_Authentication.authenticated
+		console.log('isPermitted', isPermitted);
 		console.log('auth from localstorage', localStorage.getItem('given_token'));
 
 		console.log('auth from PAS', ispermitted2);
-
 		console.log(location.pathname);
 		
 		if (location.pathname !== '/session/login'){
@@ -133,7 +135,6 @@ class App extends Component {
 					})
 				}
 			})();
-		}
 
 		return (
 			<RctThemeProvider>

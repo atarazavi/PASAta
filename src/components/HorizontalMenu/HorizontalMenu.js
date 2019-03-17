@@ -17,7 +17,6 @@ class HorizontalMenu extends Component {
     render() {
         return (
             <div className="horizontal-menu">
-                
                 <ul className="list-unstyled nav">
                     <li className="nav-item">
                         <a href="javascript:void(0);" className="nav-link">
@@ -64,10 +63,10 @@ class HorizontalMenu extends Component {
                     <li className="nav-item">
                         <a href="javascript:void(0);" className="nav-link">
                             <i className="zmdi zmdi-wrench"></i>
-                            <span className="menu-title"><IntlMessages id="sidebar.features" /></span>
+                            <span className="menu-title">برچسب ها</span>
                         </a>
                         <ul className="list-unstyled sub-menu">
-                            {navLinks.category4.map((menu, key) => (
+                            {navLinks.category8.map((menu, key) => (
                                 <NavMenuItem
                                     menu={menu}
                                     key={key}

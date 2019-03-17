@@ -22,6 +22,23 @@ import editUser from 'Routes/editUser';
 import addUser from 'Routes/addUser';
 import changeRoles from 'Routes/changeRoles';
 import groupsList from 'Routes/groupsList';
+import roleList from 'Routes/roleList';
+import editGroup from 'Routes/editGroup';
+import editRole from 'Routes/editRole';
+import editAction from 'Routes/editAction';
+import changeGroupRole from 'Routes/changeGroupRole';
+import addNewGroup from 'Routes/addNewGroup';
+import addNewRole from 'Routes/addNewRole';
+import addNewAction from 'Routes/addNewAction';
+import addAction2Role from 'Routes/addAction2Role';
+import actionList from 'Routes/actionList';
+import tagBulkOrder from 'Routes/tagBulkOrder';
+import viewTags from 'Routes/viewTags';
+import editTags from 'Routes/editTags';
+import tagChangeStatus from 'Routes/tagChangeStatus';
+import tagDelete from 'Routes/tagDelete';
+import tagInventory from 'Routes/tagInventory';
+import tagMoreinfo from 'Routes/tagMoreinfo';
 
 // async component
 import {
@@ -139,5 +156,74 @@ export default [
 	{
 		path: 'groupsList',
 		component: groupsList
-	}
-]
+	},
+	{
+		path: 'roleList',
+		component: roleList
+	},
+	{
+		path: 'actionList',
+		component: actionList
+	},
+	{
+		path: 'editGroup',
+		component: editGroup
+	},
+	{
+		path: 'editRole',
+		component: editRole
+	},
+	{
+		path: 'editAction',
+		component: editAction
+	},
+	{
+		path: 'changeGroupRole',
+		component: changeGroupRole
+	},
+	{
+		path: 'addNewGroup',
+		component: addNewGroup
+	},
+	{
+		path: 'addNewRole',
+		component: addNewRole
+	},
+	{
+		path: 'addAction2Role',
+		component: addAction2Role
+	},
+	{
+		path: 'addNewAction',
+		component: addNewAction
+	},
+	{
+		path: 'tagBulkOrder',
+		component: tagBulkOrder
+	},
+	{
+		path: 'viewTags',
+		component: viewTags
+	},
+	{
+		path: 'editTags',
+		component: editTags
+	},
+	{
+		path: 'tagChangeStatus',
+		component: tagChangeStatus
+	},
+	{
+		path: 'tagMoreinfo',
+		component: tagMoreinfo
+	},
+	{
+		path: 'tagDelete',
+		component: tagDelete
+	},,
+	{
+		path: 'tagInventory',
+		component: tagInventory
+	},
+	
+] 

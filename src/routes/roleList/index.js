@@ -23,61 +23,56 @@ const giventoken = localStorage.getItem('given_token')
 
 class DataTable extends React.Component {
 	state = {
-		thegroupslist: []
+		theRoleslist: []
 	}
 
 	componentDidMount = () => {		
 		(async () => {
-		const rawResponse = await fetch(AppConfig.baseURL + '/permission/group/filter', {
+		const rawResponse = await fetch(AppConfig.baseURL + '/permission/role/filter', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
 				'Authorization': giventoken
 			},
 			body: JSON.stringify({
-				"fromDate": "",
-				"needPaginate": true,
-				"pageNumber": 0,
-				"pageSize": 10,
-				"resultSize": 0,
-				"termToFind": "",
-				"toDate": ""
-			  })
+                "fromDate": "",
+                "needPaginate": true,
+                "pageNumber": 0,
+                "pageSize": 10,
+                "resultSize": 0,
+                "termToFind": "",
+                "toDate": ""
+              })
 			});
 			const response = await rawResponse.json();
-			console.log(response);
 			if (response.status == 200 ){
-				console.log('success');
-				
-				const theList = response.result.dtos.map(each => {	
+				const theRoleslist = response.result.dtos.map(each => {	
 					return({
 						id: each.id,
 						name: each.name,
 						description: each.description
 					})
 				})
-				
 				this.setState(
-					{thegroupslist: theList}
+					{theRoleslist}
 				)
-				console.log('state', this.state.thegroupslist);
 			}
 		})();
 	}
 
 	actionClickhandler = (id, uname, action) => {
 		switch(action) { 
-			case "changeGroupRole": { 
+			case "editRole": { 
 				this.props.history.push({
-					pathname: '/horizontal/changeGroupRole',
-					state: { groupname: uname, group_id: id }
+					pathname: '/horizontal/editRole',
+					state: { roleName: uname, role_id: id }
 				})
 				break;  
 			} 
-			case "edit": { 
+			case "addAction2Role": { 
 				this.props.history.push({
-					pathname: '/horizontal/editGroup',
-					state: { grouupname: uname, grouup_id: id }
+					pathname: '/horizontal/addAction2Role',
+					state: { roleName: uname, role_id: id }
 				})
 				break; 
 			}
@@ -88,17 +83,17 @@ class DataTable extends React.Component {
 		} 
 	}
 
-	deletehandler = (groupID) => {
-		console.log('going to delete', groupID);
+	deletehandler = (roleID) => {
+		console.log('going to delete', roleID);
 		(async () => {
-			const rawResponse = await fetch(AppConfig.baseURL + '/permission/group/delete', {
+			const rawResponse = await fetch(AppConfig.baseURL + '/permission/role/delete', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
 					'Authorization': giventoken
 				},
 				body: JSON.stringify({
-					"id": groupID
+					"id": roleID
 				})
 			});
 			const response = await rawResponse.json();
@@ -108,20 +103,19 @@ class DataTable extends React.Component {
 			}
 		})();
 	}
-
 	render() {
 		const columns = ["Group Username", "Description", "Actions"];
-		const data = this.state.thegroupslist.map(eachgroup => {
+		const data = this.state.theRoleslist.map(eachrole => {
 			return(
-				[eachgroup.name, eachgroup.description, 
+				[eachrole.name, eachrole.description, 
 					<div>
-						<IconButton className="text-danger" onClick={() => { if (window.confirm('Are you sure you wish to delete'+ eachgroup.name +'?')) this.deletehandler(eachgroup.id) } } aria-label="Delete">
+						<IconButton className="text-danger" onClick={() => { if (window.confirm('Are you sure you wish to delete'+ eachrole.name +'?')) this.deletehandler(eachrole.id) } } aria-label="Delete">
 							<i className="zmdi zmdi-close"></i>
 						</IconButton>
-						<IconButton className="text-success" onClick={() => this.actionClickhandler(eachgroup.id, eachgroup.name, 'edit')} aria-label="Edit">
+						<IconButton className="text-success" onClick={() => this.actionClickhandler(eachrole.id, eachrole.name, 'editRole')} aria-label="Edit">
 							<i className="zmdi zmdi-edit"></i>
 						</IconButton>
-						<IconButton className="text-danger" onClick={() => this.actionClickhandler(eachgroup.id, eachgroup.name, 'changeGroupRole')} aria-label="changeGroupRole">
+						<IconButton className="text-success" onClick={() => this.actionClickhandler(eachrole.id, eachrole.name, 'addAction2Role')} aria-label="addAction2Role">
 							<i className="zmdi zmdi-account-circle"></i>
 						</IconButton>
 					</div>

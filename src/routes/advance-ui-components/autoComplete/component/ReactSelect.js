@@ -204,7 +204,7 @@ class IntegrationReactSelect extends React.Component {
     this.setState({
       single,
     });
-    this.props.changeHandler(single)
+    this.props.changeHandler(single, this.props.target)
   };
 
   render() {
