@@ -113,16 +113,16 @@ class App extends Component {
 		console.log(location.pathname);
 		
 		if (location.pathname !== '/session/login'){
-		(async () => {
-			const rawResponse = await fetch(AppConfig.baseURL + '/permission/user/findbyid', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-					'Authorization': giventoken
-				},
-				body: JSON.stringify({
-					"id":20
-				  })
+			(async () => {
+				const rawResponse = await fetch(AppConfig.baseURL + '/permission/user/findbyid', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+						'Authorization': giventoken
+					},
+					body: JSON.stringify({
+						"id":20
+					})
 				});
 				console.log('rawResponse.status', rawResponse.status);
 				if (rawResponse.status == 200){
@@ -135,7 +135,7 @@ class App extends Component {
 					})
 				}
 			})();
-
+		}
 		return (
 			<RctThemeProvider>
 				<NotificationContainer />
