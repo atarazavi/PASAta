@@ -51,7 +51,7 @@ export default class Report extends Component {
 		return (
 			<div className="report-wrapper">
 				<Helmet>
-					<title>Reactify | Reports</title>
+					<title>پاس</title>
 					<meta name="description" content="Reactify Reports" />
 				</Helmet>
 				<PageTitleBar title={<IntlMessages id="sidebar.report" />} match={this.props.match} />
@@ -105,34 +105,6 @@ export default class Report extends Component {
 							</div>
 						</div>
 					</div>
-					<ul className="list-inline d-flex align-content-center">
-						<li className="list-inline-item col">
-							<h4>Today</h4>
-							<h2 className="title">$335</h2>
-							<h4>1 Order</h4>
-						</li>
-						<li className="list-inline-item col">
-							<h4>Yesterday</h4>
-							<h2 className="title">$387</h2>
-							<h4>1 Order</h4>
-						</li>
-						<li className="list-inline-item col">
-							<h4>Last 7 Days</h4>
-							<h2 className="title">$335</h2>
-							<h4>9 Order</h4>
-						</li>
-						<li className="list-inline-item col">
-							<h4>Last 30 Days</h4>
-							<h2 className="title">$28k</h2>
-							<h4>37 Orders</h4>
-						</li>
-						<li className="list-inline-item col">
-							<h4>Last 90 Days</h4>
-							<h2 className="title">$61.6k</h2>
-							<h4>101 orders</h4>
-						</li>
-					</ul>
-					<ReportStats />
 				</div>
 				<RctCollapsibleCard
 					heading="Order Status"

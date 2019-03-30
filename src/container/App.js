@@ -144,7 +144,6 @@ class App extends Component {
 					authUser={user}
 					component={RctDefaultLayout}
 				/>
-				<PrivateRoute path="/session/login"/>
 				<Route path="/horizontal" component={HorizontalLayout} />
 				<Route path="/agency" component={AgencyLayout} />
 				<Route path="/boxed" component={RctBoxedLayout} />

@@ -7,6 +7,7 @@ module.exports = {
 	"sidebar.horizontal": "افقی",
 	"sidebar.horizontalMenu": "منو افقی",
 	"sidebar.general": "عمومی",
+	"widgets.amount": "تعداد برچسب درخواستی",
 	"sidebar.component": "کامپوننت",
 	"sidebar.features": "ویژگی ها",
 	"sidebar.applications": "برنامه های کاربردی",
@@ -106,7 +107,8 @@ module.exports = {
 	"sidebar.googleMaps": "خرائط جوجل",
 	"sidebar.leafletMaps": "خرائط النشرة",
 	"sidebar.inbox": "صندوق الوارد",
-	"sidebar.users": "المستخدمين",
+	"sidebar.users": "کاربران",
+	"tooltip.Ok": "تایید",
 	"sidebar.userProfile1": "ملف تعريف المستخدم 1",
 	"sidebar.userProfile2": "ملف تعريف المستخدم 2",
 	"sidebar.userManagement": "إدارةالمستخدم",
@@ -402,7 +404,7 @@ module.exports = {
 	"widgets.upgrade": "تطوير",
 	"widgets.app": "التطبيق",
 	"widgets.addNew": "اضف جديد",
-	"widgets.orderDate": "تاريخ الطلب",
+	"widgets.orderDate": "تاريخ  درخواست",
 	"widgets.status": "الحالة",
 	"widgets.trackingNumber": "أرقام التتبع",
 	"widgets.action": "عمل",
@@ -794,5 +796,8 @@ module.exports = {
 	"notif.Email": "آدرس ایمیل اشتباه وارد شده است",
 	"notif.Mobile": "شماره تلفن صحیح نمی باشد",
 	"Report.Owner": "صاحب کالا",
-	"Login.captcha": "چک امنیتی انجام نشده است"
+	"Login.captcha": "چک امنیتی انجام نشده است",
+	"tag.status": "وضعیت درخواست",
+	"widgets.tagtype": "نوع تگ",
+
 }

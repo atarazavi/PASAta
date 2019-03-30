@@ -144,13 +144,6 @@ class Header extends Component {
 								</a>
 						</li>
 						<LanguageProvider />
-						<li className="list-inline-item">
-							<Tooltip title="Full Screen" placement="bottom">
-								<IconButton aria-label="settings" onClick={() => this.toggleScreenFull()}>
-									<i className="zmdi zmdi-crop-free"></i>
-								</IconButton>
-							</Tooltip>
-						</li>
 					</ul>
 					<Drawer
 						anchor={'right'}

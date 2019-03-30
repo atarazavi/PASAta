@@ -26,7 +26,8 @@ const giventoken = localStorage.getItem('given_token')
 class DataTable extends React.Component {
 	state = {
 		theuserslist: [],
-		open: false
+		open: false,
+		error:""
 	}
 
 	componentDidMount = () => {		
@@ -84,6 +85,11 @@ class DataTable extends React.Component {
 				this.setState(
 					{theuserslist: theList}
 				)
+			} else {
+				// this.setState({
+				// 	error:response.status
+				// })
+				// this.state.error=="401"?NotificationManager.error(<IntlMessages id="Login.auth"/>):null  
 			}
 		})();
 		}

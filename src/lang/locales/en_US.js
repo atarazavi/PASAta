@@ -407,6 +407,8 @@ module.exports = {
 	"widgets.open": "Open",
 	"widgets.bounced": "Bounced",
 	"widgets.spam": "Spam",
+	"widgets.amount": "Amount",
+	"widgets.tagtype": "Tag Type",
 	"widgets.unset": "Unset",
 	"widgets.bandwidthUse": "Bandwidth Use",
 	"widgets.dataUse": "Data Use",
@@ -765,10 +767,12 @@ module.exports = {
 	"tooltip.changepass": "Change Password",
 	"tooltip.groups": "List of Groups",
 	"tooltip.roles": "List of Roles",
+	"tooltip.Ok": "Ok",
 	"table.username": "User Name",
 	"notif.exceed": "exceed characters limit",
 	"notif.Email": "Type your Email correctly",
 	"notif.Mobile": "Type your Phone number correctly",
 	"Report.Owner": "Owner",
-	"Login.captcha": "Captcha is empty"
+	"Login.captcha": "Captcha is empty",
+	"tag.status": "Request status"
 }

@@ -14,7 +14,7 @@ import {
 const Pages = ({ match }) => (
     <div className="content-wrapper">
         <Helmet>
-            <title>Reactify | Tables</title>
+            <title>پاس</title>
             <meta name="description" content="Reactify Tables" />
         </Helmet>
         <Switch>
