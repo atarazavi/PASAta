@@ -106,7 +106,6 @@ export default class AutoComplete extends Component {
 			const content = await rawResponse.json();
 			console.log(content);
 			if (content.status == 200 ){
-				console.log('success');
 				let dtos_ = content.result.dtos
 				const suggestions = dtos_.map(eachOwner => {
 				  return({label: eachOwner.name, value: eachOwner.name, id: eachOwner.productProviderId})
