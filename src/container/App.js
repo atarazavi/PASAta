@@ -114,19 +114,16 @@ class App extends Component {
 		
 		if (location.pathname !== '/session/login'){
 			(async () => {
-				const rawResponse = await fetch(AppConfig.baseURL + '/permission/user/findbyid', {
+				const rawResponse = await fetch(AppConfig.baseURL + '/user/checkToken', {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
-						'Authorization': giventoken
-					},
-					body: JSON.stringify({
-						"id":20
-					})
+						'Authorization': giventoken,
+						'Accept-Language': 'fa'
+					}
 				});
-				console.log('rawResponse.status', rawResponse.status);
 				if (rawResponse.status == 200){
-					
+					console.log('rawResponse.status', rawResponse.status);
 				} else {
 					console.log("falseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
 					this.props.history.push({
