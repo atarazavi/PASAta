@@ -98,13 +98,19 @@ export default class AutoComplete extends Component {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': giventoken
+					'Authorization': giventoken,
+					'Accept-Language': 'fa'
                 }
             });
             const content = await rawResponse.json();
             if (content.status == 200 ){
                 console.log('tags types should be added to state as suggestion');
                 
+				let dtos_ = content.result.dtos
+				const suggestions_TagTypes = dtos_.map(each => {
+				  return({label: each.title, value: each.title, id: each.id, price: each.price, description: each.description})
+				})
+				this.setState({suggestions_TagTypes})
             }
         })();
 	}
@@ -171,6 +177,17 @@ export default class AutoComplete extends Component {
 		  });
 		  const content = await rawResponse.json();
 		  console.log(content);
+		  if (content.status == 200) {
+			// Show notification about success on adding ...
+			// Show notification about success on adding ...
+			// Show notification about success on adding ...
+			// Show notification about success on adding ...
+		  }else{
+			// Show notification about the problem!!!!!!! on adding ...
+			// Show notification about the problem!!!!!!! on adding ...
+			// Show notification about the problem!!!!!!! on adding ...
+			// Show notification about the problem!!!!!!! on adding ...
+		  }
 		})();
 	}
 
@@ -183,7 +200,7 @@ export default class AutoComplete extends Component {
 			<div className="formelements-wrapper">
 				<div className="row">
 					<div className="col-sm-12 col-md-12 col-xl-6">
-						<RctCollapsibleCard heading="Form Grid">
+						<RctCollapsibleCard heading="Generate Tags">
 							<Form>
 								<FormGroup row>
 									<Label for="tagType" sm={2}>Tag Type</Label>
