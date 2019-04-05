@@ -23,6 +23,7 @@ import AppConfig from '../../constants/AppConfig';
 
 // Components
 import ReactSelect from '../advance-ui-components/autoComplete/component/ReactSelect';
+import {DatePicker} from "react-advance-jalaali-datepicker";
 
 const giventoken = localStorage.getItem('given_token')
 // const currentLanguagecode = localStorage.getItem('currentLanguagecode')
@@ -34,9 +35,9 @@ class DataTable extends React.Component {
 		chosenenddate: '',
 		chosenstartdate: '',
 		chosennumofresults: 10,
-		chosenpackagetype: 0,
-		chosentagprovider: 0,
-		chosentagtype: 0,
+		chosenpackagetypeID: 0,
+		chosentagproviderID: 0,
+		chosentagtypeID: 0,
 		chosenstatus: 0,
 		packageTypeSuggestion: [],
 		statusSuggestion: [],
@@ -44,43 +45,41 @@ class DataTable extends React.Component {
 		providerSuggestion: [],
 	}
 	componentDidMount = () => {		
-		// this.callMainAPI();
+		this.callMainAPI();
 
-        // (async () => {
-        //     const rawResponse = await fetch(AppConfig.baseURL + '/tag/bulkorder/alltagbulkorderstatus', {
-        //         method: 'GET',
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //             'Authorization': giventoken
-        //         }
-        //     });
-        //     const content = await rawResponse.json();
-        //     if (content.status == 200 ){
-        //         console.log('tags types should be added to state as suggestion');
-        //         const statusSuggestion = content.result.dtos.map(each => {
-        //             return({label: each.name, value: each.name, id: each.id})
-        //         })
-        //         this.setState({statusSuggestion})
-        //     }
-		// })();
+        (async () => {
+            const rawResponse = await fetch(AppConfig.baseURL + '/tag/bulkorder/alltagbulkorderstatus', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': giventoken
+                }
+            });
+            const content = await rawResponse.json();
+            if (content.status == 200 ){
+                const statusSuggestion = content.result.dtos.map(each => {
+                    return({label: each.status, value: each.status, id: each.id})
+                })
+                this.setState({statusSuggestion})
+            }
+		})();
 
-        // (async () => {
-        //     const rawResponse = await fetch(AppConfig.baseURL + '/tag/pool/alltagtype', {
-        //         method: 'GET',
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //             'Authorization': giventoken
-        //         }
-        //     });
-        //     const content = await rawResponse.json();
-        //     if (content.status == 200 ){
-        //         console.log('tags types should be added to state as suggestion');
-        //         const tagTypeSuggestion = content.result.dtos.map(each => {
-        //             return({label: each.name, value: each.name, id: each.id})
-        //         })
-        //         this.setState({tagTypeSuggestion})
-        //     }
-		// })();
+        (async () => {
+            const rawResponse = await fetch(AppConfig.baseURL + '/tag/pool/alltagtype', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': giventoken
+                }
+            });
+            const content = await rawResponse.json();
+            if (content.status == 200 ){
+                const tagTypeSuggestion = content.result.dtos.map(each => {
+                    return({label: each.title, value: each.title, id: each.id, price: each.price, desciption: each.desciption})
+                })
+                this.setState({tagTypeSuggestion})
+            }
+		})();
 		
         (async () => {
             const rawResponse = await fetch(AppConfig.baseURL + '/tag/provider/filter', {
@@ -109,23 +108,22 @@ class DataTable extends React.Component {
             }
 		})();
 		
-        // (async () => {
-        //     const rawResponse = await fetch(AppConfig.baseURL + '/tag/pool/alltagpackagetype', {
-        //         method: 'GET',
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //             'Authorization': giventoken
-        //         }
-        //     });
-        //     const content = await rawResponse.json();
-        //     if (content.status == 200 ){
-        //         console.log('tags types should be added to state as suggestion');
-        //         const packageTypeSuggestion = content.result.dtos.map(each => {
-        //             return({label: each.name, value: each.name, id: each.id})
-        //         })
-        //         this.setState({packageTypeSuggestion})
-        //     }
-		// })();
+        (async () => {
+            const rawResponse = await fetch(AppConfig.baseURL + '/tag/pool/alltagpackagetype', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': giventoken
+                }
+            });
+            const content = await rawResponse.json();
+            if (content.status == 200 ){
+                const packageTypeSuggestion = content.result.dtos.map(each => {
+                    return({label: each.title, value: each.title, id: each.id, quantity: each.qty})
+                })
+                this.setState({packageTypeSuggestion})
+            }
+		})();
 	}
 	
 	handleFilterApply = () =>{
@@ -152,10 +150,10 @@ class DataTable extends React.Component {
 					"tagPackageId": 0,
 					"tagPackageSeqEnd": 0,
 					"tagPackageSeqStart": 0,
-					"tagPackageTypeId": this.state.chosenpackagetype.id,
-					"tagProviderId": this.state.chosentagprovider.id,
+					"tagPackageTypeId": this.state.chosenpackagetypeID,
+					"tagProviderId": this.state.chosentagproviderID,
 					"tagRequestId": 0,
-					"tagTypeId": this.state.chosentagtype.id,
+					"tagTypeId": this.state.chosentagtypeID,
 					"toDate": this.state.chosenenddate
 				})
 			});
@@ -183,91 +181,100 @@ class DataTable extends React.Component {
 	}
 
 	actionClickhandler = (id, uname, action) => {
-		// switch(action) { 
-		// 	case "ViewPackage": { 
-		// 		this.props.history.push({
-		// 			pathname: '/horizontal/viewPackage',
-		// 			state: { roleName: uname, role_id: id }
-		// 		})
-		// 		break;  
-		// 	} 
-		// 	case "ChangePackageStatus": { 
-		// 		this.props.history.push({
-		// 			pathname: '/horizontal/changePackageStatus',
-		// 			state: { roleName: uname, role_id: id }
-		// 		})
-		// 		break;  
-		// 	} 
-		// 	case "EditBulkorder": { 
-		// 		this.props.history.push({
-		// 			pathname: '/horizontal/editBulkorder',
-		// 			state: { roleName: uname, role_id: id }
-		// 		})
-		// 		break;  
-		// 	} 
-		// 	case "DeleteBulkorder": { 
-		// 		this.props.history.push({
-		// 			pathname: '/horizontal/deleteBulkorder',
-		// 			state: { roleName: uname, role_id: id }
-		// 		})
-		// 		break;  
-		// 	} 
-		// 	case "MoreinfoBulkorder": { 
-		// 		this.props.history.push({
-		// 			pathname: '/horizontal/moreinfoBulkorder',
-		// 			state: { roleName: uname, role_id: id }
-		// 		})
-		// 		break;  
-		// 	} 
-		// 	default: { 
-		// 		console.log("Invalid choice"); 
-		// 		break;
-		// 	} 
-		// } 
+		switch(action) { 
+			case "ViewPackage": { 
+				this.props.history.push({
+					pathname: '/horizontal/viewPackage',
+					state: { roleName: uname, role_id: id }
+				})
+				break;  
+			} 
+			case "ChangePackageStatus": { 
+				this.props.history.push({
+					pathname: '/horizontal/changePackageStatus',
+					state: { roleName: uname, role_id: id }
+				})
+				break;  
+			} 
+			case "EditBulkorder": { 
+				this.props.history.push({
+					pathname: '/horizontal/editBulkorder',
+					state: { roleName: uname, role_id: id }
+				})
+				break;  
+			} 
+			case "DeleteBulkorder": { 
+				this.props.history.push({
+					pathname: '/horizontal/deleteBulkorder',
+					state: { roleName: uname, role_id: id }
+				})
+				break;  
+			} 
+			case "MoreinfoBulkorder": { 
+				this.props.history.push({
+					pathname: '/horizontal/moreinfoBulkorder',
+					state: { roleName: uname, role_id: id }
+				})
+				break;  
+			} 
+			default: { 
+				console.log("Invalid choice"); 
+				break;
+			} 
+		} 
 	}
 
 	handleChangeOnautoComplete = (result, target) => {
-		console.log('in balaaaaaaaaaaa');
-		
 		console.log('result', result, 'target', target);
 		
-        // switch(target) { 
-		// 	case "statusSuggestion": { 
-        //         this.state.statusSuggestion.map( each => {
-        //             each.value == result && this.setState({chosenstatus: each.id})
-        //         })
-		// 		break;  
-		// 	} 
-		// 	case "tagTypeSuggestion": { 
-        //         this.state.tagTypeSuggestion.map( each => {
-        //             each.value == result && this.setState({chosentagtype: each.id})
-        //         })
-		// 		break; 
-		// 	}
-		// 	case "providerSuggestion": { 
-        //         this.state.providerSuggestion.map( each => {
-        //             each.value == result && this.setState({chosentagprovider: each.id})
-        //         })
-		// 		break; 
-		// 	}
-		// 	case "packageTypeSuggestion": { 
-        //         this.state.packageTypeSuggestion.map( each => {
-        //             each.value == result && this.setState({chosenpackagetype: each.id})
-        //         })
-		// 		break; 
-		// 	}
-		// 	default: { 
-		// 		console.log("Invalid choice"); 
-		// 		break;              
-		// 	} 
-		// } 
+        switch(target) { 
+			case "statusSuggestion": { 
+                this.state.statusSuggestion.map( each => {
+                    each.value == result && this.setState({chosenstatus: each.id})
+                })
+				break;  
+			} 
+			case "tagTypeSuggestion": { 
+                this.state.tagTypeSuggestion.map( each => {
+                    each.value == result && this.setState({chosentagtypeID: each.id})
+                })
+				break; 
+			}
+			case "providerSuggestion": { 
+                this.state.providerSuggestion.map( each => {
+                    each.value == result && this.setState({chosentagproviderID: each.id})
+                })
+				break; 
+			}
+			case "packageTypeSuggestion": { 
+                this.state.packageTypeSuggestion.map( each => {
+                    each.value == result && this.setState({chosenpackagetypeID: each.id})
+                })
+				break; 
+			}
+			default: { 
+				console.log("Invalid choice"); 
+				break;              
+			} 
+		} 
 	}
 
-	handleChange = (event) => {
-		// const {name, value} = event.target
-		// this.setState({
-		// 	[name]: value
-		// })
+	handleChange = (event) => {		
+		const {name, value} = event.target
+		this.setState({
+			[name]: value
+		})
+	}
+
+	handleChange_DatePicker_EndDate = (selectedunix, selectedformatted) => {
+		this.setState({
+			chosenenddate: selectedformatted
+		})
+	}
+	handleChange_DatePicker_StartDate = (selectedunix, selectedformatted) => {
+		this.setState({
+			chosenstartdate: selectedformatted
+		})
 	}
 
 	render() {
@@ -311,19 +318,19 @@ class DataTable extends React.Component {
 						<div className="top-filter clearfix p-20">
 							<FormGroup className="w-20">
 								<Label for="startDate">Status:</Label>
-								<ReactSelect id='filter_status' changeHandler={() => this.handleChangeOnautoComplete} target='statusSuggestion' suggestions={this.state.statusSuggestion} />
+								<ReactSelect makeitlarger='please' id='filter_status' changeHandler={this.handleChangeOnautoComplete} target='statusSuggestion' suggestions={this.state.statusSuggestion} />
 							</FormGroup>
 							<FormGroup className="w-20">
 								<Label for="startDate">Tag Type:</Label>
-								<ReactSelect id='filter_tagtype' changeHandler={() => this.handleChangeOnautoComplete} target='tagTypeSuggestion' suggestions={this.state.tagTypeSuggestion} />
+								<ReactSelect id='filter_tagtype' changeHandler={this.handleChangeOnautoComplete} target='tagTypeSuggestion' suggestions={this.state.tagTypeSuggestion} />
 							</FormGroup>
 							<FormGroup className="w-20">
 								<Label for="startDate">Tag Provider:</Label>
-								<ReactSelect id='filter_provider' changeHandler={() => this.handleChangeOnautoComplete} target='providerSuggestion' suggestions={this.state.providerSuggestion} />
+								<ReactSelect id='filter_provider' changeHandler={this.handleChangeOnautoComplete} target='providerSuggestion' suggestions={this.state.providerSuggestion} />
 							</FormGroup>
 							<FormGroup className="w-20">
 								<Label for="startDate">Package Type:</Label>
-								<ReactSelect id='filter_package' changeHandler={() => this.handleChangeOnautoComplete} target='packageTypeSuggestion' suggestions={this.state.packageTypeSuggestion} />
+								<ReactSelect id='filter_package' changeHandler={this.handleChangeOnautoComplete} target='packageTypeSuggestion' suggestions={this.state.packageTypeSuggestion} />
 							</FormGroup>
 							<FormGroup className="w-20">
 								<Label for="Select">Number of Results:</Label>
@@ -333,11 +340,24 @@ class DataTable extends React.Component {
 							</FormGroup>
 							<FormGroup className="w-20">
 								<Label for="startDate">Start Date:</Label>
-								<Input type="date" onChange={this.handleChange} name="chosenstartdate" id="startDate" placeholder="dd/mm/yyyy" />
+								<DatePicker
+									inputComponent={this.DatePickerInput}
+									placeholder="انتخاب تاریخ آغاز"
+									format="jYYYY/jMM/jDD"
+									onChange={this.handleChange_DatePicker_StartDate}
+									id="datePicker"
+								/>
 							</FormGroup>
 							<FormGroup className="w-20">
 								<Label for="endDate">End Date:</Label>
-								<Input type="date" onChange={this.handleChange} name="chosenenddate" id="endDate" placeholder="dd/mm/yyyy" />
+								{/* <Input type="date" onChange={this.handleChange} name="chosenenddate" id="endDate" placeholder="dd/mm/yyyy" /> */}
+								<DatePicker
+									inputComponent={this.DatePickerInput}
+									placeholder="انتخاب تاریخ پایان"
+									format="jYYYY/jMM/jDD"
+									onChange={this.handleChange_DatePicker_EndDate}
+									id="datePicker"
+								/>
 							</FormGroup>
 							<FormGroup className="mb-5">
 								<Label className="d-block">&nbsp;</Label>
