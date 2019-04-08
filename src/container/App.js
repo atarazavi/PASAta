@@ -108,6 +108,7 @@ class App extends Component {
 		const ispermitted2 = PAS_Authentication.authenticated
 		console.log('isPermitted', isPermitted);
 		console.log('auth from localstorage', localStorage.getItem('given_token'));
+		console.log('CURRENTlANGUAGE', localStorage.getItem('Current_lang'));
 
 		console.log('auth from PAS', ispermitted2);
 		console.log(location.pathname);
@@ -125,7 +126,6 @@ class App extends Component {
 				if (rawResponse.status == 200){
 					console.log('rawResponse.status', rawResponse.status);
 				} else {
-					console.log("falseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
 					this.props.history.push({
 						pathname: '/session/login',
 						state: {from: window.location.href}
