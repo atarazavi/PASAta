@@ -39,6 +39,8 @@ import tagChangeStatus from 'Routes/tagChangeStatus';
 import tagDelete from 'Routes/tagDelete';
 import tagInventory from 'Routes/tagInventory';
 import tagMoreinfo from 'Routes/tagMoreinfo';
+import editBulkOrder from 'Routes/editBulkOrder';
+import deleteBulkOrder from 'Routes/deleteBulkOrder';
 
 // async component
 import {
@@ -220,10 +222,18 @@ export default [
 	{
 		path: 'tagDelete',
 		component: tagDelete
-	},,
+	},
 	{
 		path: 'tagInventory',
 		component: tagInventory
+	},
+	{
+		path: 'editBulkOrder',
+		component: editBulkOrder
+	},
+	{
+		path: 'deleteBulkOrder',
+		component: deleteBulkOrder
 	},
 	
 ] 
