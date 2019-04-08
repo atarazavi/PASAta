@@ -6,6 +6,7 @@ import MUIDataTable from "mui-datatables";
 import { Form, FormGroup, Label, Input } from 'reactstrap';
 import Button from '@material-ui/core/Button';
 
+import { Badge } from 'reactstrap';
 // page title bar
 import PageTitleBar from 'Components/PageTitleBar/PageTitleBar';
 
@@ -18,6 +19,7 @@ import IntlMessages from 'Util/IntlMessages';
 import IconButton from '@material-ui/core/IconButton';
 import { Route, Redirect } from "react-router-dom";
 
+import Tooltip from '@material-ui/core/Tooltip';
 // app config
 import AppConfig from '../../constants/AppConfig';
 
@@ -278,10 +280,26 @@ class DataTable extends React.Component {
 	}
 
 	render() {
-		const columns = ["Status", "Status Code", "Tag Type", "Package Type", "Number Of Package", "Actions"];
+		const columns = ["Status", "Tag Type", "Package Type", "Number Of Package", "Actions"];
 		const data = this.state.thetagsslist.map(eachtag => {
 			return(
-				[eachtag.status, eachtag.statusCode, eachtag.type, eachtag.packageType, eachtag.tagPackageCount,
+				[
+					eachtag.statusCode == 0 ? 
+						<Tooltip id="tooltip-fab" title={eachtag.status}>
+							<Badge color="success">Done</Badge>
+						</Tooltip>
+					: 
+					eachtag.statusCode == 1 ? 
+						<Tooltip id="tooltip-fab" title={eachtag.status}>
+							<Badge color="warning">Done</Badge> 
+						</Tooltip>	
+					: 
+					eachtag.statusCode == 2 ? 
+						<Tooltip id="tooltip-fab" title={eachtag.status}>
+							<Badge color="danger">Done</Badge> 
+						</Tooltip>
+					: 'unKnown status',
+					eachtag.type, eachtag.packageType, eachtag.tagPackageCount,
 					<div>
                         <IconButton className="text-success" onClick={() => this.actionClickhandler(eachtag.id, eachtag.name, 'ViewPackage')} aria-label="view tags">
                             <i className="zmdi zmdi-smartphone-android"></i>
