@@ -182,40 +182,40 @@ class DataTable extends React.Component {
 		})();
 	}
 
-	actionClickhandler = (id, uname, action) => {
+	actionClickhandler = (id, action) => {
 		switch(action) { 
 			case "ViewPackage": { 
 				this.props.history.push({
 					pathname: '/horizontal/viewPackage',
-					state: { roleName: uname, role_id: id }
+					state: { tags_id: id }
 				})
 				break;  
 			} 
 			case "ChangePackageStatus": { 
 				this.props.history.push({
 					pathname: '/horizontal/changePackageStatus',
-					state: { roleName: uname, role_id: id }
+					state: { tags_id: id }
 				})
 				break;  
 			} 
-			case "EditBulkorder": { 
+			case "EditBulkOrder": { 
 				this.props.history.push({
-					pathname: '/horizontal/editBulkorder',
-					state: { roleName: uname, role_id: id }
+					pathname: '/horizontal/editBulkOrder',
+					state: { tags_id: id }
 				})
 				break;  
 			} 
-			case "DeleteBulkorder": { 
+			case "DeleteBulkOrder": { 
 				this.props.history.push({
-					pathname: '/horizontal/deleteBulkorder',
-					state: { roleName: uname, role_id: id }
+					pathname: '/horizontal/deleteBulkOrder',
+					state: { tags_id: id }
 				})
 				break;  
 			} 
 			case "MoreinfoBulkorder": { 
 				this.props.history.push({
 					pathname: '/horizontal/moreinfoBulkorder',
-					state: { roleName: uname, role_id: id }
+					state: { tags_id: id }
 				})
 				break;  
 			} 
@@ -301,19 +301,19 @@ class DataTable extends React.Component {
 					: 'unKnown status',
 					eachtag.type, eachtag.packageType, eachtag.tagPackageCount,
 					<div>
-                        <IconButton className="text-success" onClick={() => this.actionClickhandler(eachtag.id, eachtag.name, 'ViewPackage')} aria-label="view tags">
+                        <IconButton className="text-success" onClick={() => this.actionClickhandler(eachtag.id, 'ViewPackage')} aria-label="view tags">
                             <i className="zmdi zmdi-smartphone-android"></i>
                         </IconButton>
-						<IconButton className="text-success" onClick={() => this.actionClickhandler(eachtag.id, eachtag.name, 'EditBulkorder')} aria-label="Edit">
+						<IconButton className="text-success" onClick={() => this.actionClickhandler(eachtag.id, 'EditBulkOrder')} aria-label="Edit">
 							<i className="zmdi zmdi-edit"></i>
 						</IconButton>
-						<IconButton className="text-success" onClick={() => this.actionClickhandler(eachtag.id, eachtag.name, 'ChangePackageStatus')} aria-label="change status">
-							<i className="zmdi zmdi-comment-edit"></i>
+						<IconButton className="text-success" onClick={() => this.actionClickhandler(eachtag.id, 'ChangePackageStatus')} aria-label="change status">
+							<i className="zmdi zmdi-help"></i>
 						</IconButton>
-						<IconButton className="text-success" onClick={() => this.actionClickhandler(eachtag.id, eachtag.name, 'MoreinfoBulkorder')} aria-label="more details">
-							<i className="zmdi zmdi-collection-text"></i>
+						<IconButton className="text-success" onClick={() => this.actionClickhandler(eachtag.id, 'MoreinfoBulkorder')} aria-label="more details">
+							<i className="zmdi zmdi-info"></i>
 						</IconButton>
-						<IconButton className="text-danger" onClick={() => this.actionClickhandler(eachtag.id, eachtag.name, 'DeleteBulkorder')} aria-label="Delete">
+						<IconButton className="text-danger" onClick={() => this.actionClickhandler(eachtag.id, 'DeleteBulkOrder')} aria-label="Delete">
 							<i className="zmdi zmdi-close"></i>
 						</IconButton>
 					</div>
@@ -450,35 +450,35 @@ class DataTable extends React.Component {
 // 			case "ViewTags": { 
 // 				this.props.history.push({
 // 					pathname: '/horizontal/viewTags',
-// 					state: { roleName: uname, role_id: id }
+// 					state: { tags_id: id }
 // 				})
 // 				break;  
 // 			} 
 // 			case "Edit": { 
 // 				this.props.history.push({
 // 					pathname: '/horizontal/editTags',
-// 					state: { roleName: uname, role_id: id }
+// 					state: { tags_id: id }
 // 				})
 // 				break;
 // 			}
 // 			case "ChangeStatus": { 
 // 				this.props.history.push({
 // 					pathname: '/horizontal/tagChangeStatus',
-// 					state: { roleName: uname, role_id: id }
+// 					state: { tags_id: id }
 // 				})
 // 				break;  
 // 			} 
 // 			case "More": { 
 // 				this.props.history.push({
 // 					pathname: '/horizontal/tagMoreinfo',
-// 					state: { roleName: uname, role_id: id }
+// 					state: { tags_id: id }
 // 				})
 // 				break;  
 // 			} 
 // 			case "Delete": { 
 // 				this.props.history.push({
 // 					pathname: '/horizontal/tagDelete',
-// 					state: { roleName: uname, role_id: id }
+// 					state: { tags_id: id }
 // 				})
 // 				break;  
 // 			} 
@@ -495,19 +495,19 @@ class DataTable extends React.Component {
 // 			return(
 // 				[eachtag.id, eachtag.provider, eachtag.type, eachtag.status, eachtag.createDate, eachtag.creator,
 // 					<div>
-//                         <IconButton className="text-success" onClick={() => this.actionClickhandler(eachtag.id, eachtag.name, 'ViewTags')} aria-label="view tags">
+//                         <IconButton className="text-success" onClick={() => this.actionClickhandler(eachtag.id, 'ViewTags')} aria-label="view tags">
 //                             <i className="zmdi zmdi-smartphone-android"></i>
 //                         </IconButton>
-// 						<IconButton className="text-success" onClick={() => this.actionClickhandler(eachtag.id, eachtag.name, 'Edit')} aria-label="Edit">
+// 						<IconButton className="text-success" onClick={() => this.actionClickhandler(eachtag.id, 'Edit')} aria-label="Edit">
 // 							<i className="zmdi zmdi-edit"></i>
 // 						</IconButton>
-// 						<IconButton className="text-success" onClick={() => this.actionClickhandler(eachtag.id, eachtag.name, 'ChangeStatus')} aria-label="change status">
+// 						<IconButton className="text-success" onClick={() => this.actionClickhandler(eachtag.id, 'ChangeStatus')} aria-label="change status">
 // 							<i className="zmdi zmdi-comment-edit"></i>
 // 						</IconButton>
-// 						<IconButton className="text-success" onClick={() => this.actionClickhandler(eachtag.id, eachtag.name, 'More')} aria-label="more details">
+// 						<IconButton className="text-success" onClick={() => this.actionClickhandler(eachtag.id, 'More')} aria-label="more details">
 // 							<i className="zmdi zmdi-collection-text"></i>
 // 						</IconButton>
-// 						<IconButton className="text-danger" onClick={() => this.actionClickhandler(eachtag.id, eachtag.name, 'Delete')} aria-label="Delete">
+// 						<IconButton className="text-danger" onClick={() => this.actionClickhandler(eachtag.id, 'Delete')} aria-label="Delete">
 // 							<i className="zmdi zmdi-close"></i>
 // 						</IconButton>
 // 					</div>
