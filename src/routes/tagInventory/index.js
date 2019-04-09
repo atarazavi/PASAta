@@ -212,9 +212,9 @@ class DataTable extends React.Component {
 				})
 				break;  
 			} 
-			case "MoreinfoBulkorder": { 
+			case "bulkOrderMoreinfo": { 
 				this.props.history.push({
-					pathname: '/horizontal/moreinfoBulkorder',
+					pathname: '/horizontal/bulkOrderMoreinfo',
 					state: { tags_id: id }
 				})
 				break;  
@@ -310,7 +310,7 @@ class DataTable extends React.Component {
 						<IconButton className="text-success" onClick={() => this.actionClickhandler(eachtag.id, 'ChangePackageStatus')} aria-label="change status">
 							<i className="zmdi zmdi-help"></i>
 						</IconButton>
-						<IconButton className="text-success" onClick={() => this.actionClickhandler(eachtag.id, 'MoreinfoBulkorder')} aria-label="more details">
+						<IconButton className="text-success" onClick={() => this.actionClickhandler(eachtag.id, 'bulkOrderMoreinfo')} aria-label="more details">
 							<i className="zmdi zmdi-info"></i>
 						</IconButton>
 						<IconButton className="text-danger" onClick={() => this.actionClickhandler(eachtag.id, 'DeleteBulkOrder')} aria-label="Delete">
@@ -393,145 +393,5 @@ class DataTable extends React.Component {
 		);
 	}
 }
-
-// class DataTable extends React.Component {
-// 	state = {
-// 		thetagsslist: []
-// 	}
-
-// 	componentDidMount = () => {		
-// 		(async () => {
-// 		const rawResponse = await fetch(AppConfig.baseURL + '/tag/bulkorder/filter', {
-// 			method: 'POST',
-// 			headers: {
-// 				'Content-Type': 'application/json',
-//                 'Authorization': giventoken,
-//                 'Accept-Language': currentLanguagecode
-// 			},
-// 			body: JSON.stringify({
-//                 "fromDate": "",
-//                 "needPaginate": true,
-//                 "pageNumber": 0,
-//                 "pageSize": 10,
-//                 "productProviderId": 0,
-//                 "resultSize": 0,
-//                 "tagBulkorderId": 0,
-//                 "tagPackageId": 0,
-//                 "tagPackageSeqEnd": 0,
-//                 "tagPackageSeqStart": 0,
-//                 "tagPackageTypeId": 0,
-//                 "tagProviderId": 0,
-//                 "tagRequestId": 0,
-//                 "tagTypeId": 0,
-//                 "toDate": ""
-//               })
-// 			});
-// 			const response = await rawResponse.json();
-// 			if (response.status == 200 ){
-// 				const thetagsslist = response.result.dtos.map(each => {	
-// 					return({
-//                         id: each.id,
-//                         provider: each.tagProviderDTO.name,
-//                         type: each.tagTypeDTO.title,
-//                         status: each.tagBulkorderstatusDTO.status,
-//                         createDate: each.creationDate,
-//                         creator: each.userDTO.username
-// 					})
-// 				})
-// 				this.setState(
-// 					{thetagsslist}
-// 				)
-// 			}
-// 		})();
-// 	}
-
-// 	actionClickhandler = (id, uname, action) => {
-// 		switch(action) { 
-// 			case "ViewTags": { 
-// 				this.props.history.push({
-// 					pathname: '/horizontal/viewTags',
-// 					state: { tags_id: id }
-// 				})
-// 				break;  
-// 			} 
-// 			case "Edit": { 
-// 				this.props.history.push({
-// 					pathname: '/horizontal/editTags',
-// 					state: { tags_id: id }
-// 				})
-// 				break;
-// 			}
-// 			case "ChangeStatus": { 
-// 				this.props.history.push({
-// 					pathname: '/horizontal/tagChangeStatus',
-// 					state: { tags_id: id }
-// 				})
-// 				break;  
-// 			} 
-// 			case "More": { 
-// 				this.props.history.push({
-// 					pathname: '/horizontal/tagMoreinfo',
-// 					state: { tags_id: id }
-// 				})
-// 				break;  
-// 			} 
-// 			case "Delete": { 
-// 				this.props.history.push({
-// 					pathname: '/horizontal/tagDelete',
-// 					state: { tags_id: id }
-// 				})
-// 				break;  
-// 			} 
-// 			default: { 
-// 				console.log("Invalid choice"); 
-// 				break;
-// 			} 
-// 		} 
-// 	}
-
-// 	render() {
-// 		const columns = ["Code", "Tag Provider", "Tag Type", "Status", "Creation Date", "Creator", "Actions"];
-// 		const data = this.state.thetagsslist.map(eachtag => {
-// 			return(
-// 				[eachtag.id, eachtag.provider, eachtag.type, eachtag.status, eachtag.createDate, eachtag.creator,
-// 					<div>
-//                         <IconButton className="text-success" onClick={() => this.actionClickhandler(eachtag.id, 'ViewTags')} aria-label="view tags">
-//                             <i className="zmdi zmdi-smartphone-android"></i>
-//                         </IconButton>
-// 						<IconButton className="text-success" onClick={() => this.actionClickhandler(eachtag.id, 'Edit')} aria-label="Edit">
-// 							<i className="zmdi zmdi-edit"></i>
-// 						</IconButton>
-// 						<IconButton className="text-success" onClick={() => this.actionClickhandler(eachtag.id, 'ChangeStatus')} aria-label="change status">
-// 							<i className="zmdi zmdi-comment-edit"></i>
-// 						</IconButton>
-// 						<IconButton className="text-success" onClick={() => this.actionClickhandler(eachtag.id, 'More')} aria-label="more details">
-// 							<i className="zmdi zmdi-collection-text"></i>
-// 						</IconButton>
-// 						<IconButton className="text-danger" onClick={() => this.actionClickhandler(eachtag.id, 'Delete')} aria-label="Delete">
-// 							<i className="zmdi zmdi-close"></i>
-// 						</IconButton>
-// 					</div>
-// 				]
-// 			)
-// 		})
-// 		const options = {
-// 			filterType: 'dropdown',
-// 			responsive: 'stacked'
-// 		};
-// 		return (
-// 			<div className="data-table-wrapper">
-// 				<PageTitleBar title='موجودی برچسب ها' match={this.props.match} />
-// 				<RctCollapsibleCard heading="Data Table" fullBlock>
-// 					<MUIDataTable
-// 						title={"Users list"}
-// 						data={data}
-// 						columns={columns}
-// 						options={options}
-// 					/>
-// 				</RctCollapsibleCard>
-// 			</div>
-// 		);
-// 	}
-// }
 
 export default DataTable;
