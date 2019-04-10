@@ -556,9 +556,15 @@ export default {
             "child_routes": null
         },
         {
-            "menu_title": "sidebar.dropzone",
+            "menu_title": "sidebar.tagRequest",
             "menu_icon": "zmdi zmdi-dropbox",
-            "path": "/horizontal/dropzone",
+            "path": "/horizontal/tagRequest",
+            "child_routes": null
+        },
+        {
+            "menu_title": "sidebar.requestedTagsList",
+            "menu_icon": "zmdi zmdi-dropbox",
+            "path": "/horizontal/requestedTagsList",
             "child_routes": null
         }
     ],

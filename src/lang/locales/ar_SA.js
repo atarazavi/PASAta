@@ -21,6 +21,8 @@ module.exports = {
 	"sidebar.addNewGroup": "اضافه کردن گروه کاربران",
 	"sidebar.RoleList": "لیست نقش ها",
 	"sidebar.ActionList": "لیست مجوز ها",
+	"sidebar.tagRequest": "درخواست برچسب",
+	"sidebar.requestedTagsList": "برچسب های درخواست شده",
 	"sidebar.tagInventory": "موجودی برچسب",
 	"sidebar.tagBulkOrder": "تولید برچسب جدید",
 	"sidebar.addNewAction": "اضافه کردن مجوز جدید",
