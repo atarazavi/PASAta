@@ -45,6 +45,8 @@ import bulkOrderMoreinfo from 'Routes/bulkOrderMoreinfo';
 import changePackageStatus from 'Routes/changePackageStatus';
 import tagRequest from 'Routes/tagRequest';
 import requestedTagsList from 'Routes/requestedTagsList';
+import requestedTagsMoreinfo from 'Routes/requestedTagsMoreinfo';
+import changeTagRequestStatus from 'Routes/changeTagRequestStatus';
 
 
 // async component
@@ -255,6 +257,14 @@ export default [
 	{
 		path: 'requestedTagsList',
 		component: requestedTagsList
+	},
+	{
+		path: 'requestedTagsMoreinfo',
+		component: requestedTagsMoreinfo
+	},
+	{
+		path: 'changeTagRequestStatus',
+		component: changeTagRequestStatus
 	},
 	
 ] 
