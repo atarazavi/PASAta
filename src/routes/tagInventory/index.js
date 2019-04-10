@@ -28,8 +28,7 @@ import ReactSelect from '../advance-ui-components/autoComplete/component/ReactSe
 import {DatePicker} from "react-advance-jalaali-datepicker";
 
 const giventoken = localStorage.getItem('given_token')
-// const currentLanguagecode = localStorage.getItem('currentLanguagecode')
-const currentLanguagecode = 'fa'
+const currentLanguagecode = localStorage.getItem('Current_lang')
 
 class DataTable extends React.Component {
 	state = {
@@ -279,24 +278,31 @@ class DataTable extends React.Component {
 		})
 	}
 
-	render() {
+	render() {  
+        const badgestyle = {
+            width: "20px",
+            height: "20px",
+            borderRadius: "50px",
+            padding: 0,
+            marginBottom: "-4px"
+        }
 		const columns = ["Status", "Tag Type", "Package Type", "Number Of Package", "Actions"];
 		const data = this.state.thetagsslist.map(eachtag => {
 			return(
 				[
 					eachtag.statusCode == 0 ? 
 						<Tooltip id="tooltip-fab" title={eachtag.status}>
-							<Badge color="success">Done</Badge>
+							<Badge style={badgestyle} color="success"> </Badge>
 						</Tooltip>
 					: 
 					eachtag.statusCode == 1 ? 
 						<Tooltip id="tooltip-fab" title={eachtag.status}>
-							<Badge color="warning">Done</Badge> 
+							<Badge style={badgestyle} color="warning"> </Badge> 
 						</Tooltip>	
 					: 
 					eachtag.statusCode == 2 ? 
 						<Tooltip id="tooltip-fab" title={eachtag.status}>
-							<Badge color="danger">Done</Badge> 
+							<Badge style={badgestyle} color="danger"> </Badge> 
 						</Tooltip>
 					: 'unKnown status',
 					eachtag.type, eachtag.packageType, eachtag.tagPackageCount,
