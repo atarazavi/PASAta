@@ -22,6 +22,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import reactElementToJSXString from 'react-element-to-jsx-string';
 
 const giventoken = localStorage.getItem('given_token')
+const currentLanguagecode = localStorage.getItem('Current_lang')
 
 class DataTable extends React.Component {
 	state = {
@@ -51,17 +52,11 @@ class DataTable extends React.Component {
 			  })
 			});
 			const response = await rawResponse.json();
-			console.log(response);
 			if (response.status == 200 ){
-				console.log('success');
-				
-				// it should be gotten from sth like localstorage
-				const currentlanguage = 'fa'
-				// it should be gotten from sth like localstorage
-				let nameinCurrentLang = {}
+				let nameinCurrentLang = null
 				const theList = response.result.dtos.map(each => {			
 					each.productproviderDTO.productproviderLangDTOS.map(eachlang => {
-						if (currentlanguage == eachlang.languageDTO.code){
+						if (currentLanguagecode == eachlang.languageDTO.code){
 							nameinCurrentLang = {
 								lang_code: eachlang.languageDTO.code,
 								nameinthisLang: eachlang.name,
