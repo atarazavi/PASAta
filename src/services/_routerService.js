@@ -42,6 +42,7 @@ import tagMoreinfo from 'Routes/tagMoreinfo';
 import editBulkOrder from 'Routes/editBulkOrder';
 import deleteBulkOrder from 'Routes/deleteBulkOrder';
 import bulkOrderMoreinfo from 'Routes/bulkOrderMoreinfo';
+import changePackageStatus from 'Routes/changePackageStatus';
 
 
 // async component
@@ -240,6 +241,10 @@ export default [
 	{
 		path: 'bulkOrderMoreinfo',
 		component: bulkOrderMoreinfo
+	},
+	{
+		path: 'changePackageStatus',
+		component: changePackageStatus
 	},
 	
 ] 

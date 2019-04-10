@@ -191,7 +191,7 @@ class DataTable extends React.Component {
 				})
 				break;  
 			} 
-			case "ChangePackageStatus": { 
+			case "changePackageStatus": { 
 				this.props.history.push({
 					pathname: '/horizontal/changePackageStatus',
 					state: { tags_id: id }
@@ -307,8 +307,8 @@ class DataTable extends React.Component {
 						<IconButton className="text-success" onClick={() => this.actionClickhandler(eachtag.id, 'EditBulkOrder')} aria-label="Edit">
 							<i className="zmdi zmdi-edit"></i>
 						</IconButton>
-						<IconButton className="text-success" onClick={() => this.actionClickhandler(eachtag.id, 'ChangePackageStatus')} aria-label="change status">
-							<i className="zmdi zmdi-help"></i>
+						<IconButton className="text-success" onClick={() => this.actionClickhandler(eachtag.id, 'changePackageStatus')} aria-label="change status">
+							<i className="zmdi zmdi-refresh-alt"></i>
 						</IconButton>
 						<IconButton className="text-success" onClick={() => this.actionClickhandler(eachtag.id, 'bulkOrderMoreinfo')} aria-label="more details">
 							<i className="zmdi zmdi-info"></i>
