@@ -166,10 +166,8 @@ class DataTable extends React.Component {
                     companynameinthislang: null,
                     descriptioninthislang: null
                 }
-				const thetagslist = response.result.dtos.map(each => {				
-                    console.log('each', each);
+				const thetagslist = response.result.dtos.map(each => {	
 					each.userDTO.productproviderDTO.productproviderLangDTOS.map(eachlang => {
-                        
 						if (currentLanguagecode == eachlang.languageDTO.code && eachlang.length > 0){
 							nameinCurrentLang = {
 								lang_code: eachlang.languageDTO.code,
@@ -221,9 +219,9 @@ class DataTable extends React.Component {
 				})
 				break;  
 			} 
-			case "tagRequestMoreinfo": { 
+			case "requestedTagsMoreinfo": { 
 				this.props.history.push({
-					pathname: '/horizontal/tagRequestMoreinfo',
+					pathname: '/horizontal/requestedTagsMoreinfo',
 					state: { tags_id: id }
 				})
 				break;  
@@ -313,16 +311,16 @@ class DataTable extends React.Component {
 						</Tooltip>
                     : 'unKnown status',
                     
-                    eachtag.statusCode, eachtag.creator + " (" + eachtag.productProviderName + ")", eachtag.type, eachtag.packageCount,
+                    eachtag.statusCode, eachtag.creator + " (" + eachtag.productProviderName + ")", eachtag.type, eachtag.packageType , eachtag.packageCount,
                     
 					<div>
-						<IconButton className="text-success" onClick={() => this.actionClickhandler(eachtag.id, 'changeTagRequestStatus')} aria-label="change status">
-							<i className="zmdi zmdi-refresh-alt"></i>
-						</IconButton>
+						{eachtag.statusCode == 0 && <IconButton className="text-success" onClick={() => this.actionClickhandler(eachtag.id, 'changeTagRequestStatus')} aria-label="change status">
+							<i className="zmdi zmdi-mail-reply"></i>
+						</IconButton>}
                         <IconButton className="text-success" onClick={() => this.actionClickhandler(eachtag.id, 'ViewPackage')} aria-label="view package">
                             <i className="zmdi zmdi-eye"></i>
                         </IconButton>
-						<IconButton className="text-success" onClick={() => this.actionClickhandler(eachtag.id, 'tagRequestMoreinfo')} aria-label="more info">
+						<IconButton className="text-success" onClick={() => this.actionClickhandler(eachtag.id, 'requestedTagsMoreinfo')} aria-label="more info">
 							<i className="zmdi zmdi-info"></i>
 						</IconButton>
 						<IconButton className="text-danger" onClick={() => this.actionClickhandler(eachtag.id, 'DeleteBulkOrder')} aria-label="Delete">
