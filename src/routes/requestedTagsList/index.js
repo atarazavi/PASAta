@@ -39,7 +39,7 @@ class DataTable extends React.Component {
 		chosenpackagetypeID: 0,
 		chosentagproviderID: 0,
 		chosentagtypeID: 0,
-		chosenstatus: 0,
+		chosenstatusID: null,
 		packageTypeSuggestion: [],
 		statusSuggestion: [],
 		tagTypeSuggestion: [],
@@ -102,9 +102,11 @@ class DataTable extends React.Component {
             const content = await rawResponse.json();
             if (content.status == 200 ){
                 const productProviderSuggestion = content.result.dtos.map(each => {
-                    return({label: each.name, value: each.name, id: each.id})
+                    return({label: each.name, value: each.name, id: each.productProviderId})
                 })
-                this.setState({productProviderSuggestion})
+				this.setState({productProviderSuggestion})
+				console.log('this.state.productProviderSuggestion', this.state.productProviderSuggestion);
+				
             }
 		})();
 		
@@ -143,7 +145,7 @@ class DataTable extends React.Component {
 					"fromDate": this.state.chosenstartdate,
 					"needPaginate": true,
 					"pageNumber": 0,
-					"pageSize": 10,
+					"pageSize": this.state.chosennumofresults,
 					"productProviderId": 0,
 					"resultSize": 0,
 					"tagBulkorderId": 0,
@@ -154,7 +156,8 @@ class DataTable extends React.Component {
 					"tagProviderId": this.state.chosentagproviderID,
 					"tagRequestId": 0,
 					"tagTypeId": this.state.chosentagtypeID,
-					"toDate": this.state.chosenenddate
+					"toDate": this.state.chosenenddate,
+					"statusId" : this.state.chosenstatusID
 				})
 			});
 			const response = await rawResponse.json();
@@ -212,9 +215,9 @@ class DataTable extends React.Component {
 				})
 				break;  
 			} 
-			case "DeleteBulkOrder": { 
+			case "requestedTagsDelete": { 
 				this.props.history.push({
-					pathname: '/horizontal/deleteBulkOrder',
+					pathname: '/horizontal/requestedTagsDelete',
 					state: { tags_id: id }
 				})
 				break;  
@@ -238,7 +241,7 @@ class DataTable extends React.Component {
         switch(target) { 
 			case "statusSuggestion": { 
                 this.state.statusSuggestion.map( each => {
-                    each.value == result && this.setState({chosenstatus: each.id})
+                    each.value == result && this.setState({chosenstatusID: each.id})
                 })
 				break;  
 			} 
@@ -323,7 +326,7 @@ class DataTable extends React.Component {
 						<IconButton className="text-success" onClick={() => this.actionClickhandler(eachtag.id, 'requestedTagsMoreinfo')} aria-label="more info">
 							<i className="zmdi zmdi-info"></i>
 						</IconButton>
-						<IconButton className="text-danger" onClick={() => this.actionClickhandler(eachtag.id, 'DeleteBulkOrder')} aria-label="Delete">
+						<IconButton className="text-danger" onClick={() => this.actionClickhandler(eachtag.id, 'requestedTagsDelete')} aria-label="Delete">
 							<i className="zmdi zmdi-close"></i>
 						</IconButton>
 					</div>
