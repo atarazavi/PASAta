@@ -566,6 +566,12 @@ export default {
             "menu_icon": "zmdi zmdi-dropbox",
             "path": "/horizontal/requestedTagsList",
             "child_routes": null
+        },
+        {
+            "menu_title": "sidebar.tagProvidersList",
+            "menu_icon": "zmdi zmdi-dropbox",
+            "path": "/horizontal/tagProvidersList",
+            "child_routes": null
         }
     ],
 }

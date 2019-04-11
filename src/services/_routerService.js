@@ -47,6 +47,8 @@ import tagRequest from 'Routes/tagRequest';
 import requestedTagsList from 'Routes/requestedTagsList';
 import requestedTagsMoreinfo from 'Routes/requestedTagsMoreinfo';
 import changeTagRequestStatus from 'Routes/changeTagRequestStatus';
+import requestedTagsDelete from 'Routes/requestedTagsDelete';
+import tagProvidersList from 'Routes/tagProvidersList';
 
 
 // async component
@@ -265,6 +267,14 @@ export default [
 	{
 		path: 'changeTagRequestStatus',
 		component: changeTagRequestStatus
+	},
+	{
+		path: 'requestedTagsDelete',
+		component: requestedTagsDelete
+	},
+	{
+		path: 'tagProvidersList',
+		component: tagProvidersList
 	},
 	
 ] 

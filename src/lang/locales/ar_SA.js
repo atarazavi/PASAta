@@ -23,6 +23,7 @@ module.exports = {
 	"sidebar.ActionList": "لیست مجوز ها",
 	"sidebar.tagRequest": "درخواست برچسب",
 	"sidebar.requestedTagsList": "برچسب های درخواست شده",
+	"sidebar.tagProvidersList": "تامین کنندگان برچسب",
 	"sidebar.tagInventory": "موجودی برچسب",
 	"sidebar.tagBulkOrder": "تولید برچسب جدید",
 	"sidebar.addNewAction": "اضافه کردن مجوز جدید",

@@ -10,6 +10,7 @@ module.exports = {
 	"sidebar.tagInventory": "Tag inventory",
 	"sidebar.tagBulkOrder": "Tag New Bulk Order",
 	"sidebar.requestedTagsList": "Requested Tags",
+	"sidebar.tagProvidersList": "Tag Providers",
 	"sidebar.tagRequest": "Tag Request",
 	"sidebar.addNewAction": "Add New Action",
 	"sidebar.app": "App",
