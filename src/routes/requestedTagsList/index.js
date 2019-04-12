@@ -127,11 +127,9 @@ class DataTable extends React.Component {
             }
 		})();
 	}
-	
 	handleFilterApply = () =>{
 		this.callMainAPI()
 	}
-
 	callMainAPI = () => {
 		(async () => {
 			const rawResponse = await fetch(AppConfig.baseURL + '/tag/request/filter', {
@@ -198,7 +196,6 @@ class DataTable extends React.Component {
 			}
 		})();
 	}
-
 	actionClickhandler = (id, action) => {
 		switch(action) { 
 			case "ViewPackage": { 
