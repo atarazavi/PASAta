@@ -31,11 +31,16 @@ const currentLanguagecode = localStorage.getItem('Current_lang')
 
 class DataTable extends React.Component {
 	state = {
-		thetagslist: [],
+		theProviderslist: [],
+		chosennumofresults: 10,
+		toBsearched: ''
 	}
 	componentDidMount = () => {	
+		this.callMainAPI();	
+	}
+	callMainAPI = () => {
 		(async () => {
-			const rawResponse = await fetch(AppConfig.baseURL + '/tag/request/filter', {
+			const rawResponse = await fetch(AppConfig.baseURL + '/tag/provider/filter', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -43,93 +48,70 @@ class DataTable extends React.Component {
 					'Accept-Language': currentLanguagecode
 				},
 				body: JSON.stringify({
-					"fromDate": this.state.chosenstartdate,
+					"fromDate": "",
 					"needPaginate": true,
 					"pageNumber": 0,
-					"pageSize": 10,
-					"productProviderId": 0,
+					"pageSize": this.state.chosennumofresults,
 					"resultSize": 0,
-					"tagBulkorderId": 0,
-					"tagPackageId": 0,
-					"tagPackageSeqEnd": 0,
-					"tagPackageSeqStart": 0,
-					"tagPackageTypeId": this.state.chosenpackagetypeID,
-					"tagProviderId": this.state.chosentagproviderID,
-					"tagRequestId": 0,
-					"tagTypeId": this.state.chosentagtypeID,
-					"toDate": this.state.chosenenddate
-				})
+					"termToFind": this.state.toBsearched,
+					"toDate": ""
+				  })
 			});
 			const response = await rawResponse.json();
 			
 			if (response.status == 200 ){
-				let nameinCurrentLang = {
-                    lang_code: null,
-                    nameinthisLang: null,
-                    companynameinthislang: null,
-                    descriptioninthislang: null
-                }
-				const thetagslist = response.result.dtos.map(each => {	
-					each.userDTO.productproviderDTO.productproviderLangDTOS.map(eachlang => {
-						if (currentLanguagecode == eachlang.languageDTO.code && eachlang.length > 0){
-							nameinCurrentLang = {
-								lang_code: eachlang.languageDTO.code,
-								nameinthisLang: eachlang.name,
-								companynameinthislang: eachlang.companyName,
-								descriptioninthislang: eachlang.describtion
-							}
-						}
-					})
+				const theProviderslist = response.result.dtos.map(each => {	
 					return({
-                        id: each.id,
-                        type: each.tagtypeDTO.title,
-                        status: each.tagrequeststatusDTO.status,
-                        statusCode: each.tagrequeststatusDTO.id,
-                        createDate: each.creationDate,
-						creator: each.userDTO.fullName,
-						productProviderName: nameinCurrentLang.nameinthisLang,
-                        packageType: each.tagPackageTypeDTO.title,
-                        packageCount: each.packageCount
+						id: each.id,
+						name: each.name,
 					})
 				})
 				this.setState(
-					{thetagslist}
+					{theProviderslist}
 				)
 			}
 		})();
 	}
-	
-	actionClickhandler = (id, action) => {
+	actionClickhandler = (id, name, action) => {
+		console.log('id', id, 'name', name, 'action', action);
+		
 		switch(action) { 
-			case "ViewPackage": { 
+			case "edit": { 
 				this.props.history.push({
-					pathname: '/horizontal/viewPackage',
-					state: { tags_id: id }
+					pathname: '/horizontal/editTagProvider',
+					state: { provider_id: id, provider_name: name }
 				})
 				break;  
 			} 
-			case "changeTagRequestStatus": { 
+			case "delete": { 
 				this.props.history.push({
-					pathname: '/horizontal/changeTagRequestStatus',
-					state: { tags_id: id }
+					pathname: '/horizontal/deleteTagProvider',
+					state: { provider_id: id, provider_name: name }
 				})
 				break;  
 			} 
 		} 
 	}
-
+	handleFilterApply = () =>{
+		this.callMainAPI()
+	}
+	handleChange = (event) => {		
+		const {name, value} = event.target
+		this.setState({
+			[name]: value
+		})
+	}
 	render() {  
-		const columns = ["Status", "Tag Status Code", "Created By", "Tag Type", "Package Type", "Number Of Package", "Actions"];
-		const data = this.state.thetagslist.map(eachtag => {
+		const columns = ["ID", "Provider Title", "Actions"];
+		const data = this.state.theProviderslist.map(each => {
 			return(
 				[
-					eachtag.statusCode, eachtag.creator + " (" + eachtag.productProviderName + ")", eachtag.type, eachtag.packageType , eachtag.packageCount,
-                    
+					each.id, each.name,
 					<div>
-						<IconButton className="text-success" onClick={() => this.actionClickhandler(eachtag.id, 'requestedTagsMoreinfo')} aria-label="more info">
-							<i className="zmdi zmdi-info"></i>
+						<IconButton className="text-success" onClick={() => this.actionClickhandler(each.id, each.name, 'edit')} aria-label="more info">
+							<i className="zmdi zmdi-edit"></i>
 						</IconButton>
-						<IconButton className="text-danger" onClick={() => this.actionClickhandler(eachtag.id, 'requestedTagsDelete')} aria-label="Delete">
+						<IconButton className="text-danger" onClick={() => this.actionClickhandler(each.id, each.name, 'delete')} aria-label="Delete">
 							<i className="zmdi zmdi-close"></i>
 						</IconButton>
 					</div>
@@ -140,15 +122,31 @@ class DataTable extends React.Component {
 			filterType: 'dropdown',
 			responsive: 'stacked'
 		};
-		
+
         const ViewNumberOptions = []
         for(let i = 0; i< AppConfig.toBshownResultNumberOptions.length; i++){
             ViewNumberOptions.push(<option value={AppConfig.toBshownResultNumberOptions[i]}>{AppConfig.toBshownResultNumberOptions[i]}</option>)
         }  
 		return (
 			<div className="data-table-wrapper">
-				<PageTitleBar title='لیست برچسب های درخواست شده' match={this.props.match} />
-				<RctCollapsibleCard heading="لیست درخواست ها" fullBlock>
+				<PageTitleBar title='لیست تامین کنندگان برچسب ها' match={this.props.match} />
+				<RctCollapsibleCard heading="تامین کنندگان" fullBlock>
+						<div className="top-filter clearfix p-20">
+							<FormGroup className="w-20">
+								<Label for="search">Search:</Label>
+								<Input onChange={this.handleChange} type="text" name="toBsearched" id="search" placeholder="type a word to search..." />							
+							</FormGroup>
+							<FormGroup className="w-20">
+								<Label for="Select">Number of Results:</Label>
+								<Input type="select" onChange={this.handleChange} name="chosennumofresults" id="Select">
+									{ViewNumberOptions}
+								</Input>
+							</FormGroup>
+							<FormGroup className="mb-5">
+								<Label className="d-block">&nbsp;</Label>
+								<Button onClick={this.handleFilterApply} color="primary" variant="raised" className="mr-10 text-white"><IntlMessages id="widgets.apply" /></Button>
+							</FormGroup>
+						</div>
 					<MUIDataTable
 						title={"Users list"}
 						data={data}
