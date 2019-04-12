@@ -572,6 +572,24 @@ export default {
             "menu_icon": "zmdi zmdi-dropbox",
             "path": "/horizontal/tagProvidersList",
             "child_routes": null
+        },
+        {
+            "menu_title": "sidebar.addTagProvider",
+            "menu_icon": "zmdi zmdi-dropbox",
+            "path": "/horizontal/addTagProvider",
+            "child_routes": null
+        },
+        {
+            "menu_title": "sidebar.tagPackagesList",
+            "menu_icon": "zmdi zmdi-dropbox",
+            "path": "/horizontal/tagPackagesList",
+            "child_routes": null
+        },
+        {
+            "menu_title": "sidebar.tagPoolList",
+            "menu_icon": "zmdi zmdi-dropbox",
+            "path": "/horizontal/tagPoolList",
+            "child_routes": null
         }
     ],
 }

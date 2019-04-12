@@ -49,6 +49,11 @@ import requestedTagsMoreinfo from 'Routes/requestedTagsMoreinfo';
 import changeTagRequestStatus from 'Routes/changeTagRequestStatus';
 import requestedTagsDelete from 'Routes/requestedTagsDelete';
 import tagProvidersList from 'Routes/tagProvidersList';
+import editTagProvider from 'Routes/editTagProvider';
+import deleteTagProvider from 'Routes/deleteTagProvider';
+import addTagProvider from 'Routes/addTagProvider';
+import tagPackagesList from 'Routes/tagPackagesList';
+import tagPoolList from 'Routes/tagPoolList';
 
 
 // async component
@@ -275,6 +280,26 @@ export default [
 	{
 		path: 'tagProvidersList',
 		component: tagProvidersList
+	},
+	{
+		path: 'editTagProvider',
+		component: editTagProvider
+	},
+	{
+		path: 'deleteTagProvider',
+		component: deleteTagProvider
+	},
+	{
+		path: 'addTagProvider',
+		component: addTagProvider
+	},
+	{
+		path: 'tagPackagesList',
+		component: tagPackagesList
+	},
+	{
+		path: 'tagPoolList',
+		component: tagPoolList
 	},
 	
 ] 
