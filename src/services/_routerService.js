@@ -54,6 +54,7 @@ import deleteTagProvider from 'Routes/deleteTagProvider';
 import addTagProvider from 'Routes/addTagProvider';
 import tagPackagesList from 'Routes/tagPackagesList';
 import tagPoolList from 'Routes/tagPoolList';
+import tagPoolEditTag from 'Routes/tagPoolEditTag';
 
 
 // async component
@@ -300,6 +301,10 @@ export default [
 	{
 		path: 'tagPoolList',
 		component: tagPoolList
+	},
+	{
+		path: 'tagPoolEditTag',
+		component: tagPoolEditTag
 	},
 	
 ] 

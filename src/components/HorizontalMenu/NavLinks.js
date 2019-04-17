@@ -591,11 +591,11 @@ export default {
             "path": "/horizontal/tagPackagesList",
             "child_routes": null
         },
-        {
-            "menu_title": "sidebar.tagPoolList",
-            "menu_icon": "zmdi zmdi-dropbox",
-            "path": "/horizontal/tagPoolList",
-            "child_routes": null
-        }
+        // {
+        //     "menu_title": "sidebar.tagPoolList",
+        //     "menu_icon": "zmdi zmdi-dropbox",
+        //     "path": "/horizontal/tagPoolList",
+        //     "child_routes": null
+        // }
     ],
 }
