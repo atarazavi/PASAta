@@ -14,6 +14,7 @@ module.exports = {
 	"sidebar.addTagProvider": "Add New Tag Provider",
 	"sidebar.tagPackagesList": "List of Tag Packages",
 	"sidebar.tagPoolList": "List of Tags",
+	"sidebar.UserList": "Users List",
 	"sidebar.tagRequest": "Tag Request",
 	"sidebar.addNewAction": "Add New Action",
 	"sidebar.app": "App",

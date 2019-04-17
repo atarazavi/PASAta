@@ -16,6 +16,7 @@ module.exports = {
 	"sidebar.dashboard3": "داشبورد 3",
 	"sidebar.modules": "ماژول ها",
 	"sidebar.agency": "واسطه",
+	"sidebar.UserList": "لیست کاربران",
 	"sidebar.addUser": "ایجاد کاربر جدید",
 	"sidebar.groupsList": "لیست گروه ها",
 	"sidebar.addNewGroup": "اضافه کردن گروه کاربران",

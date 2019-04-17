@@ -500,6 +500,12 @@ export default {
     ],
     category7: [
         {
+            "menu_title": "sidebar.UserList",
+            "menu_icon": "zmdi zmdi-account",
+            "path": "/horizontal/tables/data-table",
+            "child_routes": null
+        },
+        {
             "menu_title": "sidebar.addUser",
             "menu_icon": "zmdi zmdi-plus",
             "path": "/horizontal/addUser",
