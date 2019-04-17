@@ -59,7 +59,7 @@ class DataTable extends React.Component {
                     "productProviderId": 0,
                     "resultSize": 0,
                     "tagBulkorderId": 0,
-                    "tagPackageId": 0,
+                    "tagPackageId": this.props.location.state.package_id,
                     "tagPackageSeqEnd": this.state.tagPackageSeqEnd,
                     "tagPackageSeqStart": this.state.tagPackageSeqStart,
                     "tagProviderId": 0,
@@ -108,17 +108,14 @@ class DataTable extends React.Component {
 				}
 			})();
 		})
-		console.log('theTagQRCODEstheTagQRCODEs',theTagQRCODEs);
-		
 		this.setState(
 			{theTagQRCODEs}
 		)
-		
     }
 	actionClickhandler = (id) => {
         this.props.history.push({
-            pathname: '/horizontal/tagPoolList',
-            state: { package_id: id }
+            pathname: '/horizontal/tagPoolEditTag',
+            state: { tagID: id, package_id: this.props.location.state.package_id }
         })
 	}
 	handleChange = (event) => {		
