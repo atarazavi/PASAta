@@ -32,7 +32,9 @@ class DataTable extends React.Component {
         tagPackageSeqStart: 0,
         tagPackageSeqEnd: 0,
         chosennumofresults: 10,
-        thetagPoolList: []
+		thetagPoolList: [],
+		theTagQRCODEs:[{id:null, url:null}],
+		isQRCodeLoaded: false
 	}
 	componentDidMount = () => {		
         this.callMainAPI()
@@ -78,32 +80,41 @@ class DataTable extends React.Component {
 				})
 				this.setState(
 					{thetagPoolList}
-                )
+				)
+				this.handleGettingQRCode()
 			}
         })();
     }
     
-    handleGettingQRCode = (key) => {
-        
-		(async () => {
-			const rawResponse = await fetch(AppConfig.baseURL + '/tag/pool/qrcode/' + key, {
-				method: 'GET',
-				headers: {
-					'Content-Type': 'application/json',
-					'Authorization': giventoken,
-					'Accept-Language': currentLanguagecode
+    handleGettingQRCode = () => {	
+		let theTagQRCODEs = []	
+        this.state.thetagPoolList.map(each => {
+			(async () => {
+				const rawResponse = await fetch(AppConfig.baseURL + '/tag/pool/qrcode/' + each.key, {
+					method: 'GET',
+					headers: {
+						'Content-Type': 'application/json',
+						'Authorization': giventoken,
+						'Accept-Language': currentLanguagecode
+					}
+				});
+				const response = await rawResponse;
+				
+				if (response.status == 200 ){
+					theTagQRCODEs.push({id: each.id, url: response.url})
+					this.setState({
+						isQRCodeLoaded: true
+					})
 				}
-			});
-			const response = await rawResponse;
-			
-			if (response.status == 200 ){
-                console.log('response.url', response.url);
-                
-                return (response.url)
-			}
-        })();
+			})();
+		})
+		console.log('theTagQRCODEstheTagQRCODEs',theTagQRCODEs);
+		
+		this.setState(
+			{theTagQRCODEs}
+		)
+		
     }
-
 	actionClickhandler = (id) => {
         this.props.history.push({
             pathname: '/horizontal/tagPoolList',
@@ -119,10 +130,15 @@ class DataTable extends React.Component {
 
 	render() {  
 		const columns = ["QR Code", "Tag ID", "Priority in Package", "Action"];
-		const data = this.state.thetagPoolList.map(each => {            
+		const data = this.state.thetagPoolList.map(each => { 
+			let eachURL;
+			this.state.theTagQRCODEs.map(eachQR => {
+				eachQR.id === each.id ? eachURL = eachQR.url : null
+			})
 			return(
 				[
-                    each.id, each.tagPackageSequence, each.key ,
+					this.state.isQRCodeLoaded ? <img src={eachURL}></img> : each.id, 
+					each.tagPackageSequence, each.key ,
                     <IconButton className="text-success" onClick={() => this.actionClickhandler(each.id)}>
                         <i className="zmdi zmdi-edit"></i>
                     </IconButton>
