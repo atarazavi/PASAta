@@ -75,7 +75,7 @@ class DataTable extends React.Component {
 		switch(action) { 
 			case "Edit": { 
 				this.props.history.push({
-					pathname: '/horizontal/editTags',
+					pathname: 'editTags',
 					state: { roleName: uname, role_id: id }
 				})
 				break;

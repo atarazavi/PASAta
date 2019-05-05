@@ -65,7 +65,7 @@ class Signin extends Component {
     }
     if (this.state.email !== '' && this.state.password !== '' && this.state.isverifiedCaptcha) {
       PAS_Authentication.login(this.state.email, this.state.password, this.state.from ,() => {
-        this.props.history.push('/horizontal/tables/data-table');
+        this.props.history.push('/sidemenu/tables/data-table');
       }, this.showerror)
     }
   }

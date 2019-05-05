@@ -95,7 +95,7 @@ class DataTable extends React.Component {
 	}
 	actionClickhandler = (id,name) => {
         this.props.history.push({
-            pathname: '/horizontal/tagPoolList',
+            pathname: 'tagPoolList',
             state: { package_id: id, package_name: name }
         })
 	}

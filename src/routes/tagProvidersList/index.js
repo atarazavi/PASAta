@@ -78,14 +78,14 @@ class DataTable extends React.Component {
 		switch(action) { 
 			case "edit": { 
 				this.props.history.push({
-					pathname: '/horizontal/editTagProvider',
+					pathname: 'editTagProvider',
 					state: { provider_id: id, provider_name: name }
 				})
 				break;  
 			} 
 			case "delete": { 
 				this.props.history.push({
-					pathname: '/horizontal/deleteTagProvider',
+					pathname: 'deleteTagProvider',
 					state: { provider_id: id, provider_name: name }
 				})
 				break;  

@@ -100,7 +100,7 @@ export default class AutoComplete extends Component {
             // Show notification about success on editing...
             setTimeout(() => {
                 this.props.history.push({
-                    pathname: '/horizontal/tagPoolList',
+                    pathname: 'tagPoolList',
                     state: { package_id: this.props.location.state.package_id }
                 });
             }, 1000);
@@ -162,7 +162,7 @@ export default class AutoComplete extends Component {
 									<Button
 										onClick={() => 
                                             this.props.history.push({
-                                                pathname: '/horizontal/tagPoolList',
+                                                pathname: 'tagPoolList',
                                                 state: { package_id: this.props.location.state.package_id }
                                             })
                                         }

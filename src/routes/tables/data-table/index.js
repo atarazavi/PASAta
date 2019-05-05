@@ -87,28 +87,28 @@ class DataTable extends React.Component {
 		switch(action) { 
 			case "changepass": { 
 				this.props.history.push({
-					pathname: '/horizontal/changePass',
+					pathname: 'changePass',
 					state: { username: uname, user_id: id }
 				})
 				break;  
 			} 
 			case "edit": { 
 				this.props.history.push({
-					pathname: '/horizontal/editUser',
+					pathname: 'editUser',
 					state: { username: uname, user_id: id }
 				})
 				break; 
 			}
 			case "groups": { 
 				this.props.history.push({
-					// pathname: '/horizontal/changePass',
+					// pathname: 'changePass',
 					state: { username: uname, user_id: id }
 				})
 				break; 
 			} 
 			case "roles": { 
 				this.props.history.push({
-					pathname: '/horizontal/changeRoles',
+					pathname: 'changeRoles',
 					state: { username: uname, user_id: id }
 				})
 				break; 
@@ -183,8 +183,8 @@ class DataTable extends React.Component {
 		};
 		return (
 			<div className="data-table-wrapper">
-				<PageTitleBar title={<IntlMessages id="sidebar.dataTable" />} match={this.props.match} />
-				<RctCollapsibleCard heading="Data Table" fullBlock>
+				<PageTitleBar title={<IntlMessages id="sidebar.List of users" />} match={this.props.match} />
+				<RctCollapsibleCard heading="Users List" fullBlock>
 
 					<MUIDataTable
 					

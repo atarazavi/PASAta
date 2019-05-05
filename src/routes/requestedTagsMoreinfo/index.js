@@ -162,7 +162,7 @@ export default class AutoComplete extends Component {
                                 <br></br>
 								<FormGroup check className="p-0">
 									<Button
-										onClick={() => this.props.history.push('/horizontal/requestedTagsList')}
+										onClick={() => this.props.history.push('requestedTagsList')}
 										variant="raised"
 										color="secondary"
 										className="text-white btn-xs mb-10"
