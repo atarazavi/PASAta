@@ -12,11 +12,12 @@ import TinyPieChart from 'Components/Charts/TinyPieChart';
 export default class Revenue extends Component {
 	render() {
 		const { data } = this.props;
+		
 		return (
 			<div className="card">
-				<h4 className="card-title">موجودی</h4>
+				<h4 className="card-title">{data.chartData.title}</h4>
 				<div className="row">
-					<div className="col-sm-6 col-md-6 w-40 mx-auto">
+					<div className="col-sm-6 col-md-6 ">
 						<TinyPieChart
 							labels={data.chartData.labels}
 							datasets={data.chartData.datasets}
@@ -30,8 +31,8 @@ export default class Revenue extends Component {
 								<span className="badge-primary ladgend">&nbsp;</span>
 							</div>
 							<div className="float-left">
-								<h3 className="mb-0">{data.target}</h3>
-								<span className="text-dark fs-14">NotAllocated</span>
+								{/* <h3 className="mb-0"></h3> */}
+								<span className="text-dark fs-14">{data.chartData.labels[1]}</span>
 							</div>
 						</div>
 						<div className="clearfix mb-15">
@@ -39,8 +40,8 @@ export default class Revenue extends Component {
 								<span className="badge-info ladgend">&nbsp;</span>
 							</div>
 							<div className="float-left">
-								<h3 className="mb-0">{data.lastWeek}</h3>
-								<span className="text-dark fs-14">Allocated</span>
+								{/* <h3 className="mb-0"></h3> */}
+								<span className="text-dark fs-14">{data.chartData.labels[0]}</span>
 							</div>
 						</div>
 					</div>
