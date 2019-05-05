@@ -4,7 +4,6 @@
 import React, { Component } from 'react';
 import { Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { ProtectedRouter } from '../Auth/ProtectedRouter'
 
 // app default layout
 import RctAppLayout from 'Components/RctAppLayout';
@@ -18,7 +17,7 @@ class DefaultLayout extends Component {
 		return (
 			<RctAppLayout>
 				{routerService && routerService.map((route,key)=>
-					<ProtectedRouter key={key} path={`${match.url}/${route.path}`} component={route.component} />
+					<Route key={key} path={`${match.url}/${route.path}`} component={route.component} />
 				)}
 			</RctAppLayout>
 		);
