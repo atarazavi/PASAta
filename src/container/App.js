@@ -50,23 +50,6 @@ import PAS_Authentication from '../Auth/PAS_Auth'
 import { privateEncrypt, privateDecrypt } from 'crypto';
 const isPermitted = localStorage.getItem('isAuthenticated')
 const ispermitted2 = PAS_Authentication.authenticated
- function PrivateRoute({...rest }) {
-	return (
-	  <Route
-		{...rest}
-		render={props =>
-		  isPermitted ? null : (
-			<Redirect
-			  to={{
-				pathname: "/session/login",
-				state: { from: props.location }
-			  }}
-			/>
-		  )
-		}
-	  />
-	);
-  }
  
 const handleAuthentication = ({ location }) => {
 	if (/access_token|id_token|error/.test(location.hash)) {
@@ -94,14 +77,8 @@ const InitialPath = ({ component: Component, ...rest, authUser }) =>
 	/>;
 
 class App extends Component {
-	componentDidMount(){
-	
-	}
-
 	render() {
 		const { location, match, user } = this.props;
-		// const isPermitted = localStorage.getItem('isAuthenticated')
-		// const ispermitted2 = PAS_Authentication.authenticated
 		const giventoken = localStorage.getItem('given_token')
 		console.log('auth from localstorage', isPermitted);
 		const isPermitted = localStorage.getItem('isAuthenticated')
@@ -114,24 +91,28 @@ class App extends Component {
 		console.log(location.pathname);
 		
 		if (location.pathname !== '/session/login'){
-			(async () => {
-				const rawResponse = await fetch(AppConfig.baseURL + '/user/checkToken', {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json',
-						'Authorization': giventoken,
-						'Accept-Language': 'fa'
+			if (location.pathname === '/') {
+				return (<Redirect to={'/session/login'} />);
+			}else{
+				(async () => {
+					const rawResponse = await fetch(AppConfig.baseURL + '/user/checkToken', {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json',
+							'Authorization': giventoken,
+							'Accept-Language': 'fa'
+						}
+					});
+					if (rawResponse.status == 200){
+						console.log('rawResponse.status', rawResponse.status);
+					} else {
+						this.props.history.push({
+							pathname: '/session/login',
+							state: {from: window.location.href}
+						})
 					}
-				});
-				if (rawResponse.status == 200){
-					console.log('rawResponse.status', rawResponse.status);
-				} else {
-					this.props.history.push({
-						pathname: '/session/login',
-						state: {from: window.location.href}
-					})
-				}
-			})();
+				})();
+			}
 		}
 		return (
 			<RctThemeProvider>
@@ -141,8 +122,8 @@ class App extends Component {
 					authUser={user}
 					component={RctDefaultLayout}
 				/>
-				<PrivateRoute path="/session/login"/>
 				<Route path="/horizontal" component={HorizontalLayout} />
+				<Route path="/sidemenu" component={RctDefaultLayout} />
 				<Route path="/agency" component={AgencyLayout} />
 				<Route path="/boxed" component={RctBoxedLayout} />
 				<Route path="/signin" component={AppSignIn} />
