@@ -22,7 +22,7 @@ const TinyPieChart = ({ labels, datasets, width, height }) => {
         datasets
     };
     return (
-        <Pie height={height} width={width} data={data} options={options} />
+        <Pie height={height} width={width} data={data} options={options} onElementsClick={(elemen) => console.log('salaaaaaaaaaam', elemen[0]._index)} />
     );
 }
 
