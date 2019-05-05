@@ -106,7 +106,7 @@ export default class AutoComplete extends Component {
               // Show notification about success on editing...
               // Show notification about success on editing...
               setTimeout(() => {
-                  this.props.history.push('/horizontal/requestedTagslist');
+                  this.props.history.push('requestedTagslist');
               }, 1000);
             }else{
               // Show notification about the problem!!!!!!! on editing...
@@ -200,7 +200,7 @@ export default class AutoComplete extends Component {
 										<IntlMessages id="Delete" />
 									</Button>
 									<Button
-										onClick={() => this.props.history.push('/horizontal/requestedTagsList')}
+										onClick={() => this.props.history.push('requestedTagsList')}
 										variant="raised"
 										color="secondary"
 										className="text-white btn-xs mr-10 mb-10"

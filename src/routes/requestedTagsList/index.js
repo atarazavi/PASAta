@@ -200,28 +200,28 @@ class DataTable extends React.Component {
 		switch(action) { 
 			case "ViewPackage": { 
 				this.props.history.push({
-					pathname: '/horizontal/viewPackage',
+					pathname: 'viewPackage',
 					state: { tags_id: id }
 				})
 				break;  
 			} 
 			case "changeTagRequestStatus": { 
 				this.props.history.push({
-					pathname: '/horizontal/changeTagRequestStatus',
+					pathname: 'changeTagRequestStatus',
 					state: { tags_id: id }
 				})
 				break;  
 			} 
 			case "requestedTagsDelete": { 
 				this.props.history.push({
-					pathname: '/horizontal/requestedTagsDelete',
+					pathname: 'requestedTagsDelete',
 					state: { tags_id: id }
 				})
 				break;  
 			} 
 			case "requestedTagsMoreinfo": { 
 				this.props.history.push({
-					pathname: '/horizontal/requestedTagsMoreinfo',
+					pathname: 'requestedTagsMoreinfo',
 					state: { tags_id: id }
 				})
 				break;  

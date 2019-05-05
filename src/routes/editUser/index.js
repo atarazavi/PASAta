@@ -197,7 +197,7 @@ export default class AutoComplete extends Component {
 		
 	}
     returntolist = () => {
-        this.props.history.push('/horizontal/tables/data-table');
+        this.props.history.push('tables/data-table');
     }
 
 	render() {

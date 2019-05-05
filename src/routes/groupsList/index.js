@@ -69,14 +69,14 @@ class DataTable extends React.Component {
 		switch(action) { 
 			case "changeGroupRole": { 
 				this.props.history.push({
-					pathname: '/horizontal/changeGroupRole',
+					pathname: 'changeGroupRole',
 					state: { groupname: uname, group_id: id }
 				})
 				break;  
 			} 
 			case "edit": { 
 				this.props.history.push({
-					pathname: '/horizontal/editGroup',
+					pathname: 'editGroup',
 					state: { grouupname: uname, grouup_id: id }
 				})
 				break; 

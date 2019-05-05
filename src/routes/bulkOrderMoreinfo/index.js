@@ -56,7 +56,8 @@ export default class AutoComplete extends Component {
                         ChartConfig.color.info,
                         ChartConfig.color.primary
                     ]
-                }]
+                }],
+                title: 'موجودی'
             }
         }
 	}
@@ -118,7 +119,8 @@ export default class AutoComplete extends Component {
                                     ChartConfig.color.info,
                                     ChartConfig.color.primary
                                 ]
-                            }]
+                            }],
+                            title: 'موجودی'
                         },
                         // target: '$50000',
                         // lastWeek: '$100000'
@@ -130,8 +132,6 @@ export default class AutoComplete extends Component {
 	}
 
 	render() { 
-        console.log('this.state.thechartData',this.state.thechartData);
-        
 		return (
 			<div className="formelements-wrapper">
 				<div className="row">
@@ -203,7 +203,7 @@ export default class AutoComplete extends Component {
                                 <br></br>
 								<FormGroup check className="p-0">
 									<Button
-										onClick={() => this.props.history.push('/horizontal/tagInventory')}
+										onClick={() => this.props.history.push('tagInventory')}
 										variant="raised"
 										color="secondary"
 										className="text-white btn-xs mb-10"

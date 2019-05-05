@@ -76,7 +76,7 @@ export default class AutoComplete extends Component {
 		// })();
 	}
 	returntolist = () => {
-        this.props.history.push('/horizontal/tables/data-table');
+        this.props.history.push('/sidemenu/tables/data-table');
     }
 	render() {
 		return (

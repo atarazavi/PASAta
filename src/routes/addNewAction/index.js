@@ -59,7 +59,7 @@ export default class AutoComplete extends Component {
 		  console.log(content);
 		  if (content.status == 200 ){
               console.log('success');
-              this.props.history.push('/horizontal/actionList');
+              this.props.history.push('actionList');
 		  }
 		})();
 	}

@@ -164,7 +164,7 @@ export default class AutoComplete extends Component {
     }
 
     returntolist = () => {
-        this.props.history.push('/horizontal/roleList');
+        this.props.history.push('roleList');
     }
 
 	render() {
