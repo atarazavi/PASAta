@@ -78,7 +78,6 @@ class Sidebar extends Component {
 								autoHideDuration={100}
 								style={{ height: 'calc(100vh - 60px)' }}
 							>
-								<UserBlock />
 								{!agencySidebar ?
 									<SidebarContent />
 									:

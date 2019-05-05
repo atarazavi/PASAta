@@ -144,149 +144,99 @@ export default {
 		}
 	],
 	category2: [
-		{
-			"menu_title": "sidebar.inbox",
-			"menu_icon": "zmdi zmdi-email",
-			"path": "/app/mail",
-			"child_routes": null
-		},
-		{
-			"menu_title": "sidebar.chat",
-			"menu_icon": "zmdi zmdi-comments",
-			"path": "/app/chat",
-			"child_routes": null
-		},
-		{
-			"menu_title": "sidebar.toDo",
-			"menu_icon": "zmdi zmdi-comment-text-alt",
-			"path": "/app/todo",
-			"child_routes": null
-		}
-	],
-	category3: [
-		{
-			"menu_title": "sidebar.uiComponents",
-			"menu_icon": "zmdi zmdi-wrench",
-			"child_routes": [
-				{
-					"path": "/app/ui-components/alerts",
-					"menu_title": "sidebar.alerts"
-				},
-				{
-					"path": "/app/ui-components/app-bar",
-					"menu_title": "sidebar.appBar"
-				},
-				{
-					"path": "/app/ui-components/avatars",
-					"menu_title": "sidebar.avatars"
-				},
-				{
-					"path": "/app/ui-components/buttons",
-					"menu_title": "sidebar.buttons"
-				},
-				{
-					"path": "/app/ui-components/bottom-navigations",
-					"menu_title": "sidebar.bottomNavigations"
-				},
-				{
-					"path": "/app/ui-components/badges",
-					"menu_title": "sidebar.badges"
-				},
-				{
-					"path": "/app/ui-components/cards",
-					"menu_title": "sidebar.cards"
-				},
-				{
-					"path": "/app/ui-components/cards-masonry",
-					"menu_title": "sidebar.cardsMasonry"
-				},
-				{
-					"path": "/app/ui-components/chip",
-					"menu_title": "sidebar.chip"
-				},
-				{
-					"path": "/app/ui-components/dialog",
-					"menu_title": "sidebar.dialog"
-				},
-				{
-					"path": "/app/ui-components/dividers",
-					"menu_title": "sidebar.dividers"
-				},
-				{
-					"path": "/app/ui-components/drawers",
-					"menu_title": "sidebar.drawers"
-				},
-				{
-					"path": "/app/ui-components/expansion-panel",
-					"menu_title": "sidebar.expansionPanel"
-				},
-				{
-					"path": "/app/ui-components/grid-list",
-					"menu_title": "sidebar.gridList"
-				},
-				{
-					"path": "/app/ui-components/list",
-					"menu_title": "sidebar.list"
-				},
-				{
-					"path": "/app/ui-components/menu",
-					"menu_title": "sidebar.menu"
-				},
-				{
-					"path": "/app/ui-components/popover",
-					"menu_title": "sidebar.popoverAndToolTip"
-				},
-				{
-					"path": "/app/ui-components/progress",
-					"menu_title": "sidebar.progress"
-				},
-				{
-					"path": "/app/ui-components/snackbar",
-					"menu_title": "sidebar.snackbar"
-				},
-				{
-					"path": "/app/ui-components/selection-controls",
-					"menu_title": "sidebar.selectionControls"
-				}
-			]
-		},
-		{
-			"menu_title": "sidebar.advancedComponent",
-			"menu_icon": "zmdi zmdi-view-carousel",
-			"child_routes": [
-				{
-					"path": "/app/advanced-component/dateTime-picker",
-					"menu_title": "sidebar.dateAndTimePicker"
-				},
-				{
-					"path": "/app/advanced-component/tabs",
-					"menu_title": "sidebar.tabs"
-				},
-				{
-					"path": "/app/advanced-component/stepper",
-					"menu_title": "sidebar.stepper"
-				},
-				{
-					"path": "/app/advanced-component/notification",
-					"menu_title": "sidebar.notification"
-				},
-				{
-					"path": "/app/advanced-component/sweet-alert",
-					"menu_title": "sidebar.sweetAlert"
-				},
-				{
-					"path": "/app/advanced-component/auto-complete",
-					"menu_title": "sidebar.autoComplete"
-				}
-			]
-		},
-		{
-			"menu_title": "sidebar.aboutUs",
-			"menu_icon": "zmdi zmdi-info",
-			"path": "/app/about-us",
-			"child_routes": null
-		}
-	],
+        {
+            "menu_title": "sidebar.UserList",
+            "menu_icon": "zmdi zmdi-account",
+            "path": "/sidemenu/tables/data-table",
+            "child_routes": null
+        },
+        {
+            "menu_title": "sidebar.addUser",
+            "menu_icon": "zmdi zmdi-plus",
+            "path": "/sidemenu/addUser",
+            "child_routes": null
+        },
+        {
+            "menu_title": "sidebar.groupsList",
+            "menu_icon": "zmdi zmdi-collection-video",
+            "path": "/sidemenu/groupsList",
+            "child_routes": null
+        },
+        {
+            "menu_title": "sidebar.addNewGroup",
+            "menu_icon": "zmdi zmdi-dropbox",
+            "path": "/sidemenu/addNewGroup",
+            "child_routes": null
+        },
+        {
+            "menu_title": "sidebar.addNewRole",
+            "menu_icon": "zmdi zmdi-dropbox",
+            "path": "/sidemenu/addNewRole",
+            "child_routes": null
+        },
+        {
+            "menu_title": "sidebar.RoleList",
+            "menu_icon": "zmdi zmdi-dropbox",
+            "path": "/sidemenu/roleList",
+            "child_routes": null
+        },
+        {
+            "menu_title": "sidebar.addNewAction",
+            "menu_icon": "zmdi zmdi-dropbox",
+            "path": "/sidemenu/addNewAction",
+            "child_routes": null
+        },
+        {
+            "menu_title": "sidebar.ActionList",
+            "menu_icon": "zmdi zmdi-dropbox",
+            "path": "/sidemenu/actionList",
+            "child_routes": null
+        }
+    ],
+    category3: [
+        {
+            "menu_title": "sidebar.tagBulkOrder",
+            "menu_icon": "zmdi zmdi-crop",
+            "path": "/sidemenu/tagBulkOrder",
+            "child_routes": null
+        },
+        {
+            "menu_title": "sidebar.tagInventory",
+            "menu_icon": "zmdi zmdi-collection-video",
+            "path": "/sidemenu/tagInventory",
+            "child_routes": null
+        },
+        {
+            "menu_title": "sidebar.tagRequest",
+            "menu_icon": "zmdi zmdi-dropbox",
+            "path": "/sidemenu/tagRequest",
+            "child_routes": null
+        },
+        {
+            "menu_title": "sidebar.requestedTagsList",
+            "menu_icon": "zmdi zmdi-dropbox",
+            "path": "/sidemenu/requestedTagsList",
+            "child_routes": null
+        },
+        {
+            "menu_title": "sidebar.tagProvidersList",
+            "menu_icon": "zmdi zmdi-dropbox",
+            "path": "/sidemenu/tagProvidersList",
+            "child_routes": null
+        },
+        {
+            "menu_title": "sidebar.addTagProvider",
+            "menu_icon": "zmdi zmdi-dropbox",
+            "path": "/sidemenu/addTagProvider",
+            "child_routes": null
+        },
+        {
+            "menu_title": "sidebar.tagPackagesList",
+            "menu_icon": "zmdi zmdi-dropbox",
+            "path": "/sidemenu/tagPackagesList",
+            "child_routes": null
+        }
+    ],
 	category4: [
 		{
 			"menu_title": "sidebar.forms",
