@@ -55,6 +55,7 @@ import addTagProvider from 'Routes/addTagProvider';
 import tagPackagesList from 'Routes/tagPackagesList';
 import tagPoolList from 'Routes/tagPoolList';
 import tagPoolEditTag from 'Routes/tagPoolEditTag';
+import DasboardMainPage from 'Routes/DasboardMainPage';
 
 
 // async component
@@ -305,6 +306,10 @@ export default [
 	{
 		path: 'tagPoolEditTag',
 		component: tagPoolEditTag
+	},
+	{
+		path: 'DasboardMainPage',
+		component: DasboardMainPage
 	},
 	
 ] 
