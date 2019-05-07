@@ -30,32 +30,36 @@ class ReactCharts extends Component {
 					match={this.props.match}
 				/>
 				<div className="row">
-					<div className="col-sm-12 col-md-6 col-xl-6">
+					<div className="col-sm-12 col-md-3 col-xl-3">
 						<RctCollapsibleCard heading="Doughnut">
 							<Doughnut />
-						</RctCollapsibleCard>
-						<RctCollapsibleCard heading="Line Chart">
-							<LineChart />
-						</RctCollapsibleCard>
-						<RctCollapsibleCard heading="Bubble Chart">
-							<Bubble />
-						</RctCollapsibleCard>
-						<RctCollapsibleCard heading="Bar Chart">
-							<Bar />
-						</RctCollapsibleCard>
-					</div>
-					<div className="col-sm-12 col-md-6 col-xl-6">
-						<RctCollapsibleCard heading="Polar Chart">
-							<Polar />
 						</RctCollapsibleCard>
 						<RctCollapsibleCard heading="Pie Chart">
 							<Pie />
 						</RctCollapsibleCard>
-						<RctCollapsibleCard heading="Radar Chart">
-							<Radar />
+					</div>
+					<div className="col-sm-12 col-md-3 col-xl-3">
+						<RctCollapsibleCard heading="Pie Chart">
+							<Pie />
 						</RctCollapsibleCard>
-						<RctCollapsibleCard heading="Horizontal Bar">
-							<HorizontalBar />
+						<RctCollapsibleCard heading="Doughnut">
+							<Doughnut />
+						</RctCollapsibleCard>
+					</div>
+					<div className="col-sm-12 col-md-3 col-xl-3">
+						<RctCollapsibleCard heading="Doughnut">
+							<Doughnut />
+						</RctCollapsibleCard>
+						<RctCollapsibleCard heading="Pie Chart">
+							<Pie />
+						</RctCollapsibleCard>
+					</div>
+					<div className="col-sm-12 col-md-3 col-xl-3">
+						<RctCollapsibleCard heading="Pie Chart">
+							<Pie />
+						</RctCollapsibleCard>
+						<RctCollapsibleCard heading="Doughnut">
+							<Doughnut />
 						</RctCollapsibleCard>
 					</div>
 				</div>
