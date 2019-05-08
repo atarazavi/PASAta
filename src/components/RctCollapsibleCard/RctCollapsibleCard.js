@@ -12,7 +12,7 @@ class RctCollapsibleCard extends Component {
 
     state = {
         reload: false,
-        collapse: true,
+        collapse: this.props.collapsible === 'BcollapsedByDefault' ? false : true,
         close: false
     }
 
@@ -43,7 +43,7 @@ class RctCollapsibleCard extends Component {
                             <h4>{heading} {badge && <Badge className="p-1 ml-10" color={badge.class}>{badge.name}</Badge>}</h4>
                             {(collapsible || reloadable || closeable) &&
                                 <div className="contextual-link">
-                                    {collapsible && <a href="javascript:void(0)" onClick={() => this.onCollapse()}><i className="ti-minus"></i></a>}
+                                    {collapsible && <a href="javascript:void(0)" onClick={() => this.onCollapse()}><i className= {this.state.collapse ? "ti-minus" : "ti-plus"}></i></a>}
                                     {reloadable && <a href="javascript:void(0)" onClick={() => this.onReload()}><i className="ti-reload"></i></a>}
                                     {closeable && <a href="javascript:void(0)" onClick={() => this.onCloseSection()}><i className="ti-close"></i></a>}
                                 </div>

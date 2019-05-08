@@ -31,7 +31,6 @@ export default class Revenue extends Component {
 								<span className="badge-primary ladgend">&nbsp;</span>
 							</div>
 							<div className="float-left">
-								{/* <h3 className="mb-0"></h3> */}
 								<span className="text-dark fs-14">{data.chartData.labels[1]}</span>
 							</div>
 						</div>
@@ -40,7 +39,6 @@ export default class Revenue extends Component {
 								<span className="badge-info ladgend">&nbsp;</span>
 							</div>
 							<div className="float-left">
-								{/* <h3 className="mb-0"></h3> */}
 								<span className="text-dark fs-14">{data.chartData.labels[0]}</span>
 							</div>
 						</div>
