@@ -3,8 +3,6 @@
  */
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 
@@ -46,22 +44,6 @@ class DrawerComponent extends React.Component {
 	};
 
 	render() {
-		const { classes } = this.props;
-		const sideList = (
-			<div className={classes.list}>
-				<List>{mailFolderListItems}</List>
-				<Divider />
-				<List>{otherMailFolderListItems}</List>
-			</div>
-		);
-
-		const fullList = (
-			<div className={classes.listFull}>
-				<List>{mailFolderListItems}</List>
-				<Divider />
-				<List>{otherMailFolderListItems}</List>
-			</div>
-		);
 		return (
 			<div className="drawer-wrapper">
 				<RctCollapsibleCard>

@@ -54,8 +54,9 @@ class CheckboxListComponent extends Component {
         return (
             <RctCollapsibleCard
                 heading={<IntlMessages id="widgets.checkboxListControl" />}
+                collapsible={'BcollapsedByDefault'}
             >
-                <Scrollbars className="rct-scroll" autoHeight autoHeightMin={100} autoHeightMax={460} autoHide>
+                <Scrollbars className="rct-scroll" autoHeight autoHeightMin={100} autoHeightMax={160} autoHide>
                     <List>
                         {this.state.listItems.map((data, key) => (
                             <ListItem style={{padding: 0}} button onClick={() => this.handleToggleListItems(key)} key={key}>

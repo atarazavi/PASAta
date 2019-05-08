@@ -11,9 +11,9 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import DashboardContent from './dashboardContent'
-import FilterContent from './filterContent'
+import PreventScrollButtons from './components/PreventScrollButtons';
 
-const drawerWidth = 280;
+const drawerWidth = 400;
 
 const styles = theme => ({
   root: {
@@ -146,14 +146,7 @@ class filterDrawer extends React.Component {
                 {theme.direction === 'rtl' ? <i className="zmdi zmdi-chevron-right"></i> : <i className="zmdi zmdi-chevron-left"></i>}
                 </IconButton>
             </div>
-            <Divider />
-            <FilterContent />
-            <FilterContent />
-            <FilterContent />
-            <FilterContent />
-            {/* <List className={classes.list}>{mailFolderListItems}</List>
-            <Divider />
-            <List className={classes.list}>{otherMailFolderListItems}</List> */}
+            <PreventScrollButtons />
             </div>
         </Scrollbars>
       </Drawer>
