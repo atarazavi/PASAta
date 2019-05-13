@@ -60,12 +60,15 @@ class Signin extends Component {
     
   }
   onUserLogin() {
-    if (this.state.isverifiedCaptcha==false) {
+    console.log('onUserLogin called in login page');
+    
+    if (this.state.isverifiedCaptcha == false) {
       NotificationManager.error(<IntlMessages id="Login.captcha"/>)
     }
     if (this.state.email !== '' && this.state.password !== '' && this.state.isverifiedCaptcha) {
+      console.log('conditions ate passed!');
       PAS_Authentication.login(this.state.email, this.state.password, this.state.from ,() => {
-        this.props.history.push('/sidemenu/tables/data-table');
+        this.props.history.push('/sidemenu/DasboardMainPage');
       }, this.showerror)
     }
   }

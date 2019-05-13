@@ -10,6 +10,8 @@ class PAS_Auth {
     }
   
     login(uName, password, fromlink, cb, response) {
+        console.log('login in auth called');
+        
         (async () => {
             const rawResponse = await fetch(AppConfig.baseURL + '/user/login', {
                 method: 'POST',
@@ -20,7 +22,7 @@ class PAS_Auth {
                 // body: JSON.stringify({"username":"admin","password":"Pas@2018"})
             });
             const content = await rawResponse.json();
-            console.log(content);
+            console.log('response in auth.login',content);
             if (content.status == 200 ){
                 console.log('content.token',content.token);
                 this.authenticated = true;

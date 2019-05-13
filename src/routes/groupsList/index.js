@@ -26,7 +26,7 @@ class DataTable extends React.Component {
 		thegroupslist: []
 	}
 
-	componentDidMount = () => {		
+	componentDidMount = () => {				
 		(async () => {
 		const rawResponse = await fetch(AppConfig.baseURL + '/permission/group/filter', {
 			method: 'POST',
