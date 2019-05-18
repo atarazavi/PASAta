@@ -17,13 +17,6 @@ import LanguageProvider from '../../../components/Header/LanguageProvider';
 import IntlMessages from 'Util/IntlMessages';
 import { NotificationContainer, NotificationManager } from 'react-notifications';
 
-
-// components
-import { SessionSlider } from 'Components/Widgets';
-
-// axios
-import axios from 'axios';
-
 // app config
 import AppConfig from 'Constants/AppConfig';
 
