@@ -6,7 +6,7 @@ import {
   CardTitle,
   Button,
 } from 'reactstrap';
-
+import { NotificationContainer, NotificationManager } from 'react-notifications';
 // page title bar
 import PageTitleBar from 'Components/PageTitleBar/PageTitleBar';
 
@@ -37,17 +37,13 @@ export default class Cards extends Component {
             });
             const content = await rawResponse.json();
             if (content.status == 200) {
-                // Show notification about success on editing...
-                // Show notification about success on editing...
-                // Show notification about success on editing...
+                NotificationManager.success(<IntlMessages id="Edit.success"/>)
                 // Show notification about success on editing...
                 setTimeout(() => {
                     this.props.history.push('tagProvidersList');
                 }, 1000);
             }else{
-                // Show notification about the problem!!!!!!! on editing...
-                // Show notification about the problem!!!!!!! on editing...
-                // Show notification about the problem!!!!!!! on editing...
+                NotificationManager.error(<IntlMessages id="Edit.fail"/>)
                 // Show notification about the problem!!!!!!! on editing...
             }
         })();

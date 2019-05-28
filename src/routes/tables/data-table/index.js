@@ -9,7 +9,7 @@ import PageTitleBar from 'Components/PageTitleBar/PageTitleBar';
 
 // rct card box
 import RctCollapsibleCard from 'Components/RctCollapsibleCard/RctCollapsibleCard';
-
+import DeleteConfirmationDialog from "Components/DeleteConfirmationDialog/DeleteConfirmationDialog"
 // intl messages
 import IntlMessages from 'Util/IntlMessages';
 
@@ -139,12 +139,18 @@ class DataTable extends React.Component {
 		var logic = lang=="en"?columns
 		:
 		columnsFa
+		var tablemessage = lang =="en" ? "Sorry, no matching records found" : "متاسفانه ،اطلاعات مورد نظر  پیدا نشد"
 		const data = this.state.theuserslist.map(eachuser => {
 			return(
 				[eachuser.username, eachuser.name, eachuser.productOwnerName, eachuser.userState, eachuser.email, 
 					<div>
 						<Tooltip id="tooltip-fab" title={<IntlMessages id="tooltip.error" />}>
-							<IconButton className="text-danger" onClick={() => { if (window.confirm('Are you sure you wish to delete'+ eachuser.username +'?')) this.deletehandler(eachuser.id) } } aria-label="Delete" id="delete">
+							<IconButton className="text-danger" onClick={() => { <DeleteConfirmationDialog
+								ref="deleteConfirmation"
+								title="Are you sure want to delete?"
+								message="This will delete permanently your feedback from feedback list."
+								onConfirm={() => this.deletehandler(eachuser.id)}
+							/>  } } aria-label="Delete" id="delete">
 							<i className="zmdi zmdi-close"></i>
 							</IconButton>
 						</Tooltip>
@@ -179,16 +185,22 @@ class DataTable extends React.Component {
 		const options = {
 			filterType: 'dropdown',
 			responsive: 'stacked',
-			selectableRows: false
+			selectableRows: false,
+			textLabels: {
+				body: {
+				  noMatch: tablemessage,
+				},
+			}
 		};
 		return (
 			<div className="data-table-wrapper">
-				<PageTitleBar title={<IntlMessages id="sidebar.List of users" />} match={this.props.match} />
-				<RctCollapsibleCard heading="Users List" fullBlock>
+				<PageTitleBar title={<IntlMessages id="sidebar.listofusers" />} match={this.props.match} />
+				<RctCollapsibleCard heading=
+				{<IntlMessages id="sidebar.UserList" />} fullBlock>
 
 					<MUIDataTable
 					
-						title={"Users list"}
+						title={<IntlMessages id="sidebar.UserList" />}
 						data={data}
 						columns={
 							logic

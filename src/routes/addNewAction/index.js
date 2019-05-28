@@ -69,28 +69,28 @@ export default class AutoComplete extends Component {
 			<div className="formelements-wrapper">
 				<div className="row">
 					<div className="col-sm-12 col-md-12 col-xl-6">
-						<RctCollapsibleCard heading="Form Grid">
+						<RctCollapsibleCard heading={<IntlMessages id="action.add" />}>
 							<Form>
 								<FormGroup row>
-									<Label for="actionname_1" sm={2}>Action name</Label>
+									<Label for="actionname_1" sm={2}><IntlMessages id="action.name" /></Label>
 									<Col sm={10}>
 										<Input type="text" name="actionname" id="actionname_1" onChange={this.handleChange} value={this.state.actionname} />
 									</Col>
 								</FormGroup>
 								<FormGroup row>
-									<Label for="description" sm={2}>description</Label>
+									<Label for="description" sm={2}><IntlMessages id="widgets.description" /></Label>
 									<Col sm={10}>
 										<Input type="text" name="description" id="description" onChange={this.handleChange} value={this.state.description} />
 									</Col>
 								</FormGroup>
 								<FormGroup row>
-									<Label for="path" sm={2}>path</Label>
+									<Label for="path" sm={2}><IntlMessages id="action.path" /></Label>
 									<Col sm={10}>
 										<Input type="text" name="path" id="path" onChange={this.handleChange} value={this.state.path} />
 									</Col>
 								</FormGroup>
 								<FormGroup check className="p-0">
-									<Button onClick={this.handleSubmit} color="primary">Submit</Button>
+									<Button onClick={this.handleSubmit} color="primary"><IntlMessages id="components.submit" /></Button>
 								</FormGroup>
 							</Form>
 						</RctCollapsibleCard>

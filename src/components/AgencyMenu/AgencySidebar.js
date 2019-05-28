@@ -46,7 +46,7 @@ class AgencySidebar extends Component {
                </List>
                <List
                   className="rct-mainMenu p-0 m-0 list-unstyled"
-                  subheader={<ListSubheader className="side-title" component="li"><IntlMessages id="sidebar.modules" /></ListSubheader>}
+                  subheader={<ListSubheader className="side-title" component="li">"<IntlMessages id="sidebar.modules" />"</ListSubheader>}
                >
                   {agencySidebarMenu.category2.map((menu, key) => (
                      <AgencySidebarMenuItem

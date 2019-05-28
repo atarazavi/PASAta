@@ -5,11 +5,12 @@ import { Redirect } from 'react-router-dom';
 
 class PAS_Auth {
     constructor() {
-        this.authenticated;
-        this.lastToken = '';
+      this.authenticated;
+      this.lastToken = '';
     }
   
     login(uName, password, fromlink, cb, response) {
+        console.log('login in auth called');
         
         (async () => {
             const rawResponse = await fetch(AppConfig.baseURL + '/user/login', {
@@ -18,14 +19,16 @@ class PAS_Auth {
                 'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({"username":uName,"password":password})
+                // body: JSON.stringify({"username":"admin","password":"Pas@2018"})
             });
             const content = await rawResponse.json();
+            console.log('response in auth.login',content);
             if (content.status == 200 ){
+                console.log('content.token',content.token);
                 this.authenticated = true;
                 this.lastToken = content.token;
                 localStorage.setItem("given_token", content.token);
                 localStorage.setItem("isAuthenticated", true);
-                localStorage.setItem("actionDTOS", JSON.stringify(content.result.actionDTOS));
                 if (fromlink){
                   this.props.history.push(fromlink);
                 }else{cb();}
@@ -36,9 +39,9 @@ class PAS_Auth {
     }
   
     logout(cb) {
+        console.log('logout in pas_auth')
         localStorage.removeItem('given_token');
         localStorage.setItem("isAuthenticated", false);
-        localStorage.setItem("actionDTOS", false);
         this.authenticated = false;
         this.lastToken = '';
         cb();

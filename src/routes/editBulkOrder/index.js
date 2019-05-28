@@ -12,7 +12,7 @@ import {
 	Col,
 	FormFeedback
 } from 'reactstrap';
-
+import { NotificationContainer, NotificationManager } from 'react-notifications';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 
@@ -176,17 +176,13 @@ export default class AutoComplete extends Component {
 		  const content = await rawResponse.json();
 		  console.log(content);
 		  if (content.status == 200) {
+			NotificationManager.success(<IntlMessages id="Edit.success"/>)
 			// Show notification about success on editing...
-			// Show notification about success on editing...
-			// Show notification about success on editing...
-            // Show notification about success on editing...
             setTimeout(() => {
                 this.props.history.push('tagInventory');
             }, 1000);
 		  }else{
-			// Show notification about the problem!!!!!!! on editing...
-			// Show notification about the problem!!!!!!! on editing...
-			// Show notification about the problem!!!!!!! on editing...
+            NotificationManager.error(<IntlMessages id="Edit.fail"/>)
 			// Show notification about the problem!!!!!!! on editing...
 		  }
 		})();

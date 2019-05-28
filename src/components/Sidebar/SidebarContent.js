@@ -23,7 +23,7 @@ class SidebarContent extends Component {
         }
         this.props.onToggleMenu(data);
     }
-    
+
     render() {
         const { sidebarMenus } = this.props.sidebar;
         return (
@@ -31,7 +31,7 @@ class SidebarContent extends Component {
                 <nav className="navigation">
                     <List
                         className="rct-mainMenu p-0 m-0 list-unstyled"
-                        subheader={<ListSubheader className="side-title" component="li"><IntlMessages id="sidebar.modules" /></ListSubheader>}
+                        subheader={<ListSubheader className="side-title" component="li"></ListSubheader>}
                     >
                         {sidebarMenus.category2.map((menu, key) => (
                             <NavMenuItem
@@ -43,7 +43,7 @@ class SidebarContent extends Component {
                     </List>
                     <List
                         className="rct-mainMenu p-0 m-0 list-unstyled"
-                        subheader={<ListSubheader className="side-title" component="li"><IntlMessages id="sidebar.component" /></ListSubheader>}
+                        subheader={<ListSubheader className="side-title" component="li"></ListSubheader>}
                     >
                         {sidebarMenus.category3.map((menu, key) => (
                             <NavMenuItem

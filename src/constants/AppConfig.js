@@ -19,7 +19,7 @@ const AppConfig = {
     enableSidebarBackgroundImage: true,                      // Enable Sidebar Background Image
     sidebarImage: require('Assets/img/sidebar-4.jpg'),     // Select sidebar image
     isDarkSidenav: true,                                   // Set true to dark sidebar
-    enableThemeOptions: true,                              // Enable Theme Options
+    enableThemeOptions: false,                              // Enable Theme Options
     locale: {
         languageId: 'english',
         locale: 'en',

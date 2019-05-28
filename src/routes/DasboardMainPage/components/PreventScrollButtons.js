@@ -14,14 +14,13 @@ import {
 	Input,
 	Col,
 } from 'reactstrap';
-import DatePicker from './DatePicker';
 
 import FilterContent from '../filterContent'
 
 // intl messages
 import IntlMessages from 'Util/IntlMessages';
 
-import {DatePicker as JalaliDatePicker} from "react-advance-jalaali-datepicker";
+import {DatePicker} from "react-advance-jalaali-datepicker";
 // app config
 import AppConfig from 'Constants/AppConfig';
 const giventoken = localStorage.getItem('given_token')
@@ -44,19 +43,11 @@ class PreventScrollButtons extends Component {
         STARTING_DATE: [],
         HISTORGAM_INTERVAL: [],
         TAP_AUTH_RESULT_TYPE: [],
-        chosenStartDate : '',
-        chosenEndDate: '',
-        chosenSTARTING_DATE: '',
-        chosenTAP_AUTH_RESULT_TYPE: ''
+        chosenstartdate : '',
+        chosenenddate: '',
 
     }
 
-	changehandler = (event) => {
-		const {name, value} = event.target
-		this.setState({
-			[name]: value
-		})
-	}
     handleChange(e, value) {
         this.setState({ activeIndex: value });
     }
@@ -129,12 +120,12 @@ class PreventScrollButtons extends Component {
     
 	handleChange_DatePicker_EndDate = (selectedunix, selectedformatted) => {
 		this.setState({
-			chosenEndDate: selectedformatted
+			chosenenddate: selectedformatted
 		})
 	}
 	handleChange_DatePicker_StartDate = (selectedunix, selectedformatted) => {
 		this.setState({
-			chosenStartDate: selectedformatted
+			chosenstartdate: selectedformatted
 		})
 	}
     render() {
@@ -147,7 +138,7 @@ class PreventScrollButtons extends Component {
                             <FormGroup row style={{marginBottom: 0}}>
                                 <Label for="roleName-1" style={{fontSize:12}} sm={5}>starting date from</Label>
                                 <Col sm={7}>
-                                    <Input className="mb-20" type="select" name="chosenSTARTING_DATE" onChange={this.changehandler} bsSize="sm">
+                                    <Input className="mb-20" type="select" bsSize="sm">
                                         <option selected disabled>Choose starting date</option>
                                         {this.state.STARTING_DATE.map(each => {
                                             return(
@@ -158,7 +149,7 @@ class PreventScrollButtons extends Component {
                                 </Col>
                                 <Label for="roleName-1" style={{fontSize:12}} sm={5}>Auth result type</Label>
                                 <Col sm={7}>
-                                    <Input className="mb-20" type="select" name="chosenTAP_AUTH_RESULT_TYPE" onChange={this.changehandler} bsSize="sm">
+                                    <Input className="mb-20" type="select" bsSize="sm">
                                         <option selected disabled>Choose Auth result type</option>
                                         {this.state.TAP_AUTH_RESULT_TYPE.map(each => {
                                             return(
@@ -172,32 +163,22 @@ class PreventScrollButtons extends Component {
                                 
 								<Label style={{fontSize:12}} sm={5} for="startDate">Start Date:</Label>
 								<Col style={{fontSize:12}} sm={7}>
-                                {currentLanguagecode == 'fa' ?
-                                    <JalaliDatePicker
+                                    <DatePicker
                                         placeholder="انتخاب تاریخ آغاز"
                                         format="jYYYY/jMM/jDD"
                                         onChange={this.handleChange_DatePicker_StartDate}
                                         id="smallerDatePickerClass"
                                     />
-                                    :
-									<Input type="date" name="chosenStartDate" id="startDate" onChange={this.changehandler} placeholder="dd/mm/yyyy" />
-                                    // <DatePicker />
-                                }
                                 </Col>
 								<Label style={{fontSize:12}} sm={5} for="endDate">End Date:</Label>
 								<Col style={{fontSize:12}} sm={7}>
-                                {currentLanguagecode == 'fa' ?
-                                    <JalaliDatePicker 
+                                    <DatePicker 
                                         inputComponent={this.DatePickerInput}
                                         placeholder="انتخاب تاریخ پایان"
                                         format="jYYYY/jMM/jDD"
                                         onChange={this.handleChange_DatePicker_EndDate}
                                         id="smallerDatePickerClass"
                                     />
-                                    :
-									<Input type="date" name="chosenEndDate" id="endDate" onChange={this.changehandler} placeholder="dd/mm/yyyy" />
-                                    // <DatePicker />
-                                }
                                 </Col>
                             </FormGroup>
                             <Button className="mb-10" color="primary">Submit</Button>

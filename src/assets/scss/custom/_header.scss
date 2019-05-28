@@ -1,5 +1,16 @@
 /*======== Header Scss ========*/
-
+.MuiAppBar-root-19{
+   z-index: 1 !important;
+} 
+// .filterDrawer-drawerPaper-11{
+//    position: sticky !important;
+// }
+.filterDrawer-appBarShift-left-7:dir(rtl) {
+      margin-left: 0 !important;
+   margin-right: 400px;
+   
+   
+}
 .app-header {
    .rct-header {
       background-color: $navbar-bg;

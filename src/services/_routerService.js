@@ -34,6 +34,7 @@ import addAction2Role from 'Routes/addAction2Role';
 import actionList from 'Routes/actionList';
 import tagBulkOrder from 'Routes/tagBulkOrder';
 import viewTags from 'Routes/viewTags';
+import editTags from 'Routes/editTags';
 import tagChangeStatus from 'Routes/tagChangeStatus';
 import tagDelete from 'Routes/tagDelete';
 import tagInventory from 'Routes/tagInventory';
@@ -221,6 +222,10 @@ export default [
 	{
 		path: 'viewTags',
 		component: viewTags
+	},
+	{
+		path: 'editTags',
+		component: editTags
 	},
 	{
 		path: 'tagChangeStatus',

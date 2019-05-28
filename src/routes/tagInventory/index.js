@@ -6,6 +6,7 @@ import MUIDataTable from "mui-datatables";
 import { Form, FormGroup, Label, Input } from 'reactstrap';
 import Button from '@material-ui/core/Button';
 
+import DeleteConfirmationDialog from "Components/DeleteConfirmationDialog/DeleteConfirmationDialog"
 import { Badge } from 'reactstrap';
 // page title bar
 import PageTitleBar from 'Components/PageTitleBar/PageTitleBar';

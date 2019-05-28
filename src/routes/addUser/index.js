@@ -121,75 +121,77 @@ export default class AutoComplete extends Component {
 	}
 
 	render() {
+		const lang=localStorage.getItem('Current_lang')
+		var placeholderusername= lang=="en"?"Username":"نام کاربری"
 		return (
 			<div className="formelements-wrapper">
 				<div className="row">
 					<div className="col-sm-12 col-md-12 col-xl-6">
-						<RctCollapsibleCard heading="Form Grid">
+						<RctCollapsibleCard heading={<IntlMessages id="compenets.adduserform" />}>
 							<Form>
 								<FormGroup row>
 									<Label for="Username-1" sm={2}><IntlMessages id="form.username" /></Label>
 									<Col sm={10}>
-										<Input type="text" name="username" id="Username-1" onChange={this.handleChange} placeholder="Username" />
+										<Input type="text" name="username" id="Username-1" onChange={this.handleChange} placeholder={placeholderusername} />
 									</Col>
 								</FormGroup>
 								<FormGroup row>
-									<Label for="Email" sm={2}>Email</Label>
+									<Label for="Email" sm={2}><IntlMessages id="components.email" /></Label>
 									<Col sm={10}>
-										<Input type="email" name="email" id="Email" onChange={this.handleChange} placeholder="Email address" />
+										<Input type="email" name="email" id="Email" onChange={this.handleChange} placeholder={lang == "en"?"Email address":"پست الکترونیک"} />
 									</Col>
 								</FormGroup>
 								<FormGroup row>
-									<Label for="Password-1" sm={2}>Password</Label>
+									<Label for="Password-1" sm={2}><IntlMessages id="widgets.password"/></Label>
 									<Col sm={10}>
-										<Input type="password" name="password" id="Password-1" onChange={this.handleChange} placeholder="password" />
+										<Input type="password" name="password" id="Password-1" onChange={this.handleChange} placeholder={lang == "en"?"password":"رمز عبور"} />
 									</Col>
 								</FormGroup>
 								<FormGroup row>
-									<Label for="Password-2" sm={2}>Repeat Password</Label>
+									<Label for="Password-2" sm={2}><IntlMessages id="compenets.passwordsagain"/></Label>
 									<Col sm={10}>
-										<Input type="password" name="password_2" id="Password-2" onChange={this.handleChange} placeholder="type password again" />
+										<Input type="password" name="password_2" id="Password-2" onChange={this.handleChange} placeholder={lang == "en"?"type password again":"رمز عبور را دوباره وارد کنید"} />
 									</Col>
 								</FormGroup>
 								<FormGroup row>
-									<Label for="familyanme" sm={2}>Name</Label>
+									<Label for="familyanme" sm={2}><IntlMessages id="components.firstName"/></Label>
 									<Col sm={10}>
-										<Input type="text" name="familyanme" id="familyanme" onChange={this.handleChange} placeholder="Name & Family" />
+										<Input type="text" name="familyanme" id="familyanme" onChange={this.handleChange} placeholder={lang =="en"? "Name & Family":"نام و نام خانوادگی"} />
 									</Col>
 								</FormGroup>
 								<FormGroup row>
-									<Label for="mobileNumber" sm={2}>Mobile Number</Label>
+									<Label for="mobileNumber" sm={2}><IntlMessages id="components.mobileNumber"/></Label>
 									<Col sm={10}>
-										<Input type="number" name="mobileNumber" id="mobileNumber" onChange={this.handleChange} placeholder="mobile number" />
+										<Input type="number" name="mobileNumber" id="mobileNumber" onChange={this.handleChange} placeholder={lang == "en"?"mobile number":"شماره همراه"} />
 									</Col>
 								</FormGroup>
 								<FormGroup row>
-									<Label for="Product_Owner" sm={2}>Product_Owner</Label>
+									<Label for="Product_Owner" sm={2}><IntlMessages id="components.productowner"/></Label>
 									<Col sm={10}>
 										<ReactSelect id={'Product_Owner'} changeHandler={this.handleChangeOnOwner} suggestions={this.state.suggestions} />
 									</Col>
 								</FormGroup>
 								<FormGroup row>
-									<Label for="Select-1" sm={2}>Select</Label>
+									<Label for="Select-1" sm={2}><IntlMessages id="widgets.select"/></Label>
 									<Col sm={10}>
 										<select 
 											value = {this.state.userState}
 											name = 'userState'
 											onChange = {this.handleChange}
 										>
-											<option value="active">Active</option>
-											<option value="inactive">inActive</option>
+											<option value="active">{lang =="en"?"َActive":"فعال"}</option>
+											<option value="inactive">{lang == "en"?"inActive":"غیر فعال"}</option>
 										</select>
 									</Col>
 								</FormGroup>
 								<FormGroup row>
-									<Label for="description" sm={2}>description</Label>
+									<Label for="description" sm={2}><IntlMessages id="widgets.description"/></Label>
 									<Col sm={10}>
 										<Input type="textarea" name="description" onChange={this.handleChange} id="description" />
 									</Col>
 								</FormGroup>
 								<FormGroup check className="p-0">
-									<Button onClick={this.handleSubmit} color="primary">Submit</Button>
+									<Button onClick={this.handleSubmit} color="primary"><IntlMessages id="components.submit"/></Button>
 								</FormGroup>
 							</Form>
 						</RctCollapsibleCard>

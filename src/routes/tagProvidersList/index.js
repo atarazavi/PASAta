@@ -148,7 +148,7 @@ class DataTable extends React.Component {
 							</FormGroup>
 						</div>
 					<MUIDataTable
-						title={"List of Tag providers"}
+						title={"Users list"}
 						data={data}
 						columns={columns}
 						options={options}

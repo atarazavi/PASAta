@@ -12,6 +12,7 @@ import {
 	Col,
 	FormFeedback
 } from 'reactstrap';
+import { NotificationContainer, NotificationManager } from 'react-notifications';
 
 // Components
 import ReactSelect from '../advance-ui-components/autoComplete/component/ReactSelect';
@@ -133,17 +134,13 @@ export default class AutoComplete extends Component {
 		  const content = await rawResponse.json();
 		  console.log(content);
 		  if (content.status == 200) {
-			// Show notification about success on adding ...
-			// Show notification about success on adding ...
-			// Show notification about success on adding ...
+			NotificationManager.success(<IntlMessages id="Edit.success"/>)
 			// Show notification about success on adding ...
             setTimeout(() => {
                 this.props.history.push('tagInventory');
             }, 1000);
 		  }else{
-			// Show notification about the problem!!!!!!! on adding ...
-			// Show notification about the problem!!!!!!! on adding ...
-			// Show notification about the problem!!!!!!! on adding ...
+			NotificationManager.error(<IntlMessages id="Edit.fail"/>)
 			// Show notification about the problem!!!!!!! on adding ...
 		  }
 		})();

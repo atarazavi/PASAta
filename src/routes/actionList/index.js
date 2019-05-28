@@ -4,6 +4,8 @@
 import React from 'react';
 import MUIDataTable from "mui-datatables";
 
+
+import DeleteConfirmationDialog from "Components/DeleteConfirmationDialog/DeleteConfirmationDialog"
 // page title bar
 import PageTitleBar from 'Components/PageTitleBar/PageTitleBar';
 
@@ -23,7 +25,8 @@ const giventoken = localStorage.getItem('given_token')
 
 class DataTable extends React.Component {
 	state = {
-		theactionslist: []
+		theactionslist: [],
+		eachaction:""
 	}
 
 	componentDidMount = () => {		
@@ -80,9 +83,14 @@ class DataTable extends React.Component {
 			} 
 		} 
 	}
-
-	deletehandler = (actionID) => {
-		console.log('going to delete', actionID);
+	onDeleteAction = ( eachaction ) => {
+		this.refs.deleteConfirmation.open();
+		this.setState({
+			eachaction :eachaction
+		})
+	}
+	deletehandler = () => {
+		console.log('going to delete', this.state.eachaction);
 		(async () => {
 			const rawResponse = await fetch(AppConfig.baseURL + '/permission/action/delete', {
 				method: 'POST',
@@ -91,7 +99,7 @@ class DataTable extends React.Component {
 					'Authorization': giventoken
 				},
 				body: JSON.stringify({
-					"id": actionID
+					"id": this.state.eachaction
 				})
 			});
 			const response = await rawResponse.json();
@@ -104,32 +112,47 @@ class DataTable extends React.Component {
 
 	render() {
 		const columns = ["Action Title", "Action Path", "Action Description", "Actions"];
+		const columnsfa = ["نام اقدام", "مسیر اقدام", "توضیحات", "اقدامات"];
+		const lang=localStorage.getItem('Current_lang')
+		var tablemessage = lang =="en" ? "Sorry, no matching records found" : "متاسفانه ،اطلاعات مورد نظر  پیدا نشد"
 		const data = this.state.theactionslist.map(eachaction => {
 			return(
 				[eachaction.name, eachaction.path , eachaction.description, 
 					<div>
-						<IconButton className="text-danger" onClick={() => { if (window.confirm('Are you sure you wish to delete'+ eachaction.name +'?')) this.deletehandler(eachaction.id) } } aria-label="Delete">
+						<IconButton className="text-danger" onClick={() => { this.onDeleteAction(eachaction.id)} } aria-label="Delete">
 							<i className="zmdi zmdi-close"></i>
 						</IconButton>
 						<IconButton className="text-success" onClick={() => this.actionClickhandler(eachaction.id, eachaction.name, 'edit')} aria-label="Edit">
 							<i className="zmdi zmdi-edit"></i>
 						</IconButton>
+						<DeleteConfirmationDialog
+							ref="deleteConfirmation"
+							title="Are you sure want to delete?"
+							message="This will delete permanently your feedback from feedback list."
+							onConfirm={()=>this.deletehandler()}
+						/>
 					</div>
 				]
 			)
 		})
 		const options = {
 			filterType: 'dropdown',
-			responsive: 'stacked'
+			responsive: 'stacked',
+			selectableRows: false,
+			textLabels: {
+				body: {
+				  noMatch: tablemessage,
+				},
+			}
 		};
 		return (
 			<div className="data-table-wrapper">
 				<PageTitleBar title={<IntlMessages id="sidebar.dataTable" />} match={this.props.match} />
-				<RctCollapsibleCard heading="Data Table" fullBlock>
+				<RctCollapsibleCard heading={<IntlMessages id="action.list" />} fullBlock>
 					<MUIDataTable
-						title={"Action List"}
+						title={<IntlMessages id="action.list" />}
 						data={data}
-						columns={columns}
+						columns={lang =="en"?columns:columnsfa}
 						options={options}
 					/>
 				</RctCollapsibleCard>

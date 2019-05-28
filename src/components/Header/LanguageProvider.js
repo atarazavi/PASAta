@@ -8,6 +8,7 @@ import { Scrollbars } from 'react-custom-scrollbars';
 import { Badge } from 'reactstrap';
 import $ from 'jquery';
 import Tooltip from '@material-ui/core/Tooltip';
+import IntlMessages from 'Util/IntlMessages';
 
 // actions
 import { setLanguage, rtlLayoutAction } from 'Actions';
@@ -65,8 +66,7 @@ class LanguageProvider extends Component {
 					<DropdownMenu>
 						<div className="dropdown-content">
 							<div className="dropdown-top d-flex justify-content-between rounded-top bg-primary">
-									<span className="text-white font-weight-bold">Languages</span>
-									<Badge color="warning">3 NEW</Badge>
+									<span className="text-white font-weight-bold">{<IntlMessages id="languages" />}</span>
 							</div>
 							<Scrollbars className="rct-scroll" autoHeight autoHeightMin={100} autoHeightMax={280}>
 								<ul className="list-unstyled mb-0 dropdown-list">

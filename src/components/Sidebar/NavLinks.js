@@ -1,8 +1,4 @@
 // sidebar nav links
-let actionDTOS;
-if (localStorage.getItem("actionDTOS") !== 'false') {
-	actionDTOS = JSON.parse(localStorage.getItem("actionDTOS"));
-}
 export default {
 	category1: [
 		{
@@ -147,218 +143,56 @@ export default {
 			]
 		}
 	],
-
 	category2: [
-		{
-			"menu_title": "sidebar.dashboard",
-			"menu_icon": "zmdi zmdi-view-dashboard",
-			"child_routes": [
-				{
-					"menu_title": "sidebar.ecommerce",
-					"path": "/app/dashboard/ecommerce",
-				},
-				{
-					"path": "/horizontal/dashboard/saas",
-					"menu_title": "sidebar.saas"
-				},
-				{
-					"path": "/agency/dashboard/agency",
-					"menu_title": "sidebar.agency"
-				},
-				{
-					"path": "/boxed/dashboard/news",
-					"menu_title": "sidebar.news"
-				},
-			]
-		},
-		{
-			"menu_title": "sidebar.ecommerce",
-			"menu_icon": "zmdi zmdi-shopping-cart",
-			"child_routes": [
-				{
-					"path": "/app/ecommerce/shop",
-					"menu_title": "sidebar.shop"
-				},
-				{
-					"path": "/app/ecommerce/cart",
-					"menu_title": "sidebar.cart"
-				},
-				{
-					"path": "/app/ecommerce/checkout",
-					"menu_title": "sidebar.checkout"
-				},
-				{
-					"path": "/app/ecommerce/shop-list",
-					"menu_title": "sidebar.shopList"
-				},
-				{
-					"path": "/app/ecommerce/shop-grid",
-					"menu_title": "sidebar.shopGrid"
-				},
-				{
-					"path": "/app/ecommerce/invoice",
-					"menu_title": "sidebar.invoice"
-				}
-			]
-		},
-		{
-			"menu_title": "sidebar.widgets",
-			"menu_icon": "zmdi zmdi-widgets",
-			"path": "/app/widgets",
-			"child_routes": [
-				{
-					"path": "/app/widgets/charts",
-					"menu_title": "sidebar.charts"
-				},
-				{
-					"path": "/app/widgets/promo",
-					"menu_title": "sidebar.promo"
-				},
-				{
-					"path": "/app/widgets/general",
-					"menu_title": "sidebar.general"
-				},
-				{
-					"path": "/app/widgets/user",
-					"menu_title": "sidebar.user"
-				},
-
-
-			]
-		},
-		{
-			"menu_title": "sidebar.pages",
-			"menu_icon": "zmdi zmdi-file-plus",
-			"child_routes": [
-				{
-					"path": "/app/pages/gallery",
-					"menu_title": "sidebar.gallery"
-				},
-				{
-					"path": "/app/pages/pricing",
-					"menu_title": "sidebar.pricing"
-				},
-				{
-					"path": "/app/pages/blank",
-					"menu_title": "sidebar.blank"
-				},
-				{
-					"path": "/terms-condition",
-					"menu_title": "sidebar.terms&Conditions"
-				},
-				{
-					"path": "/app/pages/feedback",
-					"menu_title": "sidebar.feedback"
-				},
-				{
-					"path": "/app/pages/report",
-					"menu_title": "sidebar.report"
-				},
-				{
-					"path": "/app/pages/faq",
-					"menu_title": "sidebar.faq(s)"
-				}
-			]
-		},
-		{
-			"menu_title": "sidebar.session",
-			"menu_icon": "zmdi zmdi-time-interval",
-			"child_routes": [
-				{
-					"path": "/session/login",
-					"menu_title": "sidebar.login"
-				},
-				{
-					"path": "/session/register",
-					"menu_title": "sidebar.register"
-				},
-				{
-					"path": "/session/lock-screen",
-					"menu_title": "sidebar.lockScreen"
-				},
-				{
-					"path": "/session/forgot-password",
-					"menu_title": "sidebar.forgotPassword"
-				},
-				{
-					"path": "/session/404",
-					"menu_title": "sidebar.404"
-				},
-				{
-					"path": "/session/500",
-					"menu_title": "sidebar.500"
-				}
-			]
-		}
-	],
-	// category2: 
-	// actionDTOS.map(each => 
-	// 	each.id == 272 ? 
-	// 	{
-	// 		"menu_title": "sidebar.UserList",
-	// 		"menu_icon": "zmdi zmdi-account",
-	// 		"path": "/sidemenu/tables/data-table",
-	// 		"child_routes": null
-	// 	}
-	// 	:
-	// 	each.id == 268 ? 
-    //     {
-    //         "menu_title": "sidebar.addUser",
-    //         "menu_icon": "zmdi zmdi-plus",
-    //         "path": "/sidemenu/addUser",
-    //         "child_routes": null
-	// 	}
-	// 	:
-	// 	each.id == 318 ? 
-    //     {
-    //         "menu_title": "sidebar.groupsList",
-    //         "menu_icon": "zmdi zmdi-collection-video",
-    //         "path": "/sidemenu/groupsList",
-    //         "child_routes": null
-	// 	}
-	// 	:
-	// 	each.id == 255 ?
-    //     {
-    //         "menu_title": "sidebar.addNewGroup",
-    //         "menu_icon": "zmdi zmdi-dropbox",
-    //         "path": "/sidemenu/addNewGroup",
-    //         "child_routes": null
-    //     }
-	// 	:
-	// 	each.id == 217 ?
-    //     {
-    //         "menu_title": "sidebar.addNewRole",
-    //         "menu_icon": "zmdi zmdi-dropbox",
-    //         "path": "/sidemenu/addNewRole",
-    //         "child_routes": null
-    //     }
-	// 	:
-	// 	each.id == 221 ?
-    //     {
-    //         "menu_title": "sidebar.RoleList",
-    //         "menu_icon": "zmdi zmdi-dropbox",
-    //         "path": "/sidemenu/roleList",
-    //         "child_routes": null
-    //     }
-	// 	:
-	// 	each.id == 262 ?
-    //     {
-    //         "menu_title": "sidebar.addNewAction",
-    //         "menu_icon": "zmdi zmdi-dropbox",
-    //         "path": "/sidemenu/addNewAction",
-    //         "child_routes": null
-    //     }
-	// 	:
-	// 	each.id == 266 ?
-    //     {
-    //         "menu_title": "sidebar.ActionList",
-    //         "menu_icon": "zmdi zmdi-dropbox",
-    //         "path": "/sidemenu/actionList",
-    //         "child_routes": null
-	// 	}
-	// 	:
-	// 	null
-	// ),
+        {
+            "menu_title": "sidebar.UserList",
+            "menu_icon": "zmdi zmdi-account",
+            "path": "/sidemenu/tables/data-table",
+            "child_routes": null
+        },
+        {
+            "menu_title": "sidebar.addUser",
+            "menu_icon": "zmdi zmdi-plus",
+            "path": "/sidemenu/addUser",
+            "child_routes": null
+        },
+        {
+            "menu_title": "sidebar.groupsList",
+            "menu_icon": "zmdi zmdi-collection-video",
+            "path": "/sidemenu/groupsList",
+            "child_routes": null
+        },
+        {
+            "menu_title": "sidebar.addNewGroup",
+            "menu_icon": "zmdi zmdi-dropbox",
+            "path": "/sidemenu/addNewGroup",
+            "child_routes": null
+        },
+        {
+            "menu_title": "sidebar.addNewRole",
+            "menu_icon": "zmdi zmdi-dropbox",
+            "path": "/sidemenu/addNewRole",
+            "child_routes": null
+        },
+        {
+            "menu_title": "sidebar.RoleList",
+            "menu_icon": "zmdi zmdi-dropbox",
+            "path": "/sidemenu/roleList",
+            "child_routes": null
+        },
+        {
+            "menu_title": "sidebar.addNewAction",
+            "menu_icon": "zmdi zmdi-dropbox",
+            "path": "/sidemenu/addNewAction",
+            "child_routes": null
+        },
+        {
+            "menu_title": "sidebar.ActionList",
+            "menu_icon": "zmdi zmdi-dropbox",
+            "path": "/sidemenu/actionList",
+            "child_routes": null
+        }
+    ],
     category3: [
         {
             "menu_title": "sidebar.tagBulkOrder",

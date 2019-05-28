@@ -7,6 +7,7 @@ import MUIDataTable from "mui-datatables";
 // page title bar
 import PageTitleBar from 'Components/PageTitleBar/PageTitleBar';
 
+import DeleteConfirmationDialog from "Components/DeleteConfirmationDialog/DeleteConfirmationDialog"
 // rct card box
 import RctCollapsibleCard from 'Components/RctCollapsibleCard/RctCollapsibleCard';
 
@@ -82,9 +83,15 @@ class DataTable extends React.Component {
 			} 
 		} 
 	}
+	onDeleteList = ( eachrole ) => {
+		this.refs.deleteConfirmation.open();
+		this.setState({
+			eachrole :eachrole
+		})
+	}
 
-	deletehandler = (roleID) => {
-		console.log('going to delete', roleID);
+	deletehandler = () => {
+		console.log('going to delete', this.state.eachrole);
 		(async () => {
 			const rawResponse = await fetch(AppConfig.baseURL + '/permission/role/delete', {
 				method: 'POST',
@@ -93,7 +100,7 @@ class DataTable extends React.Component {
 					'Authorization': giventoken
 				},
 				body: JSON.stringify({
-					"id": roleID
+					"id": this.state.eachrole
 				})
 			});
 			const response = await rawResponse.json();
@@ -103,13 +110,17 @@ class DataTable extends React.Component {
 			}
 		})();
 	}
+	
 	render() {
+		const lang=localStorage.getItem('Current_lang')
 		const columns = ["Group Username", "Description", "Actions"];
+		const columnsfa = ["نام کاربری گروه", "توضیحات", "اقدامات"];
+		var tablemessage = lang =="en" ? "Sorry, no matching records found" : "متاسفانه ،اطلاعات مورد نظر  پیدا نشد"
 		const data = this.state.theRoleslist.map(eachrole => {
 			return(
 				[eachrole.name, eachrole.description, 
 					<div>
-						<IconButton className="text-danger" onClick={() => { if (window.confirm('Are you sure you wish to delete'+ eachrole.name +'?')) this.deletehandler(eachrole.id) } } aria-label="Delete">
+						<IconButton className="text-danger" onClick={() => {  this.onDeleteList(eachrole.id) } } aria-label="Delete">
 							<i className="zmdi zmdi-close"></i>
 						</IconButton>
 						<IconButton className="text-success" onClick={() => this.actionClickhandler(eachrole.id, eachrole.name, 'editRole')} aria-label="Edit">
@@ -118,22 +129,34 @@ class DataTable extends React.Component {
 						<IconButton className="text-success" onClick={() => this.actionClickhandler(eachrole.id, eachrole.name, 'addAction2Role')} aria-label="addAction2Role">
 							<i className="zmdi zmdi-account-circle"></i>
 						</IconButton>
+						<DeleteConfirmationDialog
+							ref="deleteConfirmation"
+							title="Are you sure want to delete?"
+							message="This will delete permanently your feedback from feedback list."
+							onConfirm={()=>this.deletehandler()}
+						/>
 					</div>
 				]
 			)
 		})
 		const options = {
 			filterType: 'dropdown',
-			responsive: 'stacked'
+			responsive: 'stacked',
+			selectableRows: false,
+			textLabels: {
+				body: {
+				  noMatch: tablemessage,
+				},
+			}
 		};
 		return (
 			<div className="data-table-wrapper">
 				<PageTitleBar title={<IntlMessages id="sidebar.dataTable" />} match={this.props.match} />
-				<RctCollapsibleCard heading="Data Table" fullBlock>
+				<RctCollapsibleCard heading={<IntlMessages id="role.list" />} fullBlock>
 					<MUIDataTable
-						title={"Users list"}
+						title={<IntlMessages id="role.list" />}
 						data={data}
-						columns={columns}
+						columns={lang =="en"?columns:columnsfa}
 						options={options}
 					/>
 				</RctCollapsibleCard>
