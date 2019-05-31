@@ -90,6 +90,7 @@ function* signInUserWithEmailPassword({ payload }) {
     const { history } = payload;
     try {
         const signInUser = yield call(signInUserWithEmailPasswordRequest, email, password);
+        //console.log(signInUser);
         if (signInUser.message) {
             yield put(signinUserFailure(signInUser.message));
         } else {

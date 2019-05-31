@@ -10,6 +10,7 @@ import todoAppReducer from './TodoAppReducer';
 import authUserReducer from './AuthUserReducer';
 import feedbacksReducer from './FeedbacksReducer';
 import ecommerceReducer from './EcommerceReducer';
+import chartsSetting from './DashbordChartsReducers';
 
 const reducers = combineReducers({
   settings,
@@ -19,7 +20,8 @@ const reducers = combineReducers({
   todoApp: todoAppReducer,
   authUser: authUserReducer,
   feedback: feedbacksReducer,
-  ecommerce: ecommerceReducer
+  ecommerce: ecommerceReducer,
+  chartsSetting:chartsSetting
 });
 
 export default reducers;
