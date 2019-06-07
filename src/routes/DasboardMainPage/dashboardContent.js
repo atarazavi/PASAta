@@ -55,20 +55,21 @@ class ReactCharts extends Component {
 
     componentDidMount(){
 
-        this.getPieChartData(this.props.locale);
+        this.getPieChartData(this.props.settings,this.props.locale);
         
     }
     componentWillReceiveProps(nextProps) {
         console.log('new locale', nextProps.locale);
         console.log('old locale', this.props.locale);
-        if(this.props.locale !== nextProps.locale){
-            this.getPieChartData(nextProps.locale);
-        }
+        console.log('state is changed');
+        // if(this.props.locale !== nextProps.locale){
+            this.getPieChartData(nextProps.settings,nextProps.locale);
+        // }
         
     }
 
-    getPieChartData = (locale)=>{
-        getPieChart(this.props.settings,locale)
+    getPieChartData = (settings,locale)=>{
+        getPieChart(settings,locale)
             .then(res=>{ 
                 console.log(res);
                 this.setState(prev => {

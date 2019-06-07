@@ -14,11 +14,8 @@ class HistogramChart extends Component {
                 }
             }]
         },
-        elements: {
-            line: {
-                tension: 0
-            }
-        }  
+        
+      
     };
 
     constructor(props){
@@ -37,9 +34,9 @@ class HistogramChart extends Component {
     componentWillReceiveProps(nextProps) {
         console.log('new locale', nextProps.locale);
         console.log('old locale', this.props.locale);
-        if(this.props.locale !== nextProps.locale){
+        // if(this.props.locale !== nextProps.locale){
             this.getData(nextProps.settings,nextProps.locale,this.dataIsReceived)
-        }
+        // }
         
     }
 
@@ -63,6 +60,8 @@ class HistogramChart extends Component {
                 label: 'My First dataset',
                 backgroundColor: 'rgb(255, 99, 132)',
                 borderColor: 'rgb(255, 99, 132)',
+                fill:false,
+                lineTension:0,
                 data: this.state.data
             }]
         };

@@ -24,6 +24,7 @@ export function getHistogramCharts(data,locale,callback){
     console.log("setting is ",data);
     // console.log("histogramUrl is ",histogramUrl);
     console.log("token is ",token);
+    console.log("our ajax body is ",data);
 
     return axios.post(histogramUrl,data,{"headers":headers})
         .then(res => {
