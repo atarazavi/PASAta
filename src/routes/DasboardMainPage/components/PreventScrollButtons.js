@@ -7,7 +7,8 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import {connect} from 'react-redux';
-import {golbalFilterChange} from '../../../actions/DashbordChartsActions'
+import {golbalFilterChange,customFilterChange} from '../../../actions/DashbordChartsActions';
+import {  getAllFilterData } from "../../../services/_dashbordChartsService";
 import {
 	Button,
 	Form,
@@ -52,7 +53,21 @@ class PreventScrollButtons extends Component {
             TAP_AUTH_RESULT_TYPE: [],
             chosenstartdate : '',
             chosenenddate: '',
-            
+            filter:{
+                pieData:{
+                    productPie:{title:[],ids:[]},
+                    providerPie:{title:[],ids:[]},
+                    industryPie:{title:[],ids:[]},
+                    catPie:{title:[],ids:[]},
+                    subCatPie:{title:[],ids:[]},
+                    manufacturerPie:{title:[],ids:[]},
+                },
+                geoData:{
+                    city:{title:[],ids:[]},
+                    province:{title:[],ids:[]},
+                    country:{title:[],ids:[]},
+                }
+            },
             form:{
                 startingDate:this.props.settings.reportStarting,
                 fromDate:this.props.settings.fromDate,
@@ -103,6 +118,15 @@ class PreventScrollButtons extends Component {
     }
     componentDidMount = () => {     
         this.getData();
+
+        getAllFilterData(this.props.locale).then(res=>{
+            this.setState(prev=>{
+                return {
+                    ...prev,
+                    filter:res
+                }
+            })
+        })
     }
 
     getData = ()=>{
@@ -125,7 +149,7 @@ class PreventScrollButtons extends Component {
             });
             const content = await rawResponse.json();
             console.log(content);
-            if (content.messageModel.type == "success") {
+            if (content.messageModel.type === "success") {
                 this.setState({
                     HISTORGAM_INTERVAL: content.dtos
                 })
@@ -252,21 +276,35 @@ class PreventScrollButtons extends Component {
         console.log('old locale', this.props.locale);
         this.getStartingDate();
         this.getTapData();
-        
+
         if(this.props.locale !== nextProps.locale){
-            
-            this.setState(prev=>{
-                return {
-                    ...prev,
-                    chosenenddate:'',
-                    chosenstartdate:'',
-                    form:{
-                        ...prev.form,
-                        fromDate:'',
-                        toDate:''
+            getAllFilterData(nextProps.locale).then(res=>{
+                this.setState(prev=>{
+                    return {
+                        ...prev,
+                        filter:res,
+                        chosenenddate:'',
+                        chosenstartdate:'',
+                        form:{
+                            ...prev.form,
+                            fromDate:'',
+                            toDate:''
+                        }
                     }
-                }
+                })
             }); 
+            // this.setState(prev=>{
+            //     return {
+            //         ...prev,
+            //         chosenenddate:'',
+            //         chosenstartdate:'',
+            //         form:{
+            //             ...prev.form,
+            //             fromDate:'',
+            //             toDate:''
+            //         }
+            //     }
+            // }); 
         }
         
     }
@@ -371,18 +409,76 @@ class PreventScrollButtons extends Component {
                 </AppBar>
                 {activeIndex === 0 && 
                     <TabContainer>
-                        <FilterContent />
-                        <FilterContent />
-                        <FilterContent />
-                        <FilterContent />
+                        <FilterContent checkedItems={this.props.settings.productTypes}
+                                       data={this.state.filter.pieData.productPie.title}
+                                        ids={this.state.filter.pieData.productPie.ids}
+                                        filter={(id)=>{
+                                            this.props.customFilter('productTypes',id);
+                                        }}
+                        />
+                        <FilterContent checkedItems={this.props.settings.productproviders}
+                                       data={this.state.filter.pieData.providerPie.title}
+                                        ids={this.state.filter.pieData.providerPie.ids}
+                                        filter={(id)=>{
+                                            this.props.customFilter('productproviders',id);
+                                        }}
+                        />
+                        <FilterContent checkedItems={this.props.settings.manufacturers}
+                                       data={this.state.filter.pieData.manufacturerPie.title}
+                                        ids={this.state.filter.pieData.manufacturerPie.ids}
+                                        filter={(id)=>{
+                                            this.props.customFilter('manufacturers',id);
+                                        }}
+                        />
+                        
                     </TabContainer>}
                 {activeIndex === 1 && 
                     <TabContainer>
-                        سیبلا
+                        <FilterContent checkedItems={this.props.settings.industries}
+                                        data={this.state.filter.pieData.industryPie.title}
+                                        ids={this.state.filter.pieData.industryPie.ids}
+                                        filter={(id)=>{
+                                            this.props.customFilter('industries',id);
+                                        }}
+                        />
+                        <FilterContent checkedItems={this.props.settings.productcategories}
+                                        data={this.state.filter.pieData.catPie.title}
+                                        ids={this.state.filter.pieData.catPie.ids}
+                                        filter={(id)=>{
+                                            this.props.customFilter('productcategories',id);
+                                        }}
+                        />
+                        <FilterContent checkedItems={this.props.settings.productSubcategories}
+                                        data={this.state.filter.pieData.subCatPie.title}
+                                        ids={this.state.filter.pieData.subCatPie.ids}
+                                        filter={(id)=>{
+                                            this.props.customFilter('productSubcategories',id);
+                                        }}
+                        />
                     </TabContainer>}
                 {activeIndex === 2 && 
                     <TabContainer>
-                        <FilterContent />
+                    <FilterContent checkedItems={this.props.settings.countries}
+                                        data={this.state.filter.geoData.country.title}
+                                        ids={this.state.filter.geoData.country.ids}
+                                        filter={(id)=>{
+                                            this.props.customFilter('countries',id);
+                                        }}
+                        />
+                    <FilterContent checkedItems={this.props.settings.provinces}
+                                        data={this.state.filter.geoData.province.title}
+                                        ids={this.state.filter.geoData.province.ids}
+                                        filter={(id)=>{
+                                            this.props.customFilter('provinces',id);
+                                        }}
+                        />
+                    <FilterContent checkedItems={this.props.settings.cities}
+                                        data={this.state.filter.geoData.city.title}
+                                        ids={this.state.filter.geoData.city.ids}
+                                        filter={(id)=>{
+                                            this.props.customFilter('cities',id);
+                                        }}
+                        />
                     </TabContainer>}
             </RctCollapsibleCard>
         );
@@ -395,4 +491,4 @@ function mapStateToProps(state) {
   }
 
 
-export default connect(mapStateToProps,{globalFilter:golbalFilterChange})(PreventScrollButtons);
+export default connect(mapStateToProps,{globalFilter:golbalFilterChange,customFilter:customFilterChange})(PreventScrollButtons);

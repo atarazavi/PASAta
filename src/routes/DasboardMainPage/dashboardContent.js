@@ -17,6 +17,8 @@ import RctCollapsibleCard from 'Components/RctCollapsibleCard/RctCollapsibleCard
 // import {Line} from 'react-chartjs-2';
 import Histogram from '../../components/Charts/Dashbord/Histogram';
 import PieChart from '../../components/Charts/Dashbord/PieChart';
+import MapChart from '../../components/Charts/Dashbord/PieChart'
+
 
 
 class ReactCharts extends Component {
@@ -154,7 +156,17 @@ class ReactCharts extends Component {
                     </div>
                 </div>
                     
+                <div className="row" >
+                    <div className="col-sm-12 col-md-12 col-xl-12">
+                        <RctCollapsibleCard heading="Maps">
+                            <MapChart 
+                            />
+                        </RctCollapsibleCard>
+                    </div> 
+                </div>
             </div>
+
+            
         );
 	}
 }

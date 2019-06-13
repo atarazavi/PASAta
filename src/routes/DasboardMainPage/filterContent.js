@@ -41,16 +41,41 @@ const listItems = [
 
 class CheckboxListComponent extends Component {
     // Interactive State
-    state = {
-        listItems
-    };
-    handleToggleListItems(key) {
-        let items = this.state.listItems;
-        items[key].status = !items[key].status;
-        this.setState({ [listItems]: items });
+
+    constructor(props){
+
+        super(props);
+        this.state = {
+            data: props.data,
+            listItems,
+            checkedItems:props.checkedItems,
+            ids:props.ids,
+            filter:this.props.filter
+        }
+    }
+
+    componentWillReceiveProps(nextProps){
+
+        // console.log('next prop is ',nextProps);
+        this.setState(prev=>{
+            return {
+                data: nextProps.data,
+                listItems,
+                checkedItems:nextProps.checkedItems,
+                ids:nextProps.ids,
+                filter:nextProps.filter
+            }
+            
+        });
+    }
+
+    handleToggleListItems(id) {
+        // console.log(id);
+        this.props.filter(id);
     }
 
     render() {
+        console.log(this.state.data);
         return (
             <RctCollapsibleCard
                 heading={<IntlMessages id="widgets.checkboxListControl" />}
@@ -58,7 +83,17 @@ class CheckboxListComponent extends Component {
             >
                 <Scrollbars className="rct-scroll" autoHeight autoHeightMin={100} autoHeightMax={160} autoHide>
                     <List>
-                        {this.state.listItems.map((data, key) => (
+                        {this.state.data.map((data, key) => (
+                            <ListItem style={{padding: 0}} button onClick={() => this.handleToggleListItems(this.state.ids[key])} key={key}>
+                                <Checkbox color="primary" checked={this.state.checkedItems.indexOf(this.state.ids[key]) === -1 ? false : true} />
+                                <ListItemText primary={data} />
+                                <ListItemSecondaryAction>
+                                    <IconButton className="text-indigo"></IconButton>
+                                </ListItemSecondaryAction>
+                            </ListItem>
+                        ))}
+
+                        {/* {this.state.listItems.map((data, key) => (
                             <ListItem style={{padding: 0}} button onClick={() => this.handleToggleListItems(key)} key={key}>
                                 <Checkbox color="primary" checked={data.status} />
                                 <ListItemText primary={data.itemName} />
@@ -66,7 +101,7 @@ class CheckboxListComponent extends Component {
                                     <IconButton className="text-indigo"><i className={data.icon}></i></IconButton>
                                 </ListItemSecondaryAction>
                             </ListItem>
-                        ))}
+                        ))} */}
                     </List>
                 </Scrollbars>
             </RctCollapsibleCard>
