@@ -15,6 +15,8 @@ let manufacturerPieUrl = AppConfig.baseURL + "/report/tap/product/manufacturer/p
 let provinceUrl = AppConfig.baseURL + "/report/tap/by/province";
 let cityUrl = AppConfig.baseURL + "/report/tap/by/city";
 let countryUrl = AppConfig.baseURL + "/report/tap/by/country";
+let locationUrl = AppConfig.baseURL + "/tap/location/filter";
+
 
 
 let headers = {
@@ -104,7 +106,8 @@ export function getPieChart(data,locale){
         axios.post(providerPieUrl,data,{"headers":headers}),
         axios.post(manufacturerPieUrl,data,{"headers":headers}),
         axios.post(provinceUrl,data,{"headers":headers}),
-    ]).then(axios.spread(function (productRes,industryRes,catRes,subCatRes,providerRes,manRes,provinceRes) {
+        axios.post(locationUrl,data,{"headers":headers}),
+    ]).then(axios.spread(function (productRes,industryRes,catRes,subCatRes,providerRes,manRes,provinceRes,locationRes) {
         let Result = {
             productPie:{},
             industryPie:{},
@@ -112,7 +115,8 @@ export function getPieChart(data,locale){
             subCatPie:{},
             providerPie:{},
             manufacturerPie:{},
-            province:{}
+            province:{},
+            heatmap:{}
          };
          var productResVal=formatData(productRes.data.dtos);
          Result.productPie.title = productResVal[0];
@@ -149,7 +153,11 @@ export function getPieChart(data,locale){
          Result.province.aggregationValue = provinceResVal[1];
          Result.province.keys = provinceResVal[2];
          Result.province.ids = provinceResVal[3];
-         
+
+        //  console.log("location response",locationRes);
+         var locationResVal =formatLocationData(locationRes.data.result.dtos);
+         Result.heatmap = locationResVal;
+
          return Result;
 
       })).then(result => {
@@ -171,6 +179,20 @@ function formatData(data){
 
     return [totalValues,aggregationValues,ids];
 
+}
+
+function formatLocationData(data){
+    let result = [];
+    data.forEach(element => {
+        let arr = [];
+        arr.push(element.locx);
+        arr.push(element.locy);
+        arr.push("100");
+        result.push(arr);
+    });
+
+    // console.info("result info is ",result);
+    return result;
 }
 
 

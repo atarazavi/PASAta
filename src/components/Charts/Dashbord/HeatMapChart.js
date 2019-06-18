@@ -1,14 +1,29 @@
 import React, { Component } from 'react'
 import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
 import HeatmapLayer from './HeatLayer';
-import { addressPoints } from './HeatData/realworld.10000.js';
+// import { addressPoints } from './HeatData/realworld.10000.js';
 
 class HeatMapChart extends Component {
 
+    constructor(props){
+        super(props);
+        this.state = {
+            data:props.data
+        }
+    }
     componentDidMount(){
-        // console.log('heat map charrrrrt');
-        // console.log(L.heatLayer);
-        // this.creatMap();
+        // console.log(this.state);
+        this.setState(prev=>({
+            ...prev,
+            data:this.props.data
+        }));
+    }
+
+    componentWillReceiveProps(nexProps){
+        this.setState(prev=>({
+            ...prev,
+            data:nexProps.data
+        }));
     }
 
   render() {
@@ -18,7 +33,7 @@ class HeatMapChart extends Component {
                 <HeatmapLayer
                 fitBoundsOnLoad
                 fitBoundsOnUpdate
-                points={addressPoints}
+                points={this.state.data}
                 longitudeExtractor={m => m[1]}
                 latitudeExtractor={m => m[0]}
                 intensityExtractor={m => parseFloat(m[2])} />

@@ -57,7 +57,8 @@ class ReactCharts extends Component {
                     aggregationValue:[],
                     keys:[],
                     ids:[]
-                }
+                },
+                heatmap:[]
              }
         };
     }
@@ -178,7 +179,8 @@ class ReactCharts extends Component {
                 <div className="row" >
                     <div className="col-sm-12 col-md-12 col-xl-12">
                         <RctCollapsibleCard heading="Heat Maps">
-                            <HeatMapChart 
+                            <HeatMapChart
+                                data={this.state.pie.heatmap} 
                             />
                         </RctCollapsibleCard>
                     </div> 
