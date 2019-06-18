@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
 import {Line} from 'react-chartjs-2';
-import {  getHistogramCharts } from "../../../services/_dashbordChartsService";
+import {  getHistogramCharts,getHistogramFilterData } from "../../../services/_dashbordChartsService";
 import { connect } from "react-redux";
-
+import {histogramIntervalChange} from "../../../actions/DashbordChartsActions"
 
 class HistogramChart extends Component {
 
@@ -23,7 +25,8 @@ class HistogramChart extends Component {
         this.state = {
             data: [],
             labels: [],
-            locale:props.locale
+            locale:props.locale,
+            filter:[]
         }
     }
     componentDidMount = ()=>{
@@ -41,15 +44,30 @@ class HistogramChart extends Component {
     }
 
     dataIsReceived = (title,value)=>{
-        this.setState({
-            labels:title,
-            data:value
+        getHistogramFilterData({"key" : "HISTORGAM_INTERVAL"},this.props.locale)
+            .then((res)=>{
+                this.setState((prev)=>{
+                    return {
+                        ...prev,
+                        labels:title,
+                        data:value,
+                        filter:res
+                    }
+                })
+            });
+        // this.setState({
+        //     labels:title,
+        //     data:value
 
-        });
+        // });
     };
 
     getData = (settings,locale,dataReceived) => {
         getHistogramCharts(settings,locale,dataReceived);
+    }
+
+    intervalChange = (event)=>{
+        this.props.intervalChange(event.target.value);
     }
 
 	render() {
@@ -66,13 +84,20 @@ class HistogramChart extends Component {
             }]
         };
 		return (
+            <div>
+                <select onChange={this.intervalChange} >
 
-            <Line
-                data={data}
-                options={this.options}
-                width={100}
-                height={30}
-            />
+                    { this.state.filter.map((data, key)=><option selected={this.props.settings.intervalChange === key ? true:false} key={key} value={data.key}>{data.title}</option>) }
+
+                </select>
+                 <Line
+                    data={data}
+                    options={this.options}
+                    width={100}
+                    height={30}
+                />
+           </div>
+
 			
 		);
 	}
@@ -83,4 +108,4 @@ function mapStateToProps(state) {
     return { settings: state.chartsSetting,locale:state.settings.locale.locale }
   }
 
-export default connect(mapStateToProps)(HistogramChart);
+export default connect(mapStateToProps,{intervalChange:histogramIntervalChange})(HistogramChart);

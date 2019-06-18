@@ -1,4 +1,4 @@
-import {ON_DASHBORD_GLOBAL_FILTER_CHANGE,ON_DASHBORD_CUSTOM_FILTER_CHANGE} from '../actions/types';
+import {ON_DASHBORD_GLOBAL_FILTER_CHANGE,ON_DASHBORD_CUSTOM_FILTER_CHANGE,On_HISTOGRAM_INTERVAL_CHANGE} from '../actions/types';
 
 const INIT_STATE = {
     "cities": [],
@@ -50,6 +50,11 @@ export default (state = INIT_STATE, action) => {
             }else{
                 return state;
             }
+        case On_HISTOGRAM_INTERVAL_CHANGE:
+            return {
+                ...state,
+                histogramInterval:action.payload
+            };
 
         default: return { ...state };
     }

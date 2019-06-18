@@ -17,7 +17,8 @@ import RctCollapsibleCard from 'Components/RctCollapsibleCard/RctCollapsibleCard
 // import {Line} from 'react-chartjs-2';
 import Histogram from '../../components/Charts/Dashbord/Histogram';
 import PieChart from '../../components/Charts/Dashbord/PieChart';
-import MapChart from '../../components/Charts/Dashbord/PieChart'
+import MapChart from '../../components/Charts/Dashbord/MapChart'
+import HeatMapChart from '../../components/Charts/Dashbord/HeatMapChart'
 
 
 
@@ -51,6 +52,12 @@ class ReactCharts extends Component {
                     title:[],
                     aggregationValue:[]
                 },
+                province:{
+                    title:[],
+                    aggregationValue:[],
+                    keys:[],
+                    ids:[]
+                }
              }
         };
     }
@@ -160,6 +167,18 @@ class ReactCharts extends Component {
                     <div className="col-sm-12 col-md-12 col-xl-12">
                         <RctCollapsibleCard heading="Maps">
                             <MapChart 
+                                keys={this.state.pie.province.keys}
+                                id={this.state.pie.province.ids}
+                                data={this.state.pie.province.aggregationValue}
+                                title={this.state.pie.province.title}
+                            />
+                        </RctCollapsibleCard>
+                    </div> 
+                </div>
+                <div className="row" >
+                    <div className="col-sm-12 col-md-12 col-xl-12">
+                        <RctCollapsibleCard heading="Heat Maps">
+                            <HeatMapChart 
                             />
                         </RctCollapsibleCard>
                     </div> 
