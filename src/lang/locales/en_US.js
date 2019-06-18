@@ -777,5 +777,10 @@ module.exports = {
 	"notif.Email": "Type your Email correctly",
 	"notif.Mobile": "Type your Phone number correctly",
 	"Report.Owner": "Owner",
-	"Login.captcha": "Captcha is empty"
+	"Login.captcha": "Captcha is empty",
+	"dashbord.filter.start.date.from":"Start date from ",
+	"dashbord.filter.auth.result.type":"Auth result type ",
+	"dashbord.filter.start.date":"Start Date ",
+	"dashbord.filter.end.date":"End Date "
+
 }

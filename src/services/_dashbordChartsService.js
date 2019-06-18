@@ -216,6 +216,9 @@ function formatProvinceData(data){
 export function getAllFilterData(locale){
 
     let res = {
+        STARTING_DATE:[],
+        HISTORGAM_INTERVAL: [],
+        TAP_AUTH_RESULT_TYPE: [],
         pieData : {},
         geoData:{},
     };
@@ -230,7 +233,17 @@ export function getAllFilterData(locale){
                 // return res;
                 getGeoData(originData,locale).then(result=>{
                     res.geoData = result;
-                    resolve(res);
+                    getStartingDate(locale).then(result => {
+                        res.STARTING_DATE = result.data.dtos;
+                        getTapData(locale).then(result=>{
+                            res.TAP_AUTH_RESULT_TYPE = result.data.dtos;
+                            getHistogramInterval(locale).then(result=>{
+                                res.HISTORGAM_INTERVAL = result.data.dtos;
+                                resolve(res);
+                            }); 
+                        })
+                    })
+                   
                     // return res;
                 });
             });
@@ -240,6 +253,24 @@ export function getAllFilterData(locale){
     
 }
 
+function getStartingDate(locale){
+    const url = AppConfig.baseURL + '/report/param/filter';
+    headers["Accept-Language"]=locale;
+    return axios.post(url,{"key" : "STARTING_DATE"},{"headers":headers});       
+        // STARTING_DATE: content.dtos
+}
+
+function getTapData(locale){
+    const url =  AppConfig.baseURL + '/report/param/filter';
+    headers["Accept-Language"]=locale;
+    return axios.post(url,{"key" : "TAP_AUTH_RESULT_TYPE"},{"headers":headers});  
+}
+
+function getHistogramInterval(locale){
+    const url =  AppConfig.baseURL + '/report/param/filter';
+    headers["Accept-Language"]=locale;
+    return axios.post(url,{"key" : "HISTORGAM_INTERVAL"},{"headers":headers});
+}
 
 
 function getGeoData(data,locale){

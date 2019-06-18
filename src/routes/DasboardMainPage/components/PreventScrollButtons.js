@@ -117,94 +117,101 @@ class PreventScrollButtons extends Component {
         this.setState({ activeIndex: value });
     }
     componentDidMount = () => {     
-        this.getData();
+        // this.getData();
 
         getAllFilterData(this.props.locale).then(res=>{
+            // console.log("all filter data is",res.HISTORGAM_INTERVAL);
             this.setState(prev=>{
                 return {
                     ...prev,
-                    filter:res
+                    HISTORGAM_INTERVAL:res.HISTORGAM_INTERVAL,
+                    TAP_AUTH_RESULT_TYPE:res.TAP_AUTH_RESULT_TYPE,
+                    STARTING_DATE:res.STARTING_DATE,
+                    filter:{
+                        pieData:res.pieData,
+                        geoData:res.geoData
+                    }
                 }
             })
         })
     }
 
     getData = ()=>{
-        const currentLanguagecode = this.props.locale;
-        console.log('currentLanguagecode', currentLanguagecode);
+        // const currentLanguagecode = this.props.locale;
+        // console.log('currentLanguagecode', currentLanguagecode);
            
-		this.getStartingDate();
+		// this.getStartingDate();
         
-		(async () => {
-            const rawResponse = await fetch(AppConfig.baseURL + '/report/param/filter', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                  'Authorization': giventoken,
-                  'Accept-Language': currentLanguagecode
-                },
-                body: JSON.stringify({
-                    "key" : "HISTORGAM_INTERVAL"
-                  })
-            });
-            const content = await rawResponse.json();
-            console.log(content);
-            if (content.messageModel.type === "success") {
-                this.setState({
-                    HISTORGAM_INTERVAL: content.dtos
-                })
-            }
-        })();
+		// (async () => {
+        //     const rawResponse = await fetch(AppConfig.baseURL + '/report/param/filter', {
+        //         method: 'POST',
+        //         headers: {
+        //           'Content-Type': 'application/json',
+        //           'Authorization': giventoken,
+        //           'Accept-Language': currentLanguagecode
+        //         },
+        //         body: JSON.stringify({
+        //             "key" : "HISTORGAM_INTERVAL"
+        //           })
+        //     });
+        //     const content = await rawResponse.json();
+        //     console.log(content);
+        //     if (content.messageModel.type === "success") {
+        //         this.setState({
+        //             HISTORGAM_INTERVAL: content.dtos
+        //         })
+        //     }
+        // })();
         
-		this.getTapData();
+		// this.getTapData();
     }
 
     getTapData = ()=>{
-        const currentLanguagecode = this.props.locale;
-        (async () => {
-            const rawResponse = await fetch(AppConfig.baseURL + '/report/param/filter', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                  'Authorization': giventoken,
-                  'Accept-Language': currentLanguagecode
-                },
-                body: JSON.stringify({
-                    "key" : "TAP_AUTH_RESULT_TYPE"
-                })
-            });
-            const content = await rawResponse.json();
-            console.log(content);
-            if (content.messageModel.type == "success") {
-                this.setState({
-                    TAP_AUTH_RESULT_TYPE: content.dtos
-                })
-            }
-        })();
+        // const currentLanguagecode = this.props.locale;
+        // (async () => {
+        //     const rawResponse = await fetch(AppConfig.baseURL + '/report/param/filter', {
+        //         method: 'POST',
+        //         headers: {
+        //           'Content-Type': 'application/json',
+        //           'Authorization': giventoken,
+        //           'Accept-Language': currentLanguagecode
+        //         },
+        //         body: JSON.stringify({
+        //             "key" : "TAP_AUTH_RESULT_TYPE"
+        //         })
+        //     });
+        //     const content = await rawResponse.json();
+        //     console.log(content);
+        //     if (content.messageModel.type == "success") {
+        //         this.setState({
+        //             TAP_AUTH_RESULT_TYPE: content.dtos
+        //         })
+        //     }
+        // })();
     }
 
     getStartingDate = ()=>{
-        const currentLanguagecode = this.props.locale;
-        (async () => {
-            const rawResponse = await fetch(AppConfig.baseURL + '/report/param/filter', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                  'Authorization': giventoken,
-                  'Accept-Language': currentLanguagecode
-                },
-                body: JSON.stringify({
-                    "key" : "STARTING_DATE"
-                })
-            });
-            const content = await rawResponse.json();
-            console.log(content);
-            if (content.messageModel.type === "success") {
-                this.setState({
-                    STARTING_DATE: content.dtos
-                })
-            }
-        })();
+        // const currentLanguagecode = this.props.locale;
+        // (async () => {
+        //     const rawResponse = await fetch(AppConfig.baseURL + '/report/param/filter', {
+        //         method: 'POST',
+        //         headers: {
+        //           'Content-Type': 'application/json',
+        //           'Authorization': giventoken,
+        //           'Accept-Language': currentLanguagecode
+        //         },
+        //         body: JSON.stringify({
+        //             "key" : "STARTING_DATE"
+        //         })
+        //     });
+        //     const content = await rawResponse.json();
+        //     console.log(content);
+        //     if (content.messageModel.type === "success") {
+        //         this.setState({
+        //             STARTING_DATE: content.dtos
+        //         })
+        //     }
+        // })();
     }
     
 	handleChange_DatePicker_EndDate = (selectedunix, selectedformatted) => {
@@ -274,15 +281,21 @@ class PreventScrollButtons extends Component {
     componentWillReceiveProps(nextProps) {
         console.log('new locale', nextProps.locale);
         console.log('old locale', this.props.locale);
-        this.getStartingDate();
-        this.getTapData();
+        // this.getStartingDate();
+        // this.getTapData();
 
         if(this.props.locale !== nextProps.locale){
             getAllFilterData(nextProps.locale).then(res=>{
                 this.setState(prev=>{
                     return {
                         ...prev,
-                        filter:res,
+                        HISTORGAM_INTERVAL:res.HISTORGAM_INTERVAL,
+                        TAP_AUTH_RESULT_TYPE:res.TAP_AUTH_RESULT_TYPE,
+                        STARTING_DATE:res.STARTING_DATE,
+                        filter:{
+                            pieData:res.pieData,
+                            geoData:res.geoData
+                        },
                         chosenenddate:'',
                         chosenstartdate:'',
                         form:{
@@ -323,10 +336,9 @@ class PreventScrollButtons extends Component {
                     <RctCollapsibleCard heading="Filter">
                         <Form onSubmit={this.formSubmit}>
                             <FormGroup row style={{marginBottom: 0}}>
-                                <Label for="roleName-1" style={{fontSize:12}} sm={5}>starting date from</Label>
+                                <Label for="roleName-1" style={{fontSize:12}} sm={5}><IntlMessages id="dashbord.filter.start.date.from" /></Label>
                                 <Col sm={7}>
                                     <Input onChange={this.handleFromDataChange} name="startingDate" className="mb-20" type="select" bsSize="sm">
-                                        <option value=''>Choose starting date</option>
                                         {this.state.STARTING_DATE.map(each => {
                                             return(
                                                 <option selected={this.props.settings.reportStarting === each.key ? true : false} value={each.key}>{each.title}</option>
@@ -334,7 +346,7 @@ class PreventScrollButtons extends Component {
                                         })}
                                     </Input>
                                 </Col>
-                                <Label for="roleName-1" style={{fontSize:12}} sm={5}>Auth result type</Label>
+                                <Label for="roleName-1" style={{fontSize:12}} sm={5}><IntlMessages id="dashbord.filter.auth.result.type" /></Label>
                                 <Col sm={7}>
                                     <Input onChange={this.handleFromDataChange} name="tapAuthResult" className="mb-20" type="select" bsSize="sm">
                                         {this.state.TAP_AUTH_RESULT_TYPE.map(each => {
@@ -350,7 +362,7 @@ class PreventScrollButtons extends Component {
                             (
                                 <FormGroup>
                                 
-								<Label style={{fontSize:12}} sm={5} for="startDate">Start Date:</Label>
+								<Label style={{fontSize:12}} sm={5} for="startDate"><IntlMessages id="dashbord.filter.start.date" /></Label>
 								<Col style={{fontSize:12}} sm={7}>
                                     <DatePicker
                                         placeholder="انتخاب تاریخ آغاز"
@@ -359,7 +371,7 @@ class PreventScrollButtons extends Component {
                                         id="smallerDatePickerClass"
                                     />
                                 </Col>
-								<Label style={{fontSize:12}} sm={5} for="endDate">End Date:</Label>
+								<Label style={{fontSize:12}} sm={5} for="endDate"><IntlMessages id="dashbord.filter.end.date" /></Label>
 								<Col style={{fontSize:12}} sm={7}>
                                     <DatePicker 
                                         inputComponent={this.DatePickerInput}
@@ -374,14 +386,14 @@ class PreventScrollButtons extends Component {
                             (
                                 <FormGroup>
                                 
-								<Label style={{fontSize:12}} sm={5} for="startDate">Start Date:</Label>
+								<Label style={{fontSize:12}} sm={5} for="startDate"><IntlMessages id="dashbord.filter.start.date" /></Label>
 								<Col style={{fontSize:12}} sm={7}>
                                 <EnDatePicker
                                     selected={this.state.chosenstartdate}
                                     onChange={this.handleStartDateChange}
                                 />
                                 </Col>
-								<Label style={{fontSize:12}} sm={5} for="endDate">End Date:</Label>
+								<Label style={{fontSize:12}} sm={5} for="endDate"><IntlMessages id="dashbord.filter.end.date" /></Label>
 								<Col style={{fontSize:12}} sm={7}>
                                     <EnDatePicker
                                         selected={this.state.chosenenddate}
