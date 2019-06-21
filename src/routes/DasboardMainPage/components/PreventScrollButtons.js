@@ -414,28 +414,31 @@ class PreventScrollButtons extends Component {
             >
                 <AppBar position="static" color="primary">
                     <Tabs value={activeIndex} onChange={(e, value) => this.handleChange(e, value)} scrollable scrollButtons="off">
-                        <Tab style={{minWidth: 90}} label="کالا" />
-                        <Tab style={{minWidth: 90}} label="گروه بندی کالا" />
-                        <Tab style={{minWidth: 90}} label="اطلاعات جغرافیایی" />
+                        <Tab style={{minWidth: 90}} label={<IntlMessages id="dashbord.filter.product" />} />
+                        <Tab style={{minWidth: 90}} label={<IntlMessages id="dashbord.filter.product.category" />}/>
+                        <Tab style={{minWidth: 90}} label={<IntlMessages id="dashbord.filter.geo" />} />
                     </Tabs>
                 </AppBar>
                 {activeIndex === 0 && 
                     <TabContainer>
-                        <FilterContent checkedItems={this.props.settings.productTypes}
+                        <FilterContent header={<IntlMessages id="dashbord.filter.product.brand" />}
+                                        checkedItems={this.props.settings.productTypes}
                                        data={this.state.filter.pieData.productPie.title}
                                         ids={this.state.filter.pieData.productPie.ids}
                                         filter={(id)=>{
                                             this.props.customFilter('productTypes',id);
                                         }}
                         />
-                        <FilterContent checkedItems={this.props.settings.productproviders}
+                        <FilterContent  header={<IntlMessages id="dashbord.filter.product.owner" />}
+                                        checkedItems={this.props.settings.productproviders}
                                        data={this.state.filter.pieData.providerPie.title}
                                         ids={this.state.filter.pieData.providerPie.ids}
                                         filter={(id)=>{
                                             this.props.customFilter('productproviders',id);
                                         }}
                         />
-                        <FilterContent checkedItems={this.props.settings.manufacturers}
+                        <FilterContent  header={<IntlMessages id="dashbord.filter.product.type" />} 
+                                        checkedItems={this.props.settings.manufacturers}
                                        data={this.state.filter.pieData.manufacturerPie.title}
                                         ids={this.state.filter.pieData.manufacturerPie.ids}
                                         filter={(id)=>{
@@ -446,21 +449,24 @@ class PreventScrollButtons extends Component {
                     </TabContainer>}
                 {activeIndex === 1 && 
                     <TabContainer>
-                        <FilterContent checkedItems={this.props.settings.industries}
+                        <FilterContent  header={<IntlMessages id="dashbord.filter.product.inustry" />}
+                                        checkedItems={this.props.settings.industries}
                                         data={this.state.filter.pieData.industryPie.title}
                                         ids={this.state.filter.pieData.industryPie.ids}
                                         filter={(id)=>{
                                             this.props.customFilter('industries',id);
                                         }}
                         />
-                        <FilterContent checkedItems={this.props.settings.productcategories}
+                        <FilterContent  header={<IntlMessages id="dashbord.filter.product.category" />}
+                                        checkedItems={this.props.settings.productcategories}
                                         data={this.state.filter.pieData.catPie.title}
                                         ids={this.state.filter.pieData.catPie.ids}
                                         filter={(id)=>{
                                             this.props.customFilter('productcategories',id);
                                         }}
                         />
-                        <FilterContent checkedItems={this.props.settings.productSubcategories}
+                        <FilterContent  header={<IntlMessages id="dashbord.filter.product.subcategory" />}
+                                        checkedItems={this.props.settings.productSubcategories}
                                         data={this.state.filter.pieData.subCatPie.title}
                                         ids={this.state.filter.pieData.subCatPie.ids}
                                         filter={(id)=>{
@@ -470,21 +476,24 @@ class PreventScrollButtons extends Component {
                     </TabContainer>}
                 {activeIndex === 2 && 
                     <TabContainer>
-                    <FilterContent checkedItems={this.props.settings.countries}
+                    <FilterContent      header={<IntlMessages id="dashbord.filter.country" />}
+                                        checkedItems={this.props.settings.countries}
                                         data={this.state.filter.geoData.country.title}
                                         ids={this.state.filter.geoData.country.ids}
                                         filter={(id)=>{
                                             this.props.customFilter('countries',id);
                                         }}
                         />
-                    <FilterContent checkedItems={this.props.settings.provinces}
+                    <FilterContent      header={<IntlMessages id="dashbord.filter.province" />}
+                                        checkedItems={this.props.settings.provinces}
                                         data={this.state.filter.geoData.province.title}
                                         ids={this.state.filter.geoData.province.ids}
                                         filter={(id)=>{
                                             this.props.customFilter('provinces',id);
                                         }}
                         />
-                    <FilterContent checkedItems={this.props.settings.cities}
+                    <FilterContent      header={<IntlMessages id="dashbord.filter.geo" />}
+                                        checkedItems={this.props.settings.cities}
                                         data={this.state.filter.geoData.city.title}
                                         ids={this.state.filter.geoData.city.ids}
                                         filter={(id)=>{

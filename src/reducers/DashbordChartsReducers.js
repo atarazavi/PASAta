@@ -11,7 +11,7 @@ const INIT_STATE = {
     "pageNumber": 0,
     "pageSize": 0,
     "productSubcategories": [],
-    "productTypes": [654654,11],
+    "productTypes": [],
     "productcategories": [],
     "productproviders": [],
     "products": [],

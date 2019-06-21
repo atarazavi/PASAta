@@ -781,6 +781,19 @@ module.exports = {
 	"dashbord.filter.start.date.from":"Start date from ",
 	"dashbord.filter.auth.result.type":"Auth result type ",
 	"dashbord.filter.start.date":"Start Date ",
-	"dashbord.filter.end.date":"End Date "
+	"dashbord.filter.end.date":"End Date ",
+	"dashbord.filter.product":"product",
+	"dashbord.filter.product.category":"category",
+	"dashbord.filter.geo":"Geo",
+	"dashbord.filter.country":"country",
+	"dashbord.filter.province":"province",
+	"dashbord.filter.product.inustry":"inustry",
+	"dashbord.filter.product.subcategory":"sub category",
+	// "dashbord.filter.product.category":"category",
+	"dashbord.filter.product.brand":"brand",
+	"dashbord.filter.product.owner":"owner",
+	"dashbord.filter.product.type":"type",
+	"charts.histogram":"Histogram",
+	"charts.label.histogram":"Histogram"
 
 }

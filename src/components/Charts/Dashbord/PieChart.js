@@ -20,7 +20,7 @@ class PieChart extends Component {
     //     }  
     // };
 
-  
+
 
 	render() {
         let data = {
@@ -32,8 +32,12 @@ class PieChart extends Component {
                 '#FF6384',
                 '#36A2EB',
                 '#FFCE56'
-                ]
-            }]
+                ],
+                
+
+            }],
+                
+            
         };
         data.datasets[0].data = this.props.data;
         data.labels = this.props.title;

@@ -6,6 +6,9 @@ import {  getHistogramCharts,getHistogramFilterData } from "../../../services/_d
 import { connect } from "react-redux";
 import {histogramIntervalChange} from "../../../actions/DashbordChartsActions"
 
+import IntlMessages from 'Util/IntlMessages';
+
+
 class HistogramChart extends Component {
 
     options = {
@@ -71,11 +74,12 @@ class HistogramChart extends Component {
     }
 
 	render() {
-
+        let header = this.props.header;
+        // console.info("header",header);
         let data={
             labels: this.state.labels,
             datasets: [{
-                label: 'My First dataset',
+                label: header,
                 backgroundColor: 'rgb(255, 99, 132)',
                 borderColor: 'rgb(255, 99, 132)',
                 fill:false,

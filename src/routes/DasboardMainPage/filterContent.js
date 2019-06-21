@@ -78,7 +78,7 @@ class CheckboxListComponent extends Component {
         console.log(this.state.data);
         return (
             <RctCollapsibleCard
-                heading={<IntlMessages id="widgets.checkboxListControl" />}
+                heading={this.props.header}
                 collapsible={'BcollapsedByDefault'}
             >
                 <Scrollbars className="rct-scroll" autoHeight autoHeightMin={100} autoHeightMax={160} autoHide>

@@ -20,7 +20,7 @@ import PieChart from '../../components/Charts/Dashbord/PieChart';
 import MapChart from '../../components/Charts/Dashbord/MapChart'
 import HeatMapChart from '../../components/Charts/Dashbord/HeatMapChart'
 
-
+import IntlMessages from 'Util/IntlMessages';
 
 class ReactCharts extends Component {
 
@@ -71,7 +71,7 @@ class ReactCharts extends Component {
     componentWillReceiveProps(nextProps) {
         console.log('new locale', nextProps.locale);
         console.log('old locale', this.props.locale);
-        console.log('state is changed');
+        // console.info('nexprops is',nextProps);
         // if(this.props.locale !== nextProps.locale){
             this.getPieChartData(nextProps.settings,nextProps.locale);
         // }
@@ -81,7 +81,6 @@ class ReactCharts extends Component {
     getPieChartData = (settings,locale)=>{
         getPieChart(settings,locale)
             .then(res=>{ 
-                console.log(res);
                 this.setState(prev => {
                     return {
                         ...prev,
@@ -97,8 +96,8 @@ class ReactCharts extends Component {
 
                 <div className="row">
                     <div className="col-sm-12 col-md-12 col-xl-12">
-                        <RctCollapsibleCard heading="Line Chart">
-                        <Histogram
+                        <RctCollapsibleCard heading={<IntlMessages id='charts.histogram' />}>
+                        <Histogram header={<IntlMessages id='charts.label.histogram' />}
                         />
                         </RctCollapsibleCard>
                     </div>
@@ -108,7 +107,7 @@ class ReactCharts extends Component {
                 <div className="row">
 
                     <div className="col-sm-12 col-md-3 col-xl-3">
-                        <RctCollapsibleCard heading="Doughnut">
+                        <RctCollapsibleCard heading={<IntlMessages id='charts.productPie' />}>
                             <PieChart data={this.state.pie.productPie.aggregationValue}
                                     title={this.state.pie.productPie.title}
                                     settings={this.props.settings}
@@ -118,7 +117,7 @@ class ReactCharts extends Component {
                     </div>
                     
                     <div className="col-sm-12 col-md-3 col-xl-3">
-                        <RctCollapsibleCard heading="Doughnut">
+                        <RctCollapsibleCard heading={<IntlMessages id='charts.industryPie' />}>
                             <PieChart data={this.state.pie.industryPie.aggregationValue}
                                       title={this.state.pie.industryPie.title}
                                       settings={this.props.settings}
@@ -127,7 +126,7 @@ class ReactCharts extends Component {
                         </RctCollapsibleCard>
                     </div>
                     <div className="col-sm-12 col-md-3 col-xl-3">
-                        <RctCollapsibleCard heading="Pie Chart">
+                        <RctCollapsibleCard heading={<IntlMessages id='charts.catPie' />}>
                         <PieChart data={this.state.pie.catPie.aggregationValue}
                                       title={this.state.pie.catPie.title}
                                       settings={this.props.settings}
@@ -136,7 +135,7 @@ class ReactCharts extends Component {
                         </RctCollapsibleCard>
                     </div>
                     <div className="col-sm-12 col-md-3 col-xl-3">
-                        <RctCollapsibleCard heading="Doughnut">
+                        <RctCollapsibleCard heading={<IntlMessages id='charts.subCatPie' />}>
                             <PieChart data={this.state.pie.subCatPie.aggregationValue}
                                       title={this.state.pie.subCatPie.title}
                                       settings={this.props.settings}
@@ -145,7 +144,7 @@ class ReactCharts extends Component {
                         </RctCollapsibleCard>
                     </div>
                     <div className="col-sm-12 col-md-3 col-xl-3">
-                        <RctCollapsibleCard heading="Pie Chart">
+                        <RctCollapsibleCard heading={<IntlMessages id='charts.providerPie' />}>
                             <PieChart data={this.state.pie.providerPie.aggregationValue}
                                       title={this.state.pie.providerPie.title}
                                       settings={this.props.settings}
@@ -154,7 +153,7 @@ class ReactCharts extends Component {
                         </RctCollapsibleCard>
                     </div>
                     <div className="col-sm-12 col-md-3 col-xl-3">
-                        <RctCollapsibleCard heading="Doughnut">
+                        <RctCollapsibleCard heading={<IntlMessages id='charts.manufacturerPie' />}>
                             <PieChart data={this.state.pie.manufacturerPie.aggregationValue}
                                       title={this.state.pie.manufacturerPie.title}
                                       settings={this.props.settings}
@@ -165,8 +164,8 @@ class ReactCharts extends Component {
                 </div>
                     
                 <div className="row" >
-                    <div className="col-sm-12 col-md-12 col-xl-12">
-                        <RctCollapsibleCard heading="Maps">
+                    <div className="col-sm-12 col-md-6 ">
+                        <RctCollapsibleCard heading={<IntlMessages id='charts.province' />}>
                             <MapChart 
                                 keys={this.state.pie.province.keys}
                                 id={this.state.pie.province.ids}
@@ -175,10 +174,8 @@ class ReactCharts extends Component {
                             />
                         </RctCollapsibleCard>
                     </div> 
-                </div>
-                <div className="row" >
-                    <div className="col-sm-12 col-md-12 col-xl-12">
-                        <RctCollapsibleCard heading="Heat Maps">
+                    <div className="col-sm-12 col-md-6">
+                        <RctCollapsibleCard heading={<IntlMessages id='charts.heatmap' />}>
                             <HeatMapChart
                                 data={this.state.pie.heatmap} 
                             />

@@ -95,8 +95,8 @@ export function getHistogramFilterData(data,locale){
 export function getPieChart(data,locale){
 
     headers["Accept-Language"]=locale;
+    data = JSON.stringify(data);
 
-    
 
     return axios.all([
         axios.post(productPieUrl,data,{"headers":headers}),
@@ -118,6 +118,7 @@ export function getPieChart(data,locale){
             province:{},
             heatmap:{}
          };
+        //  console.info("res",provinceRes);
          var productResVal=formatData(productRes.data.dtos);
          Result.productPie.title = productResVal[0];
          Result.productPie.aggregationValue = productResVal[1];

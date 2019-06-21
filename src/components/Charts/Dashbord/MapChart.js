@@ -75,6 +75,7 @@ class MapChart extends Component {
     this.state = {mapOptions:this.mapOptions};
   }
 
+  
   componentDidMount(){
 
     let data = this.calHcKeys(this.props);
@@ -89,6 +90,7 @@ class MapChart extends Component {
 
 
   componentWillReceiveProps(nextProps){
+    // console.info('next props',nextProps);
     let data = this.calHcKeys(nextProps);
     this.mapOptions.series[0].data = data;
     this.setState(prev=>({
@@ -101,6 +103,7 @@ class MapChart extends Component {
     var keys = param.keys;
     var data = param.data;
 
+    this.provincesData = this.getProvincesData();
     // console.info(data,keys);
     // let res=[];
     for(let i=0;i<keys.length;i++){
@@ -119,8 +122,45 @@ class MapChart extends Component {
     //   }
     // })
     // this.provincesData.push(res);
-    console.info("provincesData",this.provincesData);
+    console.info("provincesData",this.originalData);
     return this.provincesData;
+  }
+
+  getProvincesData(){
+    return [
+        ['ir-5428', 0],
+        ['ir-hg', 0],
+        ['ir-bs', 0],
+        ['ir-kb', 0],
+        ['ir-fa', 0],
+        ['ir-es', 0],
+        ['ir-sm', 0],
+        ['ir-go', 0],
+        ['ir-mn', 0],
+        ['ir-th', 0],
+        ['ir-mk', 0],
+        ['ir-ya', 0],
+        ['ir-cm', 0],
+        ['ir-kz', 0],
+        ['ir-lo', 0],
+        ['ir-il', 0],
+        ['ir-ar', 0],
+        ['ir-qm', 0],
+        ['ir-hd', 0],
+        ['ir-za', 0],
+        ['ir-qz', 0],
+        ['ir-wa', 0],
+        ['ir-ea', 0],
+        ['ir-bk', 0],
+        ['ir-gi', 0],
+        ['ir-kd', 0],
+        ['ir-kj', 0],
+        ['ir-kv', 0],
+        ['ir-ks', 0],
+        ['ir-sb', 0],
+        ['ir-ke', 0],
+        ['ir-al', 0]
+    ];
   }
 
   render() {
