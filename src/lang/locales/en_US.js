@@ -794,6 +794,6 @@ module.exports = {
 	"dashbord.filter.product.owner":"owner",
 	"dashbord.filter.product.type":"type",
 	"charts.histogram":"Histogram",
-	"charts.label.histogram":"Histogram"
+	"charts.label.histogram":"Histogram Title"
 
 }

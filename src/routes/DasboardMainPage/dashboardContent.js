@@ -20,6 +20,7 @@ import PieChart from '../../components/Charts/Dashbord/PieChart';
 import MapChart from '../../components/Charts/Dashbord/MapChart'
 import HeatMapChart from '../../components/Charts/Dashbord/HeatMapChart'
 
+import {customFilterChange} from '../../actions/DashbordChartsActions';
 import IntlMessages from 'Util/IntlMessages';
 
 class ReactCharts extends Component {
@@ -30,27 +31,33 @@ class ReactCharts extends Component {
             pie:{
                 productPie:{
                     title:[],
-                    aggregationValue:[]
+                    aggregationValue:[],
+                    ids:[]
                 },
                 industryPie:{
                     title:[],
-                    aggregationValue:[]
+                    aggregationValue:[],
+                    ids:[]
                 },
                 catPie:{
                     title:[],
-                    aggregationValue:[]
+                    aggregationValue:[],
+                    ids:[]
                 },
                 subCatPie:{
                     title:[],
-                    aggregationValue:[]
+                    aggregationValue:[],
+                    ids:[]
                 },
                 providerPie:{
                     title:[],
-                    aggregationValue:[]
+                    aggregationValue:[],
+                    ids:[]
                 },
                 manufacturerPie:{
                     title:[],
-                    aggregationValue:[]
+                    aggregationValue:[],
+                    ids:[]
                 },
                 province:{
                     title:[],
@@ -58,7 +65,7 @@ class ReactCharts extends Component {
                     keys:[],
                     ids:[]
                 },
-                heatmap:[]
+                heatmap:[ [] ]
              }
         };
     }
@@ -91,13 +98,14 @@ class ReactCharts extends Component {
     };
 
 	render() {
+        // console.info('Histogram title is: ',<IntlMessages id='charts.histogram' />);
 		return (
             <div>
 
                 <div className="row">
                     <div className="col-sm-12 col-md-12 col-xl-12">
                         <RctCollapsibleCard heading={<IntlMessages id='charts.histogram' />}>
-                        <Histogram header={<IntlMessages id='charts.label.histogram' />}
+                        <Histogram header={""}
                         />
                         </RctCollapsibleCard>
                     </div>
@@ -108,8 +116,13 @@ class ReactCharts extends Component {
 
                     <div className="col-sm-12 col-md-3 col-xl-3">
                         <RctCollapsibleCard heading={<IntlMessages id='charts.productPie' />}>
-                            <PieChart data={this.state.pie.productPie.aggregationValue}
+                            <PieChart 
+                                    customFilterChange={(id)=>{
+                                        this.props.customFilter('productTypes',id);
+                                    }} 
+                                    data={this.state.pie.productPie.aggregationValue}
                                     title={this.state.pie.productPie.title}
+                                    ids={this.state.pie.productPie.ids}
                                     settings={this.props.settings}
                                     locale={this.props.locale}
                             />
@@ -118,8 +131,12 @@ class ReactCharts extends Component {
                     
                     <div className="col-sm-12 col-md-3 col-xl-3">
                         <RctCollapsibleCard heading={<IntlMessages id='charts.industryPie' />}>
-                            <PieChart data={this.state.pie.industryPie.aggregationValue}
+                            <PieChart customFilterChange={(id)=>{
+                                            this.props.customFilter('industries',id);
+                                      }}
+                                      data={this.state.pie.industryPie.aggregationValue}
                                       title={this.state.pie.industryPie.title}
+                                      ids={this.state.pie.industryPie.ids}
                                       settings={this.props.settings}
                                       locale={this.props.locale}
                             />
@@ -127,8 +144,12 @@ class ReactCharts extends Component {
                     </div>
                     <div className="col-sm-12 col-md-3 col-xl-3">
                         <RctCollapsibleCard heading={<IntlMessages id='charts.catPie' />}>
-                        <PieChart data={this.state.pie.catPie.aggregationValue}
+                        <PieChart customFilterChange={(id)=>{
+                                            this.props.customFilter('productcategories',id);
+                                   }} 
+                                      data={this.state.pie.catPie.aggregationValue}
                                       title={this.state.pie.catPie.title}
+                                      ids={this.state.pie.catPie.ids}
                                       settings={this.props.settings}
                                       locale={this.props.locale}
                             />
@@ -136,8 +157,13 @@ class ReactCharts extends Component {
                     </div>
                     <div className="col-sm-12 col-md-3 col-xl-3">
                         <RctCollapsibleCard heading={<IntlMessages id='charts.subCatPie' />}>
-                            <PieChart data={this.state.pie.subCatPie.aggregationValue}
+                            <PieChart 
+                                    customFilterChange={(id)=>{
+                                            this.props.customFilter('productSubcategories',id);
+                                    }}
+                                      data={this.state.pie.subCatPie.aggregationValue}
                                       title={this.state.pie.subCatPie.title}
+                                      ids={this.state.pie.subCatPie.ids}
                                       settings={this.props.settings}
                                       locale={this.props.locale}
                             />
@@ -145,8 +171,13 @@ class ReactCharts extends Component {
                     </div>
                     <div className="col-sm-12 col-md-3 col-xl-3">
                         <RctCollapsibleCard heading={<IntlMessages id='charts.providerPie' />}>
-                            <PieChart data={this.state.pie.providerPie.aggregationValue}
+                            <PieChart 
+                                    customFilterChange={(id)=>{
+                                        this.props.customFilter('productproviders',id);
+                                    }}
+                                      data={this.state.pie.providerPie.aggregationValue}
                                       title={this.state.pie.providerPie.title}
+                                      ids={this.state.pie.providerPie.ids}
                                       settings={this.props.settings}
                                       locale={this.props.locale}
                             />
@@ -154,8 +185,13 @@ class ReactCharts extends Component {
                     </div>
                     <div className="col-sm-12 col-md-3 col-xl-3">
                         <RctCollapsibleCard heading={<IntlMessages id='charts.manufacturerPie' />}>
-                            <PieChart data={this.state.pie.manufacturerPie.aggregationValue}
+                            <PieChart 
+                                    customFilterChange={(id)=>{
+                                        this.props.customFilter('manufacturers',id);
+                                    }}
+                                      data={this.state.pie.manufacturerPie.aggregationValue}
                                       title={this.state.pie.manufacturerPie.title}
+                                      ids={this.state.pie.manufacturerPie.ids}
                                       settings={this.props.settings}
                                       locale={this.props.locale}
                             />
@@ -195,4 +231,4 @@ function mapStateToProps(state) {
     return { settings: state.chartsSetting,locale:state.settings.locale.locale }
   }
 
-export default connect(mapStateToProps)(ReactCharts);
+export default connect(mapStateToProps,{customFilter:customFilterChange})(ReactCharts);

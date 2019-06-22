@@ -25,8 +25,14 @@ class HeatMapChart extends Component {
             data:nexProps.data
         }));
     }
+    componentDidCatch(error, info) {
+        // Display fallback UI
+        console.info('heat map crashed and its state is ',this.state);
+
+      }
 
   render() {
+
         return (
             <div>
             <Map center={[32.4279,53.6880]} zoom={4}>

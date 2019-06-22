@@ -23,6 +23,7 @@ class PieChart extends Component {
 
 
 	render() {
+        console.info('refrence is ',this.ref)
         let data = {
             labels: [
             ],
@@ -32,8 +33,7 @@ class PieChart extends Component {
                 '#FF6384',
                 '#36A2EB',
                 '#FFCE56'
-                ],
-                
+                ],     
 
             }],
                 
@@ -46,6 +46,17 @@ class PieChart extends Component {
 
             <Pie
                 data={data}
+                onElementsClick={ (param)=>{
+                    let label = param[0]._model.label;
+                    let itemLabel = this.props.title.indexOf(label);
+                    // console.info('labels ',this.props.ids[itemLabel]);
+                    if(itemLabel !== -1){
+                        console.info('props',this.props.ids[itemLabel]);
+                        this.props.customFilterChange(this.props.ids[itemLabel]);
+                    } 
+                    }
+                 }
+
             />
 			
 		);
