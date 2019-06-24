@@ -77,10 +77,20 @@ const InitialPath = ({ component: Component, ...rest, authUser }) =>
 	/>;
 
 class App extends Component {
+	componentDidMount() {
+		if (localStorage.getItem('flagforrefresh') == 'false'){
+			localStorage.getItem('flagforrefresh', '1')
+			console.log('going to reloaaaaaaaaaaaaaaaaaaaaaaaaaaaaad');
+			
+			// window.location.reload();
+		}
+	}
+	componentWillUnmount(){
+		localStorage.setItem('flagforrefresh', 'false')
+	}
 	render() {
 		const { location, match, user } = this.props;
 		const giventoken = localStorage.getItem('given_token')
-		console.log('auth from localstorage', isPermitted);
 		const isPermitted = localStorage.getItem('isAuthenticated')
 		const ispermitted2 = PAS_Authentication.authenticated
 		console.log('isPermitted', isPermitted);

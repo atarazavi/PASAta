@@ -23,7 +23,7 @@ class SidebarContent extends Component {
         }
         this.props.onToggleMenu(data);
     }
-
+    
     render() {
         const { sidebarMenus } = this.props.sidebar;
         return (

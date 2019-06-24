@@ -134,10 +134,10 @@ class DataTable extends React.Component {
 		};
 		return (
 			<div className="data-table-wrapper">
-				<PageTitleBar title={<IntlMessages id="sidebar.dataTable" />} match={this.props.match} />
-				<RctCollapsibleCard heading="Data Table" fullBlock>
+				<PageTitleBar title={<IntlMessages id="sidebar.groupsList" />} match={this.props.match} />
+				<RctCollapsibleCard heading="List of Groups" fullBlock>
 					<MUIDataTable
-						title={"Users list"}
+						title={"Groups list"}
 						data={data}
 						columns={columns}
 						options={options}

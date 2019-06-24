@@ -9,7 +9,6 @@ import {
 	Input,
 	Col,
 } from 'reactstrap';
-import { Table } from 'reactstrap';
 
 import Button from '@material-ui/core/Button';
 
@@ -40,7 +39,7 @@ export default class AutoComplete extends Component {
 
     componentDidMount = () => {                     
         (async () => {
-            const rawResponse = await fetch(AppConfig.baseURL + '/permission/role/findbyrgroupid', {
+            const rawResponse = await fetch(AppConfig.baseURL + '/permission/role/findbygroupid', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -51,18 +50,18 @@ export default class AutoComplete extends Component {
                 })
             });
             const response = await rawResponse.json();
-            console.log('changerole',response);
+            console.log('changerole, /permission/role/findbyrgroupid',response);
             if (response.status == 200 ){
-                // const groupRoles = response.result.dtos.map(eachrole => {
-                //     return({
-                //         roleID: eachrole.roleDTO.id,
-                //         roleName: eachrole.roleDTO.name,
-                //         roleDescription: eachrole.roleDTO.description
-                //     })
-                // })        
-                // this.setState({
-                //     groupRoles
-                // })
+                const groupRoles = response.result.dtos.map(eachrole => {
+                    return({
+                        roleID: eachrole.roleDTO.id,
+                        roleName: eachrole.roleDTO.name,
+                        roleDescription: eachrole.roleDTO.description
+                    })
+                })        
+                this.setState({
+                    groupRoles
+                })
                 
             }
         })();
@@ -85,7 +84,7 @@ export default class AutoComplete extends Component {
                   })
             });
             const response = await rawResponse.json();
-            console.log('changerole',response);
+            console.log('changerole, /permission/role/filter',response);
             if (response.status == 200 ){
                 console.log('success');
                 const suggestions = response.result.dtos.map(eachRole => {
@@ -178,7 +177,7 @@ export default class AutoComplete extends Component {
 			<div className="formelements-wrapper">
 				<div className="row">
 					<div className="col-sm-12 col-md-12 col-xl-6">
-                        <RctCollapsibleCard heading={this.state.username + "'s current Roles"}>
+                        <RctCollapsibleCard heading={this.state.groupname + "'s current Roles"}>
                             <div className="table-responsive">
                                 <div className="flip-scroll">
                                     <table className="table table-bordered table-striped flip-content">
@@ -194,7 +193,7 @@ export default class AutoComplete extends Component {
                                                 return(<tr>
                                                     <td> {eachRole.roleName} </td>
                                                     <td style={{padding:0}}> 
-                                                        <IconButton className="text-danger" onClick={() => { if (window.confirm('Are you sure you wish to delete'+ this.state.username +"'s role?")) this.deletehandler(eachRole.roleID) } } aria-label="Delete">
+                                                        <IconButton className="text-danger" onClick={() => { if (window.confirm('Are you sure you wish to delete the role named '+eachRole.roleName+' ?')) this.deletehandler(eachRole.roleID) } } aria-label="Delete">
                                                             <i className="zmdi zmdi-close"></i>
                                                         </IconButton>
                                                     </td>
@@ -210,7 +209,7 @@ export default class AutoComplete extends Component {
                     </div>
                     <div className="col-sm-12 col-md-12 col-xl-6">
 
-                        <RctCollapsibleCard heading={"Add New Role For The " + this.state.username}>
+                        <RctCollapsibleCard heading={"Add New Role For The " + this.state.groupname}>
 							<Form>
 								<FormGroup row>
 									<Label for="Role_" sm={2}>Choose New Role</Label>
