@@ -19,12 +19,15 @@ import Histogram from '../../components/Charts/Dashbord/Histogram';
 import PieChart from '../../components/Charts/Dashbord/PieChart';
 import MapChart from '../../components/Charts/Dashbord/MapChart'
 import HeatMapChart from '../../components/Charts/Dashbord/HeatMapChart'
+import LinearProgress from '@material-ui/core/LinearProgress';
+// import RctPageLoader from '../../components/RctPageLoader/RctPageLoader';
 
 import {customFilterChange} from '../../actions/DashbordChartsActions';
 import IntlMessages from 'Util/IntlMessages';
 
 class ReactCharts extends Component {
 
+    loading = false;
     constructor(props){
         super(props);
         this.state = {
@@ -66,7 +69,7 @@ class ReactCharts extends Component {
                     ids:[]
                 },
                 heatmap:[ [] ]
-             }
+            }
         };
     }
 
@@ -86,8 +89,10 @@ class ReactCharts extends Component {
     }
 
     getPieChartData = (settings,locale)=>{
+        this.loading = true;
         getPieChart(settings,locale)
             .then(res=>{ 
+                this.loading = false;
                 this.setState(prev => {
                     return {
                         ...prev,
@@ -99,9 +104,14 @@ class ReactCharts extends Component {
 
 	render() {
         // console.info('Histogram title is: ',<IntlMessages id='charts.histogram' />);
+        // if(this.loading){
+        //     return 
+        // }
 		return (
             <div>
-
+                {this.loading &&
+                    <LinearProgress />
+                    }
                 <div className="row">
                     <div className="col-sm-12 col-md-12 col-xl-12">
                         <RctCollapsibleCard heading={<IntlMessages id='charts.histogram' />}>
