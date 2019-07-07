@@ -6,7 +6,7 @@ import {
     SEND_MESSAGE_TO_USER,
     UPDATE_USERS_SEARCH,
     SEARCH_USERS,
-    GET_RECENT_CHAT_USERS
+    GET_RECENT_CHAT_USERS,
 } from './types';
 
 /**
@@ -45,3 +45,5 @@ export const onSearchUsers = (value) => ({
 export const getRecentChatUsers = () => ({
     type: GET_RECENT_CHAT_USERS
 });
+
+
