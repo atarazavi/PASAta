@@ -60,7 +60,7 @@ export default class AutoComplete extends Component {
 		//       method: 'POST',
 		//       headers: {
 		//         'Content-Type': 'application/json',
-		//         'Authorization': givenToken
+		//         'Authorization': localStorage.getItem('given_token')
 		//       },
 		//       body: JSON.stringify(toBsentData)
 		//   });

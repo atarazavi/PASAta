@@ -44,7 +44,7 @@ export default class AutoComplete extends Component {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': giventoken
+                    'Authorization': localStorage.getItem('given_token')
                 },
                 body: JSON.stringify({
                     "id": this.state.group_id
@@ -72,7 +72,7 @@ export default class AutoComplete extends Component {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': giventoken
+                    'Authorization': localStorage.getItem('given_token')
                 },
                 body: JSON.stringify({
                     "fromDate": "",
@@ -112,7 +112,7 @@ export default class AutoComplete extends Component {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': giventoken
+                    'Authorization': localStorage.getItem('given_token')
                 },
                 body: JSON.stringify({
                     "groupDTO": {
@@ -144,7 +144,7 @@ export default class AutoComplete extends Component {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': giventoken
+                    'Authorization': localStorage.getItem('given_token')
                 },
                 body: JSON.stringify({
                     "groupDTO": {

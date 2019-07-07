@@ -41,7 +41,7 @@ export default class AutoComplete extends Component {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': giventoken
+                    'Authorization': localStorage.getItem('given_token')
                 },
                 body: JSON.stringify({
                     "id": this.props.location.state.grouup_id
@@ -81,7 +81,7 @@ export default class AutoComplete extends Component {
 		      method: 'POST',
 		      headers: {
 		        'Content-Type': 'application/json',
-		        'Authorization': giventoken
+		        'Authorization': localStorage.getItem('given_token')
 		      },
 		      body: JSON.stringify(toBsentData)
 		  });

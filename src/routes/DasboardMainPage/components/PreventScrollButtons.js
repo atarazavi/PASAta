@@ -146,7 +146,7 @@ constructor(props){
         //         method: 'POST',
         //         headers: {
         //           'Content-Type': 'application/json',
-        //           'Authorization': giventoken,
+        //           'Authorization': localStorage.getItem('given_token'),
         //           'Accept-Language': currentLanguagecode
         //         },
         //         body: JSON.stringify({
@@ -172,7 +172,7 @@ constructor(props){
         //         method: 'POST',
         //         headers: {
         //           'Content-Type': 'application/json',
-        //           'Authorization': giventoken,
+        //           'Authorization': localStorage.getItem('given_token'),
         //           'Accept-Language': currentLanguagecode
         //         },
         //         body: JSON.stringify({
@@ -196,7 +196,7 @@ constructor(props){
         //         method: 'POST',
         //         headers: {
         //           'Content-Type': 'application/json',
-        //           'Authorization': giventoken,
+        //           'Authorization': localStorage.getItem('given_token'),
         //           'Accept-Language': currentLanguagecode
         //         },
         //         body: JSON.stringify({

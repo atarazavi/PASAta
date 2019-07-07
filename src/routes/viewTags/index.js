@@ -34,7 +34,7 @@ class DataTable extends React.Component {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
-                'Authorization': giventoken,
+                'Authorization': localStorage.getItem('given_token'),
                 'Accept-Language': currentLanguagecode
 			},
 			body: JSON.stringify({

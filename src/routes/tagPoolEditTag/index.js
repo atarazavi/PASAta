@@ -40,7 +40,7 @@ export default class AutoComplete extends Component {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
-					'Authorization': giventoken,
+					'Authorization': localStorage.getItem('given_token'),
 				},
 				body: JSON.stringify({
                     "id": this.props.location.state.tagID
@@ -64,7 +64,7 @@ export default class AutoComplete extends Component {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': giventoken,
+                    'Authorization': localStorage.getItem('given_token'),
                     'Accept-Language': currentLanguagecode
                 }
             });
@@ -85,7 +85,7 @@ export default class AutoComplete extends Component {
 		      method: 'POST',
 		      headers: {
 		        'Content-Type': 'application/json',
-		        'Authorization': giventoken
+		        'Authorization': localStorage.getItem('given_token')
 		      },
 		      body: JSON.stringify({
                 "id" : this.props.location.state.tagID,

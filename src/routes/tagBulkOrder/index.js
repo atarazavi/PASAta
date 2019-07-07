@@ -45,7 +45,7 @@ export default class AutoComplete extends Component {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': giventoken,
+                    'Authorization': localStorage.getItem('given_token'),
                     'Accept-Language': 'fa'
                 },
                 body: JSON.stringify({
@@ -72,7 +72,7 @@ export default class AutoComplete extends Component {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': giventoken
+                    'Authorization': localStorage.getItem('given_token')
                 },
                 body: JSON.stringify({
                     "needPaginate": true,
@@ -99,7 +99,7 @@ export default class AutoComplete extends Component {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-					'Authorization': giventoken,
+					'Authorization': localStorage.getItem('given_token'),
 					'Accept-Language': 'fa'
                 }
             });
@@ -172,7 +172,7 @@ export default class AutoComplete extends Component {
 		      method: 'POST',
 		      headers: {
 		        'Content-Type': 'application/json',
-		        'Authorization': giventoken
+		        'Authorization': localStorage.getItem('given_token')
 		      },
 		      body: JSON.stringify(toBsentData)
 		  });

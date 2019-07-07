@@ -47,7 +47,7 @@ export default class AutoComplete extends Component {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': giventoken
+                    'Authorization': localStorage.getItem('given_token')
                 },
                 body: JSON.stringify({
                     "id": this.state.role_id
@@ -74,7 +74,7 @@ export default class AutoComplete extends Component {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': giventoken
+                    'Authorization': localStorage.getItem('given_token')
                 },
                 body: JSON.stringify({
                     "id": this.state.role_id
@@ -106,7 +106,7 @@ export default class AutoComplete extends Component {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': giventoken
+                    'Authorization': localStorage.getItem('given_token')
                 },
                 body: JSON.stringify({
                     "actionDTO": {
@@ -138,7 +138,7 @@ export default class AutoComplete extends Component {
         //         method: 'POST',
         //         headers: {
         //             'Content-Type': 'application/json',
-        //             'Authorization': giventoken
+        //             'Authorization': localStorage.getItem('given_token')
         //         },
         //         body: JSON.stringify({
         //             "userDTO": {
