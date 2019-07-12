@@ -16,6 +16,7 @@ let provinceUrl = AppConfig.baseURL + "/report/tap/by/province";
 let cityUrl = AppConfig.baseURL + "/report/tap/by/city";
 let countryUrl = AppConfig.baseURL + "/report/tap/by/country";
 let locationUrl = AppConfig.baseURL + "/tap/location/filter";
+let tableFilterUrl = AppConfig.baseURL + "/tap/filter";
 
 
 
@@ -46,6 +47,27 @@ let originData = {
     "tagptypes" : [],
     "toDate": ""
   };
+
+let tableData = {
+    "cityId": 0,
+    "countryId": 0 ,
+    "fromDate": "",
+    "histogramInterval": "month",
+    "manufacturerId": 0,
+    "needPaginate": true,
+    "pTypeId": 0,
+    "pageNumber": 0,
+    "pageSize": 10,
+    "productSubcategoryId": 0,
+    "productcategoryId": 0,
+    "productproviderId": 0,
+    "provinceId": 0,
+    "ptypeId": 11,
+    "reportStarting": "all",
+    "resultSize": 0,
+    "tagproviderId": 0,
+    "toDate": ""
+  }
 
 export function getHistogramCharts(data,locale,callback){
 
@@ -96,7 +118,8 @@ export function getPieChart(data,locale){
 
     headers["Accept-Language"]=locale;
     data = JSON.stringify(data);
-
+    tableData.toDate = data.toDate;
+    tableData.fromDate = data.fromDate;
 
     return axios.all([
         axios.post(productPieUrl,data,{"headers":headers}),
@@ -107,7 +130,8 @@ export function getPieChart(data,locale){
         axios.post(manufacturerPieUrl,data,{"headers":headers}),
         axios.post(provinceUrl,data,{"headers":headers}),
         axios.post(locationUrl,data,{"headers":headers}),
-    ]).then(axios.spread(function (productRes,industryRes,catRes,subCatRes,providerRes,manRes,provinceRes,locationRes) {
+        axios.post(tableFilterUrl,tableData,{"headers":headers}),
+    ]).then(axios.spread(function (productRes,industryRes,catRes,subCatRes,providerRes,manRes,provinceRes,locationRes,tableFilterRes) {
         let Result = {
             productPie:{},
             industryPie:{},
@@ -116,7 +140,8 @@ export function getPieChart(data,locale){
             providerPie:{},
             manufacturerPie:{},
             province:{},
-            heatmap:{}
+            heatmap:{},
+            tableFilter:{}
          };
         //  console.info("res",provinceRes);
          var productResVal=formatData(productRes.data.dtos);
@@ -158,6 +183,9 @@ export function getPieChart(data,locale){
         //  console.log("location response",locationRes);
          var locationResVal =formatLocationData(locationRes.data.result.dtos);
          Result.heatmap = locationResVal;
+
+         Result.tableFilter = tableFilterRes.data;
+         console.info('table filter is ',Result.tableFilter);
 
          return Result;
 

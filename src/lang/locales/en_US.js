@@ -801,6 +801,14 @@ module.exports = {
 	"dashbord.filter.province":"province",
 	"dashbord.filter.product.inustry":"inustry",
 	"dashbord.filter.product.subcategory":"sub category",
+
+	"dashbord.table.product.name":"product name",	
+	"dashbord.table.name":"Authentication",	
+	"dashbord.table.product.owner":"product owner",
+	"dashbord.table.product.group":"product group",
+	"dashbord.table.time.authenticate":"time of authentication",
+	"dashbord.table.place.authenticate":"place of authentication",
+
 	// "dashbord.filter.product.category":"category",
 	"dashbord.filter.product.brand":"brand",
 	"dashbord.filter.product.owner":"owner",

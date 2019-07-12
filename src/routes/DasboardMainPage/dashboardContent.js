@@ -20,6 +20,8 @@ import PieChart from '../../components/Charts/Dashbord/PieChart';
 import MapChart from '../../components/Charts/Dashbord/MapChart'
 import HeatMapChart from '../../components/Charts/Dashbord/HeatMapChart'
 import LinearProgress from '@material-ui/core/LinearProgress';
+import TableData from '../../components/Charts/Dashbord/TableData';
+
 // import RctPageLoader from '../../components/RctPageLoader/RctPageLoader';
 
 import {customFilterChange} from '../../actions/DashbordChartsActions';
@@ -68,7 +70,13 @@ class ReactCharts extends Component {
                     keys:[],
                     ids:[]
                 },
-                heatmap:[ [] ]
+                heatmap:[ [] ],
+                tableFilter:{
+                    result:{
+                        paginateModel:"",
+                        dtos:[]
+                    }
+                }
             }
         };
     }
@@ -225,6 +233,20 @@ class ReactCharts extends Component {
                             <HeatMapChart
                                 data={this.state.pie.heatmap} 
                             />
+                        </RctCollapsibleCard>
+                    </div> 
+                </div>
+                <div className="row">
+                <div className="col-sm-12 col-md-12">
+                        <RctCollapsibleCard 
+                            // heading={<IntlMessages id='dashbord.table.name' />}
+                            >
+                           <TableData 
+                                paginateModel={this.state.pie.tableFilter.result.paginateModel}
+                                dtos={this.state.pie.tableFilter.result.dtos}
+                            >
+
+                           </TableData> 
                         </RctCollapsibleCard>
                     </div> 
                 </div>
