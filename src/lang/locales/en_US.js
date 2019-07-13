@@ -814,5 +814,8 @@ module.exports = {
 	"dashbord.filter.product.owner":"owner",
 	"dashbord.filter.product.type":"type",
 	"charts.histogram":"Histogram",
-	"charts.label.histogram":"Histogram Title"
+	"charts.label.histogram":"Histogram Title",
+
+	"dashbord.result":"result",
+	"dashbord.description":"description"
 }
