@@ -13,22 +13,22 @@ import Button from '@material-ui/core/Button';
 // rct card box
 import RctCollapsibleCard from 'Components/RctCollapsibleCard/RctCollapsibleCard';
 
+// app config
+import AppConfig from 'Constants/AppConfig';
 // intl messages
 import IntlMessages from 'Util/IntlMessages';
 
-const giventoken = localStorage.getItem('given_token')
+import { NotificationManager } from 'react-notifications';
 
 export default class AutoComplete extends Component {
 	state = {
-		username: '',
+		username: this.props.location.state.username,
 		password: '',
 		password_2: '',
+		oldPassword:''
     }
     
     componentDidMount = () => {        
-        this.setState({
-            username: this.props.location.state.username
-        })
     } 
 
 	handleChange = (event) => {
@@ -39,41 +39,31 @@ export default class AutoComplete extends Component {
 	}
 
 	handleSubmit = (e) => {
-		// e.preventDefault()
+		e.preventDefault()
 		console.log('submit');
 		const toBsentData = {
-		
-			"description": this.state.description,
-			"email": this.state.email,
-			"fullName": this.state.familyanme,
-			"id": 0,
-			"mobile": this.state.mobileNumber,
-			"password": this.state.password,
-			"password2": this.state.password_2,
-			"productproviderDTO": {
-				"id": this.state.productownerid
-			},
-			"username": this.state.username
-		}
-		// (async () => {
-		//   const rawResponse = await fetch(AppConfig.baseURL + '/product/provider/filter', {
-		//       method: 'POST',
-		//       headers: {
-		//         'Content-Type': 'application/json',
-		//         'Authorization': localStorage.getItem('given_token')
-		//       },
-		//       body: JSON.stringify(toBsentData)
-		//   });
-		//   const content = await rawResponse.json();
-		//   console.log(content);
-		//   if (content.status == 200 ){
-		//       console.log('success');
-		//       let dtos_ = content.result.dtos
-		//       suggestions = dtos_.map(eachOwner => {
-		//         return({label: eachOwner.name, value: eachOwner.name, id: eachOwner.productProviderId})
-		//       })
-		//   }
-		// })();
+			"oldPassword": this.state.oldPassword,
+			"newPassword1": this.state.password,
+			"newPassword2": this.state.password_2
+	  	};
+		(async () => {
+			const rawResponse = await fetch(AppConfig.baseURL + '/permission/user/changepassword', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					'Authorization': localStorage.getItem('given_token')
+				},
+				body: JSON.stringify(toBsentData)
+			});
+			const content = await rawResponse.json();
+			console.log(content);
+			if (content.status == 200 ){
+				NotificationManager.success(content.result.messageModel.text)
+				this.props.history.push('/sidemenu/tables/data-table');
+			}else{
+				NotificationManager.error(content.result.messageModel.text)
+			}
+		})();
 	}
 	returntolist = () => {
         this.props.history.push('/sidemenu/tables/data-table');
@@ -83,7 +73,7 @@ export default class AutoComplete extends Component {
 			<div className="formelements-wrapper">
 				<div className="row">
 					<div className="col-sm-12 col-md-12 col-xl-6">
-						<RctCollapsibleCard heading="Form Grid">
+						<RctCollapsibleCard heading="Change Password">
 							<Form>
 								<FormGroup row>
 									<Label for="Username-1" sm={2}><IntlMessages id="form.username" /></Label>
@@ -92,9 +82,15 @@ export default class AutoComplete extends Component {
 									</Col>
 								</FormGroup>
 								<FormGroup row>
+									<Label for="oldPassword" sm={2}>Old Password</Label>
+									<Col sm={10}>
+										<Input type="password" name="oldPassword" id="oldPassword" onChange={this.handleChange} placeholder="old password" />
+									</Col>
+								</FormGroup>
+								<FormGroup row>
 									<Label for="Password-1" sm={2}>New Password</Label>
 									<Col sm={10}>
-										<Input type="password" name="password" id="Password-1" onChange={this.handleChange} placeholder="password" />
+										<Input type="password" name="password" id="Password-1" onChange={this.handleChange} placeholder="new password" />
 									</Col>
 								</FormGroup>
 								<FormGroup row>
@@ -104,8 +100,8 @@ export default class AutoComplete extends Component {
 									</Col>
 								</FormGroup>
 								<FormGroup check className="p-0">
-								<Button
-                                        // onClick={this.handleSubmit}
+									<Button
+                                        onClick={this.handleSubmit}
                                         variant="raised"
                                         color="primary"
                                         className="text-white mr-10 mb-10 btn-xs"

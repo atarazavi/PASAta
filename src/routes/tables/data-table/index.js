@@ -44,11 +44,12 @@ class DataTable extends React.Component {
 				"needPaginate": true,
 				"pageNumber": 0,
 				"pageSize": 10,
-				"productProviderId": 76,
+				"productProviderId": 0,
 				"resultSize": 0,
 				"roleId": 0,
 				"toDate": "",
-				"termToFind": ""
+				"termToFind": "",
+				"isActive": "ACTIVE"
 			  })
 			});
 			const response = await rawResponse.json();
@@ -71,7 +72,7 @@ class DataTable extends React.Component {
 						name: each.fullName,
 						productOwnerID: each.productproviderDTO.id,
 						productOwnerName: nameinCurrentLang.nameinthisLang,
-						userState: each.editionDate, //shouldbe sth like each.UserState
+						userState: each.isEnable, //shouldbe sth like each.UserState
 						email: each.email,
 					})
 				})
@@ -87,28 +88,28 @@ class DataTable extends React.Component {
 		switch(action) { 
 			case "changepass": { 
 				this.props.history.push({
-					pathname: 'changePass',
+					pathname: '../changePass',
 					state: { username: uname, user_id: id }
 				})
 				break;  
 			} 
 			case "edit": { 
 				this.props.history.push({
-					pathname: 'editUser',
+					pathname: '../editUser',
 					state: { username: uname, user_id: id }
 				})
 				break; 
 			}
 			case "groups": { 
 				this.props.history.push({
-					// pathname: 'changePass',
+					pathname: '../changeGroups',
 					state: { username: uname, user_id: id }
 				})
 				break; 
 			} 
 			case "roles": { 
 				this.props.history.push({
-					pathname: 'changeRoles',
+					pathname: '../changeRoles',
 					state: { username: uname, user_id: id }
 				})
 				break; 
@@ -134,8 +135,8 @@ class DataTable extends React.Component {
 		const lang=localStorage.getItem('Current_lang')
 		console.log(lang,"lang");
 		
-		const columnsFa = ["نام", "نام", "صاحب محصول", "وضعیت کاربر", "ایمیل","ایمیل"];
-		const columns = ["Name", "Name", "ProductOwner", "UserSate", "email","email"];
+		const columnsFa = ["نام کاربری", "نام", "صاحب محصول", "وضعیت کاربر", "ایمیل","عملیات"];
+		const columns = ["Username", "Name", "ProductOwner", "UserSate", "email","Action"];
 		var logic = lang=="en"?columns
 		:
 		columnsFa

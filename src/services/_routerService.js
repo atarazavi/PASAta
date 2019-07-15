@@ -56,6 +56,7 @@ import tagPackagesList from 'Routes/tagPackagesList';
 import tagPoolList from 'Routes/tagPoolList';
 import tagPoolEditTag from 'Routes/tagPoolEditTag';
 import DasboardMainPage from 'Routes/DasboardMainPage';
+import changeGroups from 'Routes/changeGroups';
 
 
 // async component
@@ -310,6 +311,10 @@ export default [
 	{
 		path: 'DasboardMainPage',
 		component: DasboardMainPage
+	},
+	{
+		path: 'changeGroups',
+		component: changeGroups
 	},
 	
 ] 
