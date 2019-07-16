@@ -111,7 +111,7 @@ class TableData extends Component {
         arrRow.push(item.product_industry_title);
         arrRow.push(item.tap_datetime);
         arrRow.push(item.gis_country_title + "-"+item.gis_province_title+"-"+item.gis_city_title );
-        arrRow.push(<Link to={"/sidemenu/DasboardMainPage/"+item.tap_id} ><IntlMessages id='dashbord.description' /></Link>);
+        arrRow.push(<Link to={"/sidemenu/product/"+item.tap_id} ><IntlMessages id='dashbord.description' /></Link>);
         result.push(arrRow);
     }
     console.info("result of iterable is ",items);

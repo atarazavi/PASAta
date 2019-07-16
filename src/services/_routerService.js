@@ -49,6 +49,7 @@ import requestedTagsMoreinfo from 'Routes/requestedTagsMoreinfo';
 import changeTagRequestStatus from 'Routes/changeTagRequestStatus';
 import requestedTagsDelete from 'Routes/requestedTagsDelete';
 import tagProvidersList from 'Routes/tagProvidersList';
+import productTap from 'Routes/productTap';
 import editTagProvider from 'Routes/editTagProvider';
 import deleteTagProvider from 'Routes/deleteTagProvider';
 import addTagProvider from 'Routes/addTagProvider';
@@ -308,8 +309,13 @@ export default [
 		component: tagPoolEditTag
 	},
 	{
+		path: 'product/:tapid',
+		component: productTap
+	},
+	{
 		path: 'DasboardMainPage',
 		component: DasboardMainPage
 	},
+	
 	
 ] 
