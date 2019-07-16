@@ -124,6 +124,22 @@ class DataTable extends React.Component {
 	deletehandler = (userid) => {
 		console.log('going to delete', userid);
 		
+		(async () => {
+			const rawResponse = await fetch(AppConfig.baseURL + '/permission/user/delete', {
+				method: 'POST',
+				headers: {
+				  'Content-Type': 'application/json',
+				  'Authorization': localStorage.getItem('given_token')
+				},
+				body: JSON.stringify({
+					"id": userid
+				})
+			});
+			const content = await rawResponse.json();
+			if (rawResponse.status == 200 ){
+				window.location.reload()
+			}
+		  })();
 	}
 	handleTooltipClose = () => {
 		this.setState({ open: false });
@@ -146,14 +162,24 @@ class DataTable extends React.Component {
 				[eachuser.username, eachuser.name, eachuser.productOwnerName, eachuser.userState, eachuser.email, 
 					<div>
 						<Tooltip id="tooltip-fab" title={<IntlMessages id="tooltip.error" />}>
-							<IconButton className="text-danger" onClick={() => { <DeleteConfirmationDialog
-								ref="deleteConfirmation"
-								title="Are you sure want to delete?"
-								message="This will delete permanently your feedback from feedback list."
-								onConfirm={() => this.deletehandler(eachuser.id)}
-							/>  } } aria-label="Delete" id="delete">
-							<i className="zmdi zmdi-close"></i>
+						
+							<IconButton className="text-danger" onClick={() => { if (window.confirm('Are you sure you wish to delete : '+ eachuser.username +'?')) this.deletehandler(eachuser.id) } } aria-label="Delete">
+								<i className="zmdi zmdi-close"></i>
 							</IconButton>
+							{/* <IconButton className="text-danger" onClick={() => { 
+								console.log('hiiiiiiiiiiiiiii');
+								this.deletehandler(eachuser.id)
+								<DeleteConfirmationDialog
+									ref="deleteConfirmation"
+									title="Are you sure want to delete?"
+									message="This will delete permanently your feedback from feedback list."
+									onConfirm={() => this.deletehandler(eachuser.id)}
+								/>  
+								} 
+							} 
+							aria-label="Delete" id="delete">
+							<i className="zmdi zmdi-close"></i>
+							</IconButton> */}
 						</Tooltip>
 						<Tooltip id="tooltip-fab" title={<IntlMessages id="tooltip.edit" />}>
 							<IconButton className="text-success" onClick={() => this.actionClickhandler(eachuser.id, eachuser.username, 'edit')} aria-label="Edit" id="Edit">

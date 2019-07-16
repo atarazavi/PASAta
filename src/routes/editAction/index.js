@@ -23,8 +23,6 @@ import IntlMessages from 'Util/IntlMessages';
 // app config
 import AppConfig from '../../constants/AppConfig';
 
-const giventoken = localStorage.getItem('given_token')
-
 export default class AutoComplete extends Component {
 	state = {
 		actionID: this.props.location.state.action_id,

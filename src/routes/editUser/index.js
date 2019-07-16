@@ -59,9 +59,9 @@ export default class AutoComplete extends Component {
             const response = await rawResponse.json();
             console.log(response);
             if (response.status == 200 ){
-				// it should be gotten from sth like localstorage
-				const currentlanguage = 'fa'
-				// it should be gotten from sth like localstorage
+				const currentlanguage = localStorage.getItem('Current_lang')
+				console.log('currentlanguage', currentlanguage);
+				
 				let nameinCurrentLang = {}
 				response.result.dto.productproviderDTO.productproviderLangDTOS.map(each => {	
 					if (currentlanguage == each.languageDTO.code){
@@ -104,11 +104,11 @@ export default class AutoComplete extends Component {
 				})
 			});
 			const content = await rawResponse.json();
-			console.log(content);
+			console.log('yohooooooooooo',content);
 			if (content.status == 200 ){
 				let dtos_ = content.result.dtos
 				const suggestions = dtos_.map(eachOwner => {
-				  return({label: eachOwner.name, value: eachOwner.name, id: eachOwner.productProviderId})
+				  return({label: eachOwner.productproviderLangDTOS[0].name, value: eachOwner.productproviderLangDTOS[0].name, id: eachOwner.productproviderLangDTOS[0].productProviderId})
 				})
 				this.setState({suggestions})
 			}
@@ -123,8 +123,6 @@ export default class AutoComplete extends Component {
 	}
 
 	handleChangeOnOwner = (result) => {
-		console.log("idid");
-		
 		result == 0 && this.setState({productownerid: 0})
 		this.state.suggestions.map( owner => {
 			owner.value == result && this.setState({productownerid: owner.id})
@@ -142,7 +140,7 @@ export default class AutoComplete extends Component {
             "mobile": this.state.mobileNumber,
             "productproviderDTO": {
                 "id": this.state.productownerid
-            }
+			}
 		}
 		const User= this.state.username;
 		const describtion= this.state.description
@@ -169,12 +167,6 @@ export default class AutoComplete extends Component {
 				}
 			}
 		}
-		
-		
-		
-		
-		console.log(toBsentData);
-		
 		(async () => {
 		  const rawResponse = await fetch(AppConfig.baseURL + '/permission/user/edit', {
 		      method: 'POST',
