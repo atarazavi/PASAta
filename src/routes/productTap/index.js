@@ -14,6 +14,8 @@ import PageTitleBar from 'Components/PageTitleBar/PageTitleBar';
 // rct card box
 import RctCollapsibleCard from 'Components/RctCollapsibleCard/RctCollapsibleCard';
 
+import LocationMapChart from '../../components/Charts/Dashbord/LocationMapChart';
+
 import axios from "axios";
 // intl messages
 import IntlMessages from 'Util/IntlMessages';
@@ -194,7 +196,8 @@ class ProductTap extends React.Component {
         });
 	}
 	
-	render() {  
+	render() {
+        let colors = Object.values(this.state.product_attributes[2].p_attr_value_dictionary_items).join(" ");  
 		return (
 			<div className="data-table-wrapper">
     				<RctCollapsibleCard heading={<IntlMessages id='product.result' />} fullBlock>
@@ -202,7 +205,30 @@ class ProductTap extends React.Component {
                     </RctCollapsibleCard>
                     <RctCollapsibleCard heading={<IntlMessages id='product.tag' />} fullBlock>
                         <p className={"ml-3 mr-3"}><span style={{fontWeight:'bold'}}>{this.state.tag_type_title}: </span> {this.state.tag_key}</p>
-				    </RctCollapsibleCard>
+                    </RctCollapsibleCard>
+                    <RctCollapsibleCard heading={<IntlMessages id='product.product' />} fullBlock>
+                        <p className={"ml-3 mr-3"}><span style={{fontWeight:'bold'}}><IntlMessages id="product.product_type_name" />: </span> {this.state.product_type_name}</p>
+                        <p className={"ml-3 mr-3"}><span style={{fontWeight:'bold'}}><IntlMessages id="product.product_manufacturer_title" />: </span> {this.state.product_manufacturer_title}</p>
+                        <p className={"ml-3 mr-3"}><span style={{fontWeight:'bold'}}><IntlMessages id="product.product_provider_title" />: </span> {this.state.product_provider_title}</p>
+                        <p className={"ml-3 mr-3"}><span style={{fontWeight:'bold'}}><IntlMessages id="product.product_category_title" />: </span> {this.state.product_industry_title} - {this.state.product_category_title} - {this.state.product_sub_category_title}</p>
+                    </RctCollapsibleCard>
+                    <RctCollapsibleCard heading={<IntlMessages id='product.properties' />} fullBlock>
+                        <p className={"ml-3 mr-3"}><span style={{fontWeight:'bold'}}> {this.state.product_attributes[0].p_attr_title}: </span> {this.state.product_attributes[0].p_attr_value_number} {this.state.product_attributes[0].p_attr_unit_title}</p>
+                        <p className={"ml-3 mr-3"}><span style={{fontWeight:'bold'}}> {this.state.product_attributes[1].p_attr_title}: </span> {this.state.product_attributes[1].p_attr_unit_id} {this.state.product_attributes[1].p_attr_unit_title}</p>
+                        <p className={"ml-3 mr-3"}><span style={{fontWeight:'bold'}}> {this.state.product_attributes[3].p_attr_title}: </span> {this.state.product_attributes[3].p_attr_value_char}</p>
+                        <p className={"ml-3 mr-3"}><span style={{fontWeight:'bold'}}> {this.state.product_attributes[2].p_attr_title}: </span> {colors} </p>
+                    </RctCollapsibleCard>
+                    <RctCollapsibleCard heading={<IntlMessages id='product.geo' />} fullBlock>
+                        <p className={"ml-3 mr-3"}><span style={{fontWeight:'bold'}}><IntlMessages id="product.country" />: </span> {this.state.gis_country_title}</p>
+                        <p className={"ml-3 mr-3"}><span style={{fontWeight:'bold'}}><IntlMessages id="product.province" />: </span> {this.state.gis_province_title}</p>
+                        <p className={"ml-3 mr-3"}><span style={{fontWeight:'bold'}}><IntlMessages id="product.city" />: </span> {this.state.gis_city_title}</p>
+                        <p className={"ml-3 mr-3"}><span style={{fontWeight:'bold'}}><IntlMessages id="product.address" />: </span> {this.state.gis_address}</p>
+                        <LocationMapChart locx={this.state.gis_location.locx} locy={this.state.gis_location.locy} />
+                    </RctCollapsibleCard>
+                    <RctCollapsibleCard heading={<IntlMessages id='product.client' />} fullBlock>
+                        <p className={"ml-3 mr-3"}><span style={{fontWeight:'bold'}}><IntlMessages id="product.client_device" />: </span> {this.state.client_device}</p>
+                        <p className={"ml-3 mr-3"}><span style={{fontWeight:'bold'}}><IntlMessages id="product.clint_ip" />: </span> {this.state.clint_ip}</p>
+                    </RctCollapsibleCard>
 			</div>
 		);
 	}
