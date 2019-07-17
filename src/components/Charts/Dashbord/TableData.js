@@ -3,7 +3,8 @@ import MUIDataTable from "mui-datatables";
 import IntlMessages from 'Util/IntlMessages';
 import Icon from '@material-ui/core/Icon';
 import { Link } from 'react-router-dom';
-
+import Tooltip from '@material-ui/core/Tooltip';
+import {formatResult} from '../../../helpers/helpers';
 // import { makeStyles } from '@material-ui/core/styles';
 // const data = [
 //   ["Country", "Popularity"],
@@ -104,8 +105,15 @@ class TableData extends Component {
       let result = [];
     for(var item of items){
         let arrRow = [];
-        let color = this.getTapResult(item.tap_result);
-        arrRow.push(<Icon style={{ color: color,fontSize:28}}>brightness_1</Icon>);
+        let color = formatResult(item.tap_result)[1];
+        let tooltipDesc = formatResult(item.tap_result)[0];
+        arrRow.push(
+            (<Tooltip title={tooltipDesc} aria-label="Add">
+                <Icon style={{ color: color,fontSize:28}}>brightness_1</Icon>
+            </Tooltip>
+            ) 
+            
+        );
         arrRow.push(item.product_type_name);
         arrRow.push(item.product_manufacturer_title);
         arrRow.push(item.product_industry_title);
