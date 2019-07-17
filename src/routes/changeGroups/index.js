@@ -33,17 +33,15 @@ export default class AutoComplete extends Component {
 	state = {
         username: this.props.location.state.username,
         user_id: this.props.location.state.user_id,
-        userRoles: [],
+        userGroups: [],
         suggestions: [],
-        chosenNEWroleid: 0,
+        chosenNEWgroupid: 0,
         emptyArr:false
 	}
 
     componentDidMount = () => {  
-        console.log('this.props.location.state.user_id', this.props.location.state.user_id);
-                   
         (async () => {
-            const rawResponse = await fetch(AppConfig.baseURL + '/permission/role/findbyuserid', {
+            const rawResponse = await fetch(AppConfig.baseURL + '/permission/group/findbyuserid', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -57,15 +55,15 @@ export default class AutoComplete extends Component {
             console.log('changerole',response);
             if (response.status == 200 ){
                 if(response.result.dtos){
-                    const userRoles = response.result.dtos.map(eachrole => {
+                    const userGroups = response.result.dtos.map(eachGroup => {
                         return({
-                            roleID: eachrole.roleDTO.id,
-                            roleName: eachrole.roleDTO.name,
-                            roleDescription: eachrole.roleDTO.description
+                            groupID: eachGroup.groupDTO.id,
+                            groupName: eachGroup.groupDTO.name,
+                            groupDescription: eachGroup.groupDTO.description
                         })
                     })        
                     this.setState({
-                        userRoles,
+                        userGroups,
                         emptyArr:true
                     })
                 }
@@ -74,7 +72,7 @@ export default class AutoComplete extends Component {
         })();
 
         (async () => {
-            const rawResponse = await fetch(AppConfig.baseURL + '/permission/role/filter', {
+            const rawResponse = await fetch(AppConfig.baseURL + '/permission/group/filter', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -91,32 +89,30 @@ export default class AutoComplete extends Component {
                   })
             });
             const response = await rawResponse.json();
-            console.log('changerole',response);
+            console.log('changegroup',response);
             if (response.status == 200 ){
                 console.log('success');
-                const suggestions = response.result.dtos.map(eachRole => {
-                    console.log('eachRole', eachRole);
+                const suggestions = response.result.dtos.map(eachGroup => {
+                    console.log('eachGroup', eachGroup);
                     
-                    return({label: eachRole.name, value: eachRole.name, id: eachRole.id, description: eachRole.description})
+                    return({label: eachGroup.name, value: eachGroup.name, id: eachGroup.id, description: eachGroup.description})
                 })
                 this.setState({
                     suggestions
                 })
             }
-        })();
-        console.log(this.state,"state");
-        
+        })();        
     } 
 
-	handleChangeOnRoleSelection = (result) => {
+	handleChangeOnGroupSelection = (result) => {
 		this.state.suggestions.map( role => {
-			role.value == result ? this.setState({chosenNEWroleid: role.id}) : null
+			role.value == result ? this.setState({chosenNEWgroupid: role.id}) : null
 		})
 	}
 
 	handleSubmit = () => {
         (async () => {
-            const rawResponse = await fetch(AppConfig.baseURL + '/permission/role/userassigntorole', {
+            const rawResponse = await fetch(AppConfig.baseURL + '/permission/group/userassigntogroup', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -126,34 +122,30 @@ export default class AutoComplete extends Component {
                     "userDTO": {
                       "id": this.state.user_id
                     },
-                    "roleDTO": {
-                      "id": this.state.chosenNEWroleid
+                    "groupDTO": {
+                      "id": this.state.chosenNEWgroupid
                     }
                   })
             });
             const response = await rawResponse.json();
             console.log('addrole',response);
             if (response.result.messageModel.type == 'success' ){
-                this.state.suggestions.map(roles => {
-                    roles.id == this.state.chosenNEWroleid && this.setState({userRoles: [...this.state.userRoles, {
-                        roleID: roles.id,
-                        roleName: roles.value,
-                        roleDescription: roles.description
+                this.state.suggestions.map(group => {
+                    group.id == this.state.chosenNEWgroupid && this.setState({userGroups: [...this.state.userGroups, {
+                        groupID: group.id,
+                        groupName: group.value,
+                        groupDescription: group.description
                     }]})
                 })
             }
         })();
-		const toBsentData = 
-        {
-            "id": this.state.user_id,
-        }
-        this.forceUpdate()
+        // this.forceUpdate()
     }
-    deletehandler = (toBdeletedRoleID) => {
-        console.log('delete', toBdeletedRoleID);
+    deletehandler = (toBdeletedgroupID) => {
+        console.log('delete', toBdeletedgroupID);
         
         (async () => {
-            const rawResponse = await fetch(AppConfig.baseURL + '/permission/role/userunassignfromrole', {
+            const rawResponse = await fetch(AppConfig.baseURL + '/permission/group/userunassignfromgroup', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -163,8 +155,8 @@ export default class AutoComplete extends Component {
                     "userDTO": {
                       "id": this.state.user_id
                     },
-                    "roleDTO": {
-                      "id": toBdeletedRoleID
+                    "groupDTO": {
+                      "id": toBdeletedgroupID
                     }
                   })
             });
@@ -172,10 +164,10 @@ export default class AutoComplete extends Component {
             if (response.result.messageModel.type == 'success' ){
                 console.log('delete response', response);
                 this.setState(state => {
-                    const userRoles = state.userRoles.filter(role => role.roleID !== toBdeletedRoleID);
-                    console.log('delete after filter', userRoles);
+                    const userGroups = state.userGroups.filter(role => role.groupID !== toBdeletedgroupID);
+                    console.log('delete after filter', userGroups);
                     return {
-                        userRoles,
+                        userGroups,
                     };
                 });
             }
@@ -195,24 +187,24 @@ export default class AutoComplete extends Component {
 			<div className="formelements-wrapper" onMouseEnter={this.sd}>
 				<div className="row">
 					<div className="col-sm-12 col-md-12 col-xl-6">
-                        <RctCollapsibleCard heading={this.state.username + "'s current Roles"}>
+                        <RctCollapsibleCard heading={this.state.username + "'s current Groups"}>
                             <div className="table-responsive">
                                 <div className="flip-scroll">
                                     <table className="table table-bordered table-striped flip-content">
                                         <thead>
                                             <tr className="bg-primary text-white">
-                                                <th> Role title </th>
+                                                <th> Group title </th>
                                                 <th> Action </th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {
                                                 this.state.emptyArr?
-                                                this.state.userRoles.map(eachRole => {
+                                                this.state.userGroups.map(eachGroup => {
                                                     return(<tr>
-                                                        <td> {eachRole.roleName} </td>
+                                                        <td> {eachGroup.groupName} </td>
                                                         <td style={{padding:0}}> 
-                                                            <IconButton className="text-danger" onClick={() => { if (window.confirm('Are you sure you wish to delete'+ this.state.username +"'s role?")) this.deletehandler(eachRole.roleID) } } aria-label="Delete">
+                                                            <IconButton className="text-danger" onClick={() => { if (window.confirm('Are you sure you wish to delete'+ this.state.username +"'s role?")) this.deletehandler(eachGroup.groupID) } } aria-label="Delete">
                                                                 <i className="zmdi zmdi-close"></i>
                                                             </IconButton>
                                                         </td>
@@ -220,7 +212,8 @@ export default class AutoComplete extends Component {
                                                 })
                                                 :
                                                 <tr>
-                                                <td>NoRole</td>
+                                                    <td>NoGroup</td>
+
                                                 </tr>
                                             }
                                         
@@ -233,12 +226,12 @@ export default class AutoComplete extends Component {
                     </div>
                     <div className="col-sm-12 col-md-12 col-xl-6">
 
-                        <RctCollapsibleCard heading={"Add New Role For The " + this.state.username}>
+                        <RctCollapsibleCard heading={"Add New Group For The " + this.state.username}>
 							<Form>
 								<FormGroup row>
-									<Label for="Role_" sm={2}>Choose Role</Label>
+									<Label for="Group_" sm={2}>Choose Group</Label>
 									<Col sm={10}>
-										<ReactSelect defaultValue={this.state.productownerName} id={'Role_'} changeHandler={this.handleChangeOnRoleSelection} suggestions={this.state.suggestions} />
+										<ReactSelect id={'Group_'} changeHandler={this.handleChangeOnGroupSelection} suggestions={this.state.suggestions} />
 									</Col>
 								</FormGroup>
                                 <div className="d-flex">
@@ -248,7 +241,7 @@ export default class AutoComplete extends Component {
                                         color="primary"
                                         className="text-white mr-10 mb-10 btn-xs"
                                     >
-                                        <IntlMessages id="button.add_the_new_role" />
+                                        <IntlMessages id="button.add_the_new_group" />
                                     </Button>
                                     <Button
                                         onClick={this.returntolist}

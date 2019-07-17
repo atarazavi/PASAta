@@ -20,8 +20,6 @@ import { Route, Redirect } from "react-router-dom";
 // app config
 import AppConfig from '../../constants/AppConfig';
 
-const giventoken = localStorage.getItem('given_token')
-
 class DataTable extends React.Component {
 	state = {
 		thegroupslist: [],

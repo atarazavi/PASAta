@@ -44,11 +44,12 @@ class DataTable extends React.Component {
 				"needPaginate": true,
 				"pageNumber": 0,
 				"pageSize": 10,
-				"productProviderId": 76,
+				"productProviderId": 0,
 				"resultSize": 0,
 				"roleId": 0,
 				"toDate": "",
-				"termToFind": ""
+				"termToFind": "",
+				"isActive": "ACTIVE"
 			  })
 			});
 			const response = await rawResponse.json();
@@ -71,7 +72,7 @@ class DataTable extends React.Component {
 						name: each.fullName,
 						productOwnerID: each.productproviderDTO.id,
 						productOwnerName: nameinCurrentLang.nameinthisLang,
-						userState: each.editionDate, //shouldbe sth like each.UserState
+						userState: each.isEnable, //shouldbe sth like each.UserState
 						email: each.email,
 					})
 				})
@@ -87,28 +88,28 @@ class DataTable extends React.Component {
 		switch(action) { 
 			case "changepass": { 
 				this.props.history.push({
-					pathname: 'changePass',
+					pathname: '../changePass',
 					state: { username: uname, user_id: id }
 				})
 				break;  
 			} 
 			case "edit": { 
 				this.props.history.push({
-					pathname: 'editUser',
+					pathname: '../editUser',
 					state: { username: uname, user_id: id }
 				})
 				break; 
 			}
 			case "groups": { 
 				this.props.history.push({
-					// pathname: 'changePass',
+					pathname: '../changeGroups',
 					state: { username: uname, user_id: id }
 				})
 				break; 
 			} 
 			case "roles": { 
 				this.props.history.push({
-					pathname: 'changeRoles',
+					pathname: '../changeRoles',
 					state: { username: uname, user_id: id }
 				})
 				break; 
@@ -123,6 +124,22 @@ class DataTable extends React.Component {
 	deletehandler = (userid) => {
 		console.log('going to delete', userid);
 		
+		(async () => {
+			const rawResponse = await fetch(AppConfig.baseURL + '/permission/user/delete', {
+				method: 'POST',
+				headers: {
+				  'Content-Type': 'application/json',
+				  'Authorization': localStorage.getItem('given_token')
+				},
+				body: JSON.stringify({
+					"id": userid
+				})
+			});
+			const content = await rawResponse.json();
+			if (rawResponse.status == 200 ){
+				window.location.reload()
+			}
+		  })();
 	}
 	handleTooltipClose = () => {
 		this.setState({ open: false });
@@ -134,8 +151,8 @@ class DataTable extends React.Component {
 		const lang=localStorage.getItem('Current_lang')
 		console.log(lang,"lang");
 		
-		const columnsFa = ["نام", "نام", "صاحب محصول", "وضعیت کاربر", "ایمیل","ایمیل"];
-		const columns = ["Name", "Name", "ProductOwner", "UserSate", "email","email"];
+		const columnsFa = ["نام کاربری", "نام", "صاحب محصول", "وضعیت کاربر", "ایمیل","عملیات"];
+		const columns = ["Username", "Name", "ProductOwner", "UserSate", "email","Action"];
 		var logic = lang=="en"?columns
 		:
 		columnsFa
@@ -145,14 +162,24 @@ class DataTable extends React.Component {
 				[eachuser.username, eachuser.name, eachuser.productOwnerName, eachuser.userState, eachuser.email, 
 					<div>
 						<Tooltip id="tooltip-fab" title={<IntlMessages id="tooltip.error" />}>
-							<IconButton className="text-danger" onClick={() => { <DeleteConfirmationDialog
-								ref="deleteConfirmation"
-								title="Are you sure want to delete?"
-								message="This will delete permanently your feedback from feedback list."
-								onConfirm={() => this.deletehandler(eachuser.id)}
-							/>  } } aria-label="Delete" id="delete">
-							<i className="zmdi zmdi-close"></i>
+						
+							<IconButton className="text-danger" onClick={() => { if (window.confirm('Are you sure you wish to delete : '+ eachuser.username +'?')) this.deletehandler(eachuser.id) } } aria-label="Delete">
+								<i className="zmdi zmdi-close"></i>
 							</IconButton>
+							{/* <IconButton className="text-danger" onClick={() => { 
+								console.log('hiiiiiiiiiiiiiii');
+								this.deletehandler(eachuser.id)
+								<DeleteConfirmationDialog
+									ref="deleteConfirmation"
+									title="Are you sure want to delete?"
+									message="This will delete permanently your feedback from feedback list."
+									onConfirm={() => this.deletehandler(eachuser.id)}
+								/>  
+								} 
+							} 
+							aria-label="Delete" id="delete">
+							<i className="zmdi zmdi-close"></i>
+							</IconButton> */}
 						</Tooltip>
 						<Tooltip id="tooltip-fab" title={<IntlMessages id="tooltip.edit" />}>
 							<IconButton className="text-success" onClick={() => this.actionClickhandler(eachuser.id, eachuser.username, 'edit')} aria-label="Edit" id="Edit">

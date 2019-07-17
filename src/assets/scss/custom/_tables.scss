@@ -101,6 +101,10 @@ table {
   }
 }
 @media only screen and (max-width:991px) {
+  //ata customized css for data tables datatables
+  tr[class^="MuiTableRow"] td:last-child > div{
+    margin-top: -14px;
+  }
   .MuiIconButton-root-89{
     padding: 0px !important;
     padding-right: 3px !important;
