@@ -6,7 +6,10 @@ import {connect} from 'react-redux';
 
 import MUIDataTable from "mui-datatables";
 import { Form, FormGroup, Label, Input } from 'reactstrap';
+// import { makeStyles } from '@material-ui/styles';
 import Button from '@material-ui/core/Button';
+
+import {formatResult} from '../../helpers/helpers';
 
 // page title bar
 import PageTitleBar from 'Components/PageTitleBar/PageTitleBar';
@@ -30,6 +33,11 @@ import AppConfig from '../../constants/AppConfig';
 let token = localStorage.getItem('given_token');
 let tapUrl = AppConfig.baseURL + "/tap/findbyid";
 
+// const useStyles = makeStyles({
+//     root: {
+//       display: 'flex'
+//     },
+//   });
 class ProductTap extends React.Component {
 	state = {
 		tap_result: '',
@@ -132,7 +140,13 @@ class ProductTap extends React.Component {
 	componentDidMount = () => {	
         let locale = this.props.local;
 		this.callMainAPI(locale);	
-	}
+    }
+    
+    componentWillReceiveProps(nextProps) {
+        let locale = nextProps.local;
+		this.callMainAPI(locale);	
+    }
+
 	callMainAPI = (locale) => {
         let param = this.props.match.params.tapid;
         console.info('param is ',param);
@@ -161,82 +175,112 @@ class ProductTap extends React.Component {
                         product_industry_title:result.product_industry_title,
                         product_category_title:result.product_category_title,
                         product_sub_category_title:result.product_sub_category_title,
-                        product_attributes:[
-                            {
-                                p_attr_title:result.product_attributes[0].p_attr_title,
-                                p_attr_value_number:result.product_attributes[0].p_attr_value_number,
-                                p_attr_unit_title:result.product_attributes[0].p_attr_unit_title,
-                            },{
-                                p_attr_title:result.product_attributes[1].p_attr_title,
-                                p_attr_value_number:result.product_attributes[1].p_attr_value_number,
-                                p_attr_unit_title:result.product_attributes[1].p_attr_unit_title,
-                            },{
-                                p_attr_title:result.product_attributes[2].p_attr_title,
-                                p_attr_value_dictionary_items:result.product_attributes[2].p_attr_value_dictionary_items,
-                            },{
-                                p_attr_title:result.product_attributes[3].p_attr_title,
-                                p_attr_value_char:result.product_attributes[3].p_attr_value_char,
-                                p_attr_unit_title:result.product_attributes[3].p_attr_unit_title,
-                            },{
-                                p_attr_title:result.product_attributes[4].p_attr_title,
-                                p_attr_value_numberTo:result.product_attributes[4].p_attr_value_numberTo,
-                                p_attr_value_numberFrom:result.product_attributes[4].p_attr_value_numberFrom,
-                                p_attr_unit_title:result.product_attributes[4].p_attr_unit_title,
-                            },
-                        ],
+                        product_attributes:result.product_attributes,
                         "gis_country_title":result.gis_country_title,
                         "gis_province_title":result.gis_province_title,
                         "gis_city_title":result.gis_city_title,
                         "gis_location":result.gis_location,
-                        "gis_address":result.gis_address
+                        "gis_address":result.gis_address,
+                        "clint_ip":result.clint_ip,
+                        "client_device":result.client_device
                     }
                 })
             }
             // return result.dtos;               
         });
 	}
-	
+    formatAttributes(attr){
+        console.info("attr res is ",attr);
+        let result = [];
+        for(let item of attr){
+            console.info("item res is ",item);
+            let name = item['p_attr_title'];
+            let unit = "";
+            let value_char="";
+            let number = "";
+            let range="";
+            let items="";
+            if(item['p_attr_unit_id']){
+                unit += item['p_attr_unit_title'];
+            }
+            if(item["p_attr_value_char"]){
+                value_char += item['p_attr_value_char'];
+            }
+            if(item['p_attr_value_number']){
+                number += item['p_attr_value_number'];
+            }
+            if(item['p_attr_value_numberFrom']){
+                range += item['p_attr_value_numberFrom'] + "-"+item['p_attr_value_numberTo'];
+            }
+            if(item['p_attr_value_dictionary_items']){
+                let colors = Object.values(item['p_attr_value_dictionary_items']).join(" ");
+                items += colors;  
+            }
+            result.push([name,value_char+" " +number+ " " + range + " " + items+unit]);
+        }
+        console.info("loop res is ",result);
+        return result;
+    }
 	render() {
-        let colors = Object.values(this.state.product_attributes[2].p_attr_value_dictionary_items).join(" ");  
+        // const classes = useStyles();
+        // let colors = Object.values(this.state.product_attributes[2].p_attr_value_dictionary_items).join(" ");
+        let properties = this.formatAttributes(this.state.product_attributes);
+        let resultProps = properties.map( (item)=>{
+            return <p className={"ml-3 mr-3"}><span style={{fontWeight:'bold'}}> {item[0]}: </span> {item[1]} </p>;
+        } );  
 		return (
 			<div className="data-table-wrapper">
     				<RctCollapsibleCard heading={<IntlMessages id='product.result' />} fullBlock>
-						<h3 style={{textAlign:'center'}} >{this.state.tap_result}</h3>
+						<h3 style={{textAlign:'center',padding:20,color:formatResult(this.state.tap_result)[1]}}  > {formatResult(this.state.tap_result)[0]}</h3>
                     </RctCollapsibleCard>
                     <RctCollapsibleCard heading={<IntlMessages id='product.tag' />} fullBlock>
-                        <p className={"ml-3 mr-3"}><span style={{fontWeight:'bold'}}>{this.state.tag_type_title}: </span> {this.state.tag_key}</p>
+                        <p className={"ml-3 mr-3"}><span style={{fontWeight:'bold'}}><IntlMessages id="product.tag_key" />: </span> {this.state.tag_key}</p>
                     </RctCollapsibleCard>
                     <RctCollapsibleCard heading={<IntlMessages id='product.product' />} fullBlock>
-                        <p className={"ml-3 mr-3"}><span style={{fontWeight:'bold'}}><IntlMessages id="product.product_type_name" />: </span> {this.state.product_type_name}</p>
-                        <p className={"ml-3 mr-3"}><span style={{fontWeight:'bold'}}><IntlMessages id="product.product_manufacturer_title" />: </span> {this.state.product_manufacturer_title}</p>
-                        <p className={"ml-3 mr-3"}><span style={{fontWeight:'bold'}}><IntlMessages id="product.product_provider_title" />: </span> {this.state.product_provider_title}</p>
-                        <p className={"ml-3 mr-3"}><span style={{fontWeight:'bold'}}><IntlMessages id="product.product_category_title" />: </span> {this.state.product_industry_title} - {this.state.product_category_title} - {this.state.product_sub_category_title}</p>
+                        <div style={{display:"flex",flexDirection: 'column'}}>
+                            <div style={{display:"flex",flexWrap: 'nowrap'}}> 
+                                <p className={"ml-3 mr-3"}><span style={{fontWeight:'bold'}}><IntlMessages id="product.product_type_name" />: </span> {this.state.product_type_name}</p>
+                                <p className={"ml-3 mr-3"}><span style={{fontWeight:'bold'}}><IntlMessages id="product.product_manufacturer_title" />: </span> {this.state.product_manufacturer_title}</p>
+                                <p className={"ml-3 mr-3"}><span style={{fontWeight:'bold'}}><IntlMessages id="product.product_provider_title" />: </span> {this.state.product_provider_title}</p>
+                            </div>
+                            <div style={{display:"flex",flexWrap: 'nowrap'}}>    
+                                <p className={"ml-3 mr-3"}><span style={{fontWeight:'bold'}}><IntlMessages id="product.product_category_title" />: </span> {this.state.product_industry_title} - {this.state.product_category_title} - {this.state.product_sub_category_title}</p>
+                            </div>    
+                        </div>
                     </RctCollapsibleCard>
                     <RctCollapsibleCard heading={<IntlMessages id='product.properties' />} fullBlock>
-                        <p className={"ml-3 mr-3"}><span style={{fontWeight:'bold'}}> {this.state.product_attributes[0].p_attr_title}: </span> {this.state.product_attributes[0].p_attr_value_number} {this.state.product_attributes[0].p_attr_unit_title}</p>
-                        <p className={"ml-3 mr-3"}><span style={{fontWeight:'bold'}}> {this.state.product_attributes[1].p_attr_title}: </span> {this.state.product_attributes[1].p_attr_unit_id} {this.state.product_attributes[1].p_attr_unit_title}</p>
-                        <p className={"ml-3 mr-3"}><span style={{fontWeight:'bold'}}> {this.state.product_attributes[3].p_attr_title}: </span> {this.state.product_attributes[3].p_attr_value_char}</p>
-                        <p className={"ml-3 mr-3"}><span style={{fontWeight:'bold'}}> {this.state.product_attributes[2].p_attr_title}: </span> {colors} </p>
+                        {resultProps}
                     </RctCollapsibleCard>
                     <RctCollapsibleCard heading={<IntlMessages id='product.geo' />} fullBlock>
-                        <p className={"ml-3 mr-3"}><span style={{fontWeight:'bold'}}><IntlMessages id="product.country" />: </span> {this.state.gis_country_title}</p>
-                        <p className={"ml-3 mr-3"}><span style={{fontWeight:'bold'}}><IntlMessages id="product.province" />: </span> {this.state.gis_province_title}</p>
-                        <p className={"ml-3 mr-3"}><span style={{fontWeight:'bold'}}><IntlMessages id="product.city" />: </span> {this.state.gis_city_title}</p>
-                        <p className={"ml-3 mr-3"}><span style={{fontWeight:'bold'}}><IntlMessages id="product.address" />: </span> {this.state.gis_address}</p>
+                        <div style={{display:"flex",flexDirection: 'column'}}>
+                            <div style={{display:"flex",flexDirection: 'row'}}>
+                                <p className={"ml-3 mr-3"}><span style={{fontWeight:'bold'}}><IntlMessages id="product.country" />: </span> {this.state.gis_country_title}</p>
+                                <p className={"ml-3 mr-3"}><span style={{fontWeight:'bold'}}><IntlMessages id="product.province" />: </span> {this.state.gis_province_title}</p>
+                                <p className={"ml-3 mr-3"}><span style={{fontWeight:'bold'}}><IntlMessages id="product.city" />: </span> {this.state.gis_city_title}</p>
+                            </div>
+                            <div style={{display:"flex",flexDirection: 'row'}}>    
+                                <p className={"ml-3 mr-3"}><span style={{fontWeight:'bold'}}><IntlMessages id="product.address" />: </span> {this.state.gis_address}</p>
+                            </div>    
+                        </div>
                         <LocationMapChart locx={this.state.gis_location.locx} locy={this.state.gis_location.locy} />
                     </RctCollapsibleCard>
                     <RctCollapsibleCard heading={<IntlMessages id='product.client' />} fullBlock>
-                        <p className={"ml-3 mr-3"}><span style={{fontWeight:'bold'}}><IntlMessages id="product.client_device" />: </span> {this.state.client_device}</p>
-                        <p className={"ml-3 mr-3"}><span style={{fontWeight:'bold'}}><IntlMessages id="product.clint_ip" />: </span> {this.state.clint_ip}</p>
+                        <div style={{display:"flex",flexDirection: 'row'}}>
+                            <p className={"ml-3 mr-3"}><span style={{fontWeight:'bold'}}><IntlMessages id="product.client_device" />: </span> {this.state.client_device}</p>
+                            <p className={"ml-3 mr-3"}><span style={{fontWeight:'bold'}}><IntlMessages id="product.clint_ip" />: </span> {this.state.clint_ip}</p>
+                        </div>    
                     </RctCollapsibleCard>
 			</div>
 		);
-	}
+    }
+    
 }
 
 function mapStateToProps(state) {
 
     return {locale:state.settings.locale.locale }
-  }
+}
+
+
 
 export default connect(mapStateToProps)(ProductTap);

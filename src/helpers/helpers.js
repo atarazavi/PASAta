@@ -1,7 +1,10 @@
 /**
  * Helpers Functions
  */
+import React from 'react';
 import moment from 'moment';
+
+import IntlMessages from 'Util/IntlMessages';
 
 /**
  * Function to convert hex to rgba
@@ -60,4 +63,22 @@ export function getAppLayout(url) {
     let location = url.pathname;
     let path = location.split('/');
     return path[1];
+}
+
+
+export function formatResult(msg){
+    switch(msg){
+        case "AUTHENTICATION_SUCCESSFUL":
+            return [<IntlMessages id='auth.succss' />,'green'];
+        case "TAG_NOT_FOUND":
+            return [<IntlMessages id='auth.not.found' />,'gray'];
+        case "TAG_NOT_ASSIGN_TO_PRODUCT":
+            return [<IntlMessages id='auth.not.found' />,'orange'];
+        case "TAG_RIPPED":
+            return [<IntlMessages id='auth.ripped' />,'RED'];
+        case "TAG_IS_FAKE":
+            return [<IntlMessages id='auth.is.fake' />,'darkred'];
+        default:
+            return [<IntlMessages id='auth.not.found' />,'gray'];
+    }
 }
