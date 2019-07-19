@@ -20,7 +20,7 @@ import IntlMessages from 'Util/IntlMessages';
 // app config
 import AppConfig from '../../constants/AppConfig';
 
-const giventoken = localStorage.getItem('given_token')
+import { NotificationManager } from 'react-notifications';
 
 export default class AutoComplete extends Component {
 	state = {
@@ -70,20 +70,25 @@ export default class AutoComplete extends Component {
 		console.log(toBsentData);
 		
 		(async () => {
-		  const rawResponse = await fetch(AppConfig.baseURL + '/permission/role/edit', {
-		      method: 'POST',
-		      headers: {
-		        'Content-Type': 'application/json',
-		        'Authorization': localStorage.getItem('given_token')
-		      },
-		      body: JSON.stringify(toBsentData)
-		  });
-		  const content = await rawResponse.json();
-		  console.log(content);
-		  if (content.status == 200 ){
-              console.log('success');
-              this.props.history.push('roleList');
-		  }
+			const rawResponse = await fetch(AppConfig.baseURL + '/permission/role/edit', {
+				method: 'POST',
+				headers: {
+				'Content-Type': 'application/json',
+				'Authorization': localStorage.getItem('given_token')
+				},
+				body: JSON.stringify(toBsentData)
+			});
+			const response = await rawResponse.json();
+			if (response.status == 200 ){
+				if (response.result.messageModel.type == 'success' ){
+					NotificationManager.success(response.result.messageModel.text)
+					this.props.history.push('roleList');
+				}else{
+					NotificationManager.error(response.result.messageModel.text)
+				}
+			}else{
+				NotificationManager.error(response.result.messageModel.text)
+			}
 		})();
 	}
 
@@ -95,20 +100,22 @@ export default class AutoComplete extends Component {
 						<RctCollapsibleCard heading="Form Grid">
 							<Form>
 								<FormGroup row>
-									<Label for="roleName-1" sm={2}>ویرایش نقش</Label>
+									<Label for="roleName-1" sm={2}><IntlMessages id="RoleName" /></Label>
 									<Col sm={10}>
 										<Input value={this.state.roleName} type="text" name="roleName" id="roleName-1" onChange={this.handleChange} placeholder="Role Name" />
 									</Col>
 								</FormGroup>
 								<FormGroup row>
-									<Label for="description_1" sm={2}>توضیحات</Label>
+									<Label for="description_1" sm={2}><IntlMessages id="Description" /></Label>
 									<Col sm={10}>
 										<Input value={this.state.description} type="text" name="description" id="description_1" onChange={this.handleChange} placeholder="Role description" />
 									</Col>
 								</FormGroup>
 								<FormGroup check className="p-0">
 									<Button onClick={this.handleSubmit} color="primary">Submit</Button>
+									<Button style={{margin: '0 7px'}} onClick={() => this.props.history.push('roleList')} >Return</Button>
 								</FormGroup>
+					
 							</Form>
 						</RctCollapsibleCard>
 					</div>

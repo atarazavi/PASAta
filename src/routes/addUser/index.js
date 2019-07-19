@@ -25,7 +25,7 @@ import IntlMessages from 'Util/IntlMessages';
 // app config
 import AppConfig from '../../constants/AppConfig';
 
-const giventoken = localStorage.getItem('given_token')
+import { NotificationManager } from 'react-notifications';
 
 export default class AutoComplete extends Component {
 	state = {
@@ -42,35 +42,32 @@ export default class AutoComplete extends Component {
 	}
 
 	componentDidMount = () => {
-        (async () => {
-        const rawResponse = await fetch(AppConfig.baseURL + '/product/provider/filter', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': localStorage.getItem('given_token')
-            },
-            body: JSON.stringify({
-                "fromDate": "",
-                "needPaginate": true,
-                "pageNumber": 0,
-                "pageSize": 10,
-                "resultSize": 0,
-                "termToFind": "",
-                "toDate": ""
-            })
-        });
-        const content = await rawResponse.json();
-        console.log('contentcontentcontent',content);
-        if (content.status == 200 ){
-            console.log('success');
-            let dtos_ = content.result.dtos
-            const suggestions = dtos_.map(eachOwner => {
-                return({label: eachOwner.name, value: eachOwner.name, id: eachOwner.productProviderId})
-            })
-            this.setState({suggestions})
-            console.log('suggestions', this.state.suggestions);
-        }
-        })();
+		(async () => {
+			const rawResponse = await fetch(AppConfig.baseURL + '/product/provider/filter', {
+				method: 'POST',
+				headers: {
+				  'Content-Type': 'application/json',
+				  'Authorization': localStorage.getItem('given_token')
+				},
+				body: JSON.stringify({
+					"fromDate": "",
+					"needPaginate": true,
+					"pageNumber": 0,
+					"pageSize": 10,
+					"resultSize": 0,
+					"termToFind": "",
+					"toDate": ""
+				})
+			});
+			const content = await rawResponse.json();
+			if (content.status == 200 ){
+				let dtos_ = content.result.dtos
+				const suggestions = dtos_.map(eachOwner => {
+				  return({label: eachOwner.productproviderLangDTOS[0].name, value: eachOwner.productproviderLangDTOS[0].name, id: eachOwner.productproviderLangDTOS[0].productProviderId})
+				})
+				this.setState({suggestions})
+			}
+		})();
 	}
 
 	handleChange = (event) => {
@@ -104,19 +101,21 @@ export default class AutoComplete extends Component {
         }
 		console.log('toBsentData', toBsentData);
 		(async () => {
-		  const rawResponse = await fetch(AppConfig.baseURL + '/permission/user/register', {
-		      method: 'POST',
-		      headers: {
-		        'Content-Type': 'application/json',
-		        'Authorization': localStorage.getItem('given_token')
-		      },
-		      body: JSON.stringify(toBsentData)
-		  });
-		  const content = await rawResponse.json();
-		  console.log(content);
-		  if (content.status.result.messageModel == 'success' ){
-		      alert(content.result.messageModel.text);
-		  }
+			const rawResponse = await fetch(AppConfig.baseURL + '/permission/user/register', {
+				method: 'POST',
+				headers: {
+				'Content-Type': 'application/json',
+				'Authorization': localStorage.getItem('given_token')
+				},
+				body: JSON.stringify(toBsentData)
+			});
+			const content = await rawResponse.json();
+			console.log(content);
+			if (content.result.messageModel.type == 'success' ){
+				NotificationManager.success(content.result.messageModel.text)
+			}else{
+				NotificationManager.error(content.result.messageModel.text)
+			}
 		})();
 	}
 

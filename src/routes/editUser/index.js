@@ -2,7 +2,7 @@
  * Auto Complete Advance UI Components
  */
 import React, { Component } from 'react';
-import { NotificationContainer, NotificationManager } from 'react-notifications';
+import { NotificationManager } from 'react-notifications';
 import {
 	Form,
 	FormGroup,
@@ -27,8 +27,6 @@ import IntlMessages from 'Util/IntlMessages';
 // app config
 import AppConfig from '../../constants/AppConfig';
 
-const giventoken = localStorage.getItem('given_token')
-
 export default class AutoComplete extends Component {
 	state = {
 		username: '',
@@ -41,7 +39,7 @@ export default class AutoComplete extends Component {
         productownerid: 0,
 		productownerName: '',
 		suggestions: [],
-		userState : 'active'
+		isEnable : 'ENABLE'
 	}
 
     componentDidMount = () => {      
@@ -133,14 +131,14 @@ export default class AutoComplete extends Component {
 		e.preventDefault()
 		const toBsentData = {
             "id": this.props.location.state.user_id,
-            "username": this.state.username,
             "description": this.state.description,
             "fullName": this.state.familyanme,
             "email": this.state.email,
             "mobile": this.state.mobileNumber,
             "productproviderDTO": {
                 "id": this.state.productownerid
-			}
+			},
+			"isEnable": this.state.isEnable
 		}
 		const User= this.state.username;
 		const describtion= this.state.description
@@ -180,7 +178,7 @@ export default class AutoComplete extends Component {
 		  console.log(content);
 		  if (content.status == 200 ){
 		      console.log('success');
-		      this.forceUpdate()
+		      this.returntolist
 		  }
 		})();
 	}
@@ -233,12 +231,12 @@ export default class AutoComplete extends Component {
 									<Label for="Select-1" sm={2}>Select</Label>
 									<Col sm={10}>
 										<select 
-											value = {this.state.userState}
-											name = 'userState'
+											value = {this.state.isEnable}
+											name = 'isEnable'
 											onChange = {this.handleChange}
 										>
-											<option value="active">Active</option>
-											<option value="inactive">inActive</option>
+											<option value="ENABLE">ENABLE</option>
+											<option value="DISABLE">DISABLE</option>
 										</select>
 									</Col>
 								</FormGroup>

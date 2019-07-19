@@ -117,7 +117,8 @@ export default class AutoComplete extends Component {
 									</Col>
 								</FormGroup>
 								<FormGroup check className="p-0">
-									<Button onClick={this.handleSubmit} color="primary">Submit</Button>
+									<Button onClick={this.handleSubmit} color="primary"><IntlMessages id="components.submit"/></Button>
+									<Button style={{margin: '0 7px'}} onClick={() => this.props.history.push('actionList')} ><IntlMessages id="components.return"/></Button>
 								</FormGroup>
 							</Form>
 						</RctCollapsibleCard>
