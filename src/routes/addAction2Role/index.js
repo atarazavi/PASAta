@@ -30,7 +30,7 @@ import IconButton from '@material-ui/core/IconButton';
 // intl messages
 import IntlMessages from 'Util/IntlMessages';
 
-import { NotificationManager } from 'react-notifications';
+const giventoken = localStorage.getItem('given_token')
 
 export default class AutoComplete extends Component {
 	state = {
@@ -133,34 +133,34 @@ export default class AutoComplete extends Component {
     deletehandler = (toBdeletedRoleID) => {
         console.log('delete', toBdeletedRoleID);
         
-        (async () => {
-            const rawResponse = await fetch(AppConfig.baseURL + '/permission/role/userunassignfromrole', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': localStorage.getItem('given_token')
-                },
-                body: JSON.stringify({
-                    "userDTO": {
-                      "id": this.state.user_id
-                    },
-                    "roleDTO": {
-                      "id": toBdeletedRoleID
-                    }
-                  })
-            });
-            const response = await rawResponse.json();
-            if (response.result.messageModel.type == 'success' ){
-                console.log('delete response', response);
-                this.setState(state => {
-                    const roleActions = state.roleActions.filter(role => role.roleID !== toBdeletedRoleID);
-                    console.log('delete after filter', roleActions);
-                    return {
-                        roleActions,
-                    };
-                });
-            }
-        })();
+        // (async () => {
+        //     const rawResponse = await fetch(AppConfig.baseURL + '/permission/role/userunassignfromrole', {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //             'Authorization': localStorage.getItem('given_token')
+        //         },
+        //         body: JSON.stringify({
+        //             "userDTO": {
+        //               "id": this.state.user_id
+        //             },
+        //             "roleDTO": {
+        //               "id": toBdeletedRoleID
+        //             }
+        //           })
+        //     });
+        //     const response = await rawResponse.json();
+        //     if (response.result.messageModel.type == 'success' ){
+        //         console.log('delete response', response);
+        //         this.setState(state => {
+        //             const roleActions = state.roleActions.filter(role => role.roleID !== toBdeletedRoleID);
+        //             console.log('delete after filter', roleActions);
+        //             return {
+        //                 roleActions,
+        //             };
+        //         });
+        //     }
+        // })();
     }
 
     returntolist = () => {
@@ -190,42 +190,25 @@ export default class AutoComplete extends Component {
 		return (
 			<div className="formelements-wrapper">
                 <PageTitleBar title={<IntlMessages id="sidebar.dataTable" />} match={this.props.match} />
-				<div className="row">                    
+				<div className="row">
 					<div className="col-sm-12 col-md-12 col-xl-6">
-                        <RctCollapsibleCard heading={this.state.rolename + "'s current Actions"}>
-                            <div className="table-responsive">
-                                <div className="flip-scroll">
-                                    <table className="table table-bordered table-striped flip-content">
-                                        <thead>
-                                            <tr className="bg-primary text-white">
-                                                <th> <IntlMessages id="Action title" /> </th>
-                                                <th> <IntlMessages id="Delete?" /> </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        {
-                                            this.state.roleActions.map(eachAction => {
-                                                return(<tr>
-                                                    <td> {eachAction.actionName} </td>
-                                                    <td style={{padding:0}}> 
-                                                        <IconButton className="text-danger" onClick={() => { if (window.confirm('Are you sure you wish to delete'+ this.state.rolename +"'s Action?")) this.deletehandler(eachAction.actionID) } } aria-label="Delete">
-                                                            <i className="zmdi zmdi-close"></i>
-                                                        </IconButton>
-                                                    </td>
-                                                </tr>)
-                                            })
-                                        }
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </RctCollapsibleCard>
+                        <div className="data-table-wrapper">
+                            <RctCollapsibleCard heading="Data Table" fullBlock>
+                                <MUIDataTable
+                                    title={this.state.rolename + "'s Actions"}
+                                    data={data}
+                                    columns={columns}
+                                    options={options}
+                                />
+                            </RctCollapsibleCard>
+                        </div>
                     </div>
                     <div className="col-sm-12 col-md-12 col-xl-6">
+
                         <RctCollapsibleCard heading={"Add New Action to The " + this.state.rolename}>
 							<Form>
 								<FormGroup row>
-									<Label for="Role_" sm={2}><IntlMessages id="ChooseRole" /></Label>
+									<Label for="Role_" sm={2}>Choose Role</Label>
 									<Col sm={10}>
 										<ReactSelect defaultValue={this.state.productownerName} id={'Role_'} changeHandler={this.handleChangeOnRoleSelection} suggestions={this.state.suggestions} />
 									</Col>

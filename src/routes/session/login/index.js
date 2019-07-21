@@ -15,7 +15,7 @@ import Recaptcha from "react-recaptcha";
 import Forbidden from '../../../constants/AppConfig';
 import LanguageProvider from '../../../components/Header/LanguageProvider';
 import IntlMessages from 'Util/IntlMessages';
-import { NotificationManager } from 'react-notifications';
+import { NotificationContainer, NotificationManager } from 'react-notifications';
 
 
 // components

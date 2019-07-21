@@ -20,33 +20,30 @@ import { Route, Redirect } from "react-router-dom";
 // app config
 import AppConfig from '../../constants/AppConfig';
 
-import { NotificationManager } from 'react-notifications';
+const giventoken = localStorage.getItem('given_token')
 
 class DataTable extends React.Component {
 	state = {
 		theRoleslist: []
 	}
 
-	componentDidMount = () => {	
-		this.getrolesdata()
-	}
-	getrolesdata = () => {	
+	componentDidMount = () => {		
 		(async () => {
-			const rawResponse = await fetch(AppConfig.baseURL + '/permission/role/filter', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-					'Authorization': localStorage.getItem('given_token')
-				},
-				body: JSON.stringify({
-					"fromDate": "",
-					"needPaginate": true,
-					"pageNumber": 0,
-					"pageSize": 10,
-					"resultSize": 0,
-					"termToFind": "",
-					"toDate": ""
-				})
+		const rawResponse = await fetch(AppConfig.baseURL + '/permission/role/filter', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				'Authorization': localStorage.getItem('given_token')
+			},
+			body: JSON.stringify({
+                "fromDate": "",
+                "needPaginate": true,
+                "pageNumber": 0,
+                "pageSize": 10,
+                "resultSize": 0,
+                "termToFind": "",
+                "toDate": ""
+              })
 			});
 			const response = await rawResponse.json();
 			if (response.status == 200 ){
@@ -63,6 +60,7 @@ class DataTable extends React.Component {
 			}
 		})();
 	}
+
 	actionClickhandler = (id, uname, action) => {
 		switch(action) { 
 			case "editRole": { 
@@ -108,17 +106,11 @@ class DataTable extends React.Component {
 			const response = await rawResponse.json();
 			console.log('delete response',response);
 			if (response.status == 200 ){
-				if (response.result.messageModel.type == 'success' ){
-					NotificationManager.success(response.result.messageModel.text)
-				}else{
-					NotificationManager.error(response.result.messageModel.text)
-				}
-				this.getrolesdata()		
-			}else{
-				NotificationManager.error(response.result.messageModel.text)
-				this.getrolesdata()		
+				
+				this.forceUpdate()
 			}
 		})();
+		this.refs.deleteConfirmation.close();
 	}
 	
 	render() {
@@ -140,10 +132,10 @@ class DataTable extends React.Component {
 							<i className="zmdi zmdi-account-circle"></i>
 						</IconButton>
 						<DeleteConfirmationDialog
-							ref = "deleteConfirmation"
-							title = {<IntlMessages id="Are you sure want to delete?" />}
-							message = {<IntlMessages id="This will delete permanently selected parameter" />}
-							onConfirm = {()=>this.deletehandler()}
+							ref="deleteConfirmation"
+							title={localStorage.getItem("Current_lang")=="en"?"Are you sure want to delete?":"از حذف این آیتم اطمینان دارید؟"}
+							message={localStorage.getItem("Current_lang")=="en"?"This will delete permanently your item from  list.":"در صورت تایید این آیتم بصورت دائمی حذف خواهد شد"}
+							onConfirm={()=>this.deletehandler()}
 						/>
 					</div>
 				]

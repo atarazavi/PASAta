@@ -21,6 +21,9 @@ import AppConfig from '../../../constants/AppConfig';
 import Tooltip from '@material-ui/core/Tooltip';
 import reactElementToJSXString from 'react-element-to-jsx-string';
 
+const giventoken = localStorage.getItem('given_token')
+const currentLanguagecode = localStorage.getItem('Current_lang')
+
 class DataTable extends React.Component {
 	state = {
 		theuserslist: [],
@@ -54,7 +57,7 @@ class DataTable extends React.Component {
 				let nameinCurrentLang = null
 				const theList = response.result.dtos.map(each => {			
 					each.productproviderDTO.productproviderLangDTOS.map(eachlang => {
-						if (localStorage.getItem('Current_lang') == eachlang.languageDTO.code){
+						if (currentLanguagecode == eachlang.languageDTO.code){
 							nameinCurrentLang = {
 								lang_code: eachlang.languageDTO.code,
 								nameinthisLang: eachlang.name,
@@ -137,6 +140,7 @@ class DataTable extends React.Component {
 				window.location.reload()
 			}
 		  })();
+		  this.refs.deleteConfirmation.close();
 	}
 	handleTooltipClose = () => {
 		this.setState({ open: false });
@@ -144,6 +148,9 @@ class DataTable extends React.Component {
 	handleTooltipOpen = () => {
 		this.setState({ open: true });
 	};
+	DeleteConfirm=()=>{
+		this.refs.deleteConfirmation.open();
+	}
 	render() {	
 		const lang=localStorage.getItem('Current_lang')
 		console.log(lang,"lang");
@@ -160,7 +167,7 @@ class DataTable extends React.Component {
 					<div>
 						<Tooltip id="tooltip-fab" title={<IntlMessages id="tooltip.error" />}>
 						
-							<IconButton className="text-danger" onClick={() => { if (window.confirm('Are you sure you wish to delete : '+ eachuser.username +'?')) this.deletehandler(eachuser.id) } } aria-label="Delete">
+							<IconButton className="text-danger" onClick={ this.DeleteConfirm  } aria-label="Delete">
 								<i className="zmdi zmdi-close"></i>
 							</IconButton>
 							{/* <IconButton className="text-danger" onClick={() => { 
@@ -198,6 +205,12 @@ class DataTable extends React.Component {
 								<i className="zmdi zmdi-account-circle"></i>
 							</IconButton>
 						</Tooltip>
+						<DeleteConfirmationDialog
+							ref="deleteConfirmation"
+							title={localStorage.getItem("Current_lang")=="en"?"Are you sure want to delete?":"از حذف این آیتم اطمینان دارید؟"}
+							message={localStorage.getItem("Current_lang")=="en"?"This will delete permanently your item from  list.":"در صورت تایید این آیتم بصورت دائمی حذف خواهد شد"}
+							onConfirm={()=>this.deletehandler(eachuser.id)}
+						/>
 					</div>
 				]
 			)
