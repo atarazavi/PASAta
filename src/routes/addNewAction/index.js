@@ -17,6 +17,7 @@ import RctCollapsibleCard from 'Components/RctCollapsibleCard/RctCollapsibleCard
 // intl messages
 import IntlMessages from 'Util/IntlMessages';
 
+
 // app config
 import AppConfig from '../../constants/AppConfig';
 

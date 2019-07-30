@@ -14,10 +14,12 @@ import RctCollapsibleCard from 'Components/RctCollapsibleCard/RctCollapsibleCard
 // intl messages
 import IntlMessages from 'Util/IntlMessages';
 
+
+import Tooltip from '@material-ui/core/Tooltip';
+
 import IconButton from '@material-ui/core/IconButton';
 import { Route, Redirect } from "react-router-dom";
 
-import { NotificationManager } from 'react-notifications';
 // app config
 import AppConfig from '../../constants/AppConfig';
 
@@ -27,29 +29,29 @@ class DataTable extends React.Component {
 		groupid:""
 	}
 
-	componentDidMount = () => {	
-		this.getgroupsdata()		
-	}
-	getgroupsdata = () => {
+	componentDidMount = () => {				
 		(async () => {
-			const rawResponse = await fetch(AppConfig.baseURL + '/permission/group/filter', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-					'Authorization': localStorage.getItem('given_token')
-				},
-				body: JSON.stringify({
-					"fromDate": "",
-					"needPaginate": true,
-					"pageNumber": 0,
-					"pageSize": 10,
-					"resultSize": 0,
-					"termToFind": "",
-					"toDate": ""
-				})
+		const rawResponse = await fetch(AppConfig.baseURL + '/permission/group/filter', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				'Authorization': localStorage.getItem('given_token')
+			},
+			body: JSON.stringify({
+				"fromDate": "",
+				"needPaginate": true,
+				"pageNumber": 0,
+				"pageSize": 10,
+				"resultSize": 0,
+				"termToFind": "",
+				"toDate": ""
+			  })
 			});
 			const response = await rawResponse.json();
+			console.log(response);
 			if (response.status == 200 ){
+				console.log('success');
+				
 				const theList = response.result.dtos.map(each => {	
 					return({
 						id: each.id,
@@ -57,12 +59,15 @@ class DataTable extends React.Component {
 						description: each.description
 					})
 				})
+				
 				this.setState(
 					{thegroupslist: theList}
 				)
+				console.log('state', this.state.thegroupslist);
 			}
 		})();
 	}
+
 	actionClickhandler = (id, uname, action) => {
 		switch(action) { 
 			case "changeGroupRole": { 
@@ -87,6 +92,8 @@ class DataTable extends React.Component {
 	}
 
 	deletehandler = () => {
+		
+		console.log('going to delete', this.state.groupid);
 		(async () => {
 			const rawResponse = await fetch(AppConfig.baseURL + '/permission/group/delete', {
 				method: 'POST',
@@ -99,16 +106,9 @@ class DataTable extends React.Component {
 				})
 			});
 			const response = await rawResponse.json();
+			console.log('delete response',response);
 			if (response.status == 200 ){
-				if (response.result.messageModel.type == 'success' ){
-					NotificationManager.success(response.result.messageModel.text)
-				}else{
-					NotificationManager.error(response.result.messageModel.text)
-				}
-				this.getgroupsdata()		
-			}else{
-				NotificationManager.error(response.result.messageModel.text)
-				this.getgroupsdata()		
+				this.forceUpdate()
 			}
 		})();
 	}
@@ -127,20 +127,26 @@ class DataTable extends React.Component {
 			return(
 				[eachgroup.name, eachgroup.description, 
 					<div>
+						<Tooltip title={<IntlMessages id="delete.tooltip" />}>
 						<IconButton className="text-danger" onClick={() => this.onDeleteGroup(eachgroup.id)}  aria-label="Delete">
 							<i className="zmdi zmdi-close"></i>
 						</IconButton>
+						</Tooltip>
+						<Tooltip title={<IntlMessages id="Edit.tooltip" />}>
 						<IconButton className="text-success" onClick={() => this.actionClickhandler(eachgroup.id, eachgroup.name, 'edit')} aria-label="Edit">
 							<i className="zmdi zmdi-edit"></i>
 						</IconButton>
+						</Tooltip>
+						<Tooltip title={<IntlMessages id="GroupRule.tooltip" />}>
 						<IconButton className="text-danger" onClick={() => this.actionClickhandler(eachgroup.id, eachgroup.name, 'changeGroupRole')} aria-label="changeGroupRole">
 							<i className="zmdi zmdi-account-circle"></i>
 						</IconButton>
+						</Tooltip>
 						<DeleteConfirmationDialog
-							ref = "deleteConfirmation"
-							title = {<IntlMessages id="Are you sure want to delete?" />}
-							message = {<IntlMessages id="This will delete permanently selected parameter" />}
-							onConfirm = {()=>this.deletehandler()}
+							ref="deleteConfirmation"
+							title="Are you sure want to delete?"
+							message="This will delete permanently your feedback from feedback list."
+							onConfirm={()=>this.deletehandler()}
 						/>
 					</div>
 				]

@@ -817,5 +817,24 @@ module.exports = {
 	"charts.label.histogram":"Histogram Title",
 
 	"dashbord.result":"result",
-	"dashbord.description":"description"
+	"dashbord.description":"description",
+
+	"action.add":"Add New Action",
+	"action.path":"Action Path",
+	"action.name":"Action Name",
+	"delete.tooltip":"Delete Item",
+	"Edit.tooltip":"Edit Item",
+	"GroupRule.tooltip":"Change Group Role",
+	"RoleChange.tooltip":"'s current Roles",
+	"roletitle.tooltip":"Role title ",
+	"Action.tooltip":"Action",
+	"ChooseNewRole.tooltip":"Choose New Role",
+	"NewTagProvide":"The New Provider Name:",
+	"AddnewProvider":"Add New Tag Provider",
+	"Edit.success":"Operation Successfully Completed",
+	"Edit.fail":"Operation Failed",
+	"Tag.Type":"Tag Type",
+	"Tag.Packages":"Tag Packages",
+	"Number.Tag":"Number of Tags",
+	"Generate.Tags":"Generate Tags",
 }

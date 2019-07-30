@@ -8,7 +8,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
-
+import IntlMessages from 'Util/IntlMessages';
 class DeleteConfirmationDialog extends Component {
 
    state = {
@@ -42,10 +42,10 @@ class DeleteConfirmationDialog extends Component {
             </DialogContent>
             <DialogActions>
                <Button onClick={() => this.close()} className="btn-danger text-white">
-                  Cancel
+               <IntlMessages id="button.cancel" />
                </Button>
                <Button onClick={onConfirm} className="btn-primary text-white" autoFocus>
-                  Yes
+               <IntlMessages id="button.yes" />
                </Button>
             </DialogActions>
          </Dialog>

@@ -180,6 +180,9 @@ export default class AutoComplete extends Component {
 		  console.log(content);
 		  if (content.status == 200) {
 			NotificationManager.success(<IntlMessages id="Edit.success"/>)
+			setTimeout(() => {
+                this.props.history.push("tagInventory");
+            }, 1000);
 			// Show notification about success on adding ...
 		  }else{
 			NotificationManager.error(<IntlMessages id="Edit.fail"/>)
@@ -197,34 +200,34 @@ export default class AutoComplete extends Component {
 			<div className="formelements-wrapper">
 				<div className="row">
 					<div className="col-sm-12 col-md-12 col-xl-6">
-						<RctCollapsibleCard heading="Generate Tags">
+						<RctCollapsibleCard heading={<IntlMessages id="Generate.Tags"/>}>
 							<Form>
 								<FormGroup row>
-									<Label for="tagType" sm={2}>Tag Type</Label>
+									<Label for="tagType" sm={2}><IntlMessages id="Tag.Type"/></Label>
 									<Col sm={10}>
 										<ReactSelect id={'tagType'} changeHandler={this.handleChangeOnautoComplete} target='chosen_TagTypes_id' suggestions={this.state.suggestions_TagTypes} />
 									</Col>
 								</FormGroup>
 								<FormGroup row>
-									<Label for="tagProviders" sm={2}>Tag Providers</Label>
+									<Label for="tagProviders" sm={2}><IntlMessages id="sidebar.tagProvidersList"/></Label>
 									<Col sm={10}>
 										<ReactSelect id={'tagProviders'} changeHandler={this.handleChangeOnautoComplete} target='chosen_providers_id' suggestions={this.state.suggestions_providers} />
 									</Col>
 								</FormGroup>
 								<FormGroup row>
-									<Label for="tagPackages" sm={2}>Tag Packages</Label>
+									<Label for="tagPackages" sm={2}><IntlMessages id="Tag.Packages"/></Label>
 									<Col sm={10}>
 										<ReactSelect id={'tagPackages'} changeHandler={this.handleChangeOnautoComplete} target='chosen_packages_id' suggestions={this.state.suggestions_packages} />
 									</Col>
 								</FormGroup>
 								<FormGroup>
-									<Label for="Select">تعداد بسته</Label>
+									<Label for="Select"><IntlMessages id="Number.Tag"/></Label>
 									<Input type="select" onChange={this.handleChange} name="numberOftags" id="Select">
                                         {TagNumberOptions}
 									</Input>
 								</FormGroup>
 								<FormGroup check className="p-0">
-									<Button onClick={this.handleSubmit} color="primary">Submit</Button>
+									<Button onClick={this.handleSubmit} color="primary"><IntlMessages id="components.submit"/></Button>
 								</FormGroup>
 							</Form>
 						</RctCollapsibleCard>

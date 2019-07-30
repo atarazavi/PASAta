@@ -73,16 +73,16 @@ export default class AutoComplete extends Component {
 			<div className="formelements-wrapper">
 				<div className="row">
 					<div className="col-sm-12 col-md-12 col-xl-6">
-						<RctCollapsibleCard heading="Add New Tag Provider">
+						<RctCollapsibleCard heading={<IntlMessages id="AddnewProvider"/>}>
 							<Form>
 								<FormGroup row>
-									<Label for="providername_1" sm={2}>The New Provider Name:</Label>
+									<Label for="providername_1" sm={2}><IntlMessages id="NewTagProvide"/></Label>
 									<Col sm={10}>
 										<Input type="text" name="providername" id="providername_1" onChange={this.handleChange} value={this.state.providername} />
 									</Col>
 								</FormGroup>
 								<FormGroup check className="p-0">
-									<Button onClick={this.handleSubmit} color="primary">Submit</Button>
+									<Button onClick={this.handleSubmit} color="primary"><IntlMessages id="components.submit"/></Button>
 								</FormGroup>
 							</Form>
 						</RctCollapsibleCard>
