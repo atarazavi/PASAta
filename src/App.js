@@ -12,7 +12,7 @@ import {AsyncSessionPage404Component} from "./components/AsyncComponent/AsyncCom
 import './lib/reactifyCss';
 
 // firebase
-import './firebase';
+import './firebase'; 
 
 // app component
 import App from './container/App';
