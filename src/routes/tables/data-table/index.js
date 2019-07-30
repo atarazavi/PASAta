@@ -57,7 +57,7 @@ class DataTable extends React.Component {
 				let nameinCurrentLang = null
 				const theList = response.result.dtos.map(each => {			
 					each.productproviderDTO.productproviderLangDTOS.map(eachlang => {
-						if (currentLanguagecode == eachlang.languageDTO.code){
+						if (localStorage.getItem('Current_lang') == eachlang.languageDTO.code){
 							nameinCurrentLang = {
 								lang_code: eachlang.languageDTO.code,
 								nameinthisLang: eachlang.name,

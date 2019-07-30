@@ -27,9 +27,6 @@ import IntlMessages from 'Util/IntlMessages';
 // app config
 import AppConfig from '../../constants/AppConfig';
 
-const giventoken = localStorage.getItem('given_token')
-const currentLanguagecode = localStorage.getItem('Current_lang')
-
 export default class AutoComplete extends Component {
 	state = {
         tagCode: null,
@@ -48,7 +45,7 @@ export default class AutoComplete extends Component {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': localStorage.getItem('given_token'),
-                    'Accept-Language': currentLanguagecode
+                    'Accept-Language': localStorage.getItem('Current_lang')
                 },
                 body: JSON.stringify({
                     "id": this.props.location.state.tags_id
@@ -64,7 +61,7 @@ export default class AutoComplete extends Component {
                 }
                 let _DTO = content.result.dto
                 _DTO.userDTO.productproviderDTO.productproviderLangDTOS.map(eachlang => {
-                    if (currentLanguagecode == eachlang.languageDTO.code && _DTO.userDTO.productproviderDTO.productproviderLangDTOS.length > 0){
+                    if (localStorage.getItem('Current_lang') == eachlang.languageDTO.code && _DTO.userDTO.productproviderDTO.productproviderLangDTOS.length > 0){
                         nameinCurrentLang = {
                             lang_code: eachlang.languageDTO.code,
                             nameinthisLang: eachlang.name,

@@ -49,7 +49,7 @@ export default class AutoComplete extends Component {
 		      headers: {
 		        'Content-Type': 'application/json',
 		        'Authorization': localStorage.getItem('given_token'),
-                'Accept-Language': currentLanguagecode
+                'Accept-Language': localStorage.getItem('Current_lang')
 		      },
 		      body: JSON.stringify(toBsentData)
 		  });

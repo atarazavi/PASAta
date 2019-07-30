@@ -23,9 +23,6 @@ import IntlMessages from 'Util/IntlMessages';
 // app config
 import AppConfig from '../../constants/AppConfig';
 
-const giventoken = localStorage.getItem('given_token')
-const currentLanguagecode = localStorage.getItem('Current_lang')
-
 export default class AutoComplete extends Component {
 	state = {
         tagKey: null,
@@ -65,7 +62,7 @@ export default class AutoComplete extends Component {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': localStorage.getItem('given_token'),
-                    'Accept-Language': currentLanguagecode
+                    'Accept-Language': localStorage.getItem('Current_lang')
                 }
             });
             const response = await rawResponse;

@@ -17,8 +17,6 @@ import RctCollapsibleCard from 'Components/RctCollapsibleCard/RctCollapsibleCard
 
 // intl messages
 import IntlMessages from 'Util/IntlMessages';
-const giventoken = localStorage.getItem('given_token')
-const currentLanguagecode = localStorage.getItem('Current_lang')
 
 export default class Cards extends Component {
 
@@ -31,7 +29,7 @@ export default class Cards extends Component {
                         headers: {
                             'Content-Type': 'application/json',
                             'Authorization': localStorage.getItem('given_token'),
-                            'Accept-Language': currentLanguagecode
+                            'Accept-Language': localStorage.getItem('Current_lang')
                         },
                         body: JSON.stringify({
                             "id": this.props.location.state.tags_id

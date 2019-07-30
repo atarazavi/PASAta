@@ -24,9 +24,6 @@ import Tooltip from '@material-ui/core/Tooltip';
 import AppConfig from '../../constants/AppConfig';
 import { callbackify } from 'util';
 
-const giventoken = localStorage.getItem('given_token')
-const currentLanguagecode = localStorage.getItem('Current_lang')
-
 class DataTable extends React.Component {
 	state = {
         tagPackageSeqStart: 0,
@@ -49,7 +46,7 @@ class DataTable extends React.Component {
 				headers: {
 					'Content-Type': 'application/json',
 					'Authorization': localStorage.getItem('given_token'),
-					'Accept-Language': currentLanguagecode
+					'Accept-Language': localStorage.getItem('Current_lang')
 				},
 				body: JSON.stringify({
                     "fromDate": "",
@@ -95,7 +92,7 @@ class DataTable extends React.Component {
 					headers: {
 						'Content-Type': 'application/json',
 						'Authorization': localStorage.getItem('given_token'),
-						'Accept-Language': currentLanguagecode
+						'Accept-Language': localStorage.getItem('Current_lang')
 					}
 				});
 				const response = await rawResponse;

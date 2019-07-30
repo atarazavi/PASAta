@@ -137,7 +137,7 @@ class DataTable extends React.Component {
 				headers: {
 					'Content-Type': 'application/json',
 					'Authorization': localStorage.getItem('given_token'),
-					'Accept-Language': currentLanguagecode
+					'Accept-Language': localStorage.getItem('Current_lang')
 				},
 				body: JSON.stringify({
 					"fromDate": this.state.chosenstartdate,
@@ -169,7 +169,7 @@ class DataTable extends React.Component {
                 }
 				const thetagslist = response.result.dtos.map(each => {	
 					each.userDTO.productproviderDTO.productproviderLangDTOS.map(eachlang => {
-						if (currentLanguagecode == eachlang.languageDTO.code && eachlang.length > 0){
+						if (localStorage.getItem('Current_lang') == eachlang.languageDTO.code && eachlang.length > 0){
 							nameinCurrentLang = {
 								lang_code: eachlang.languageDTO.code,
 								nameinthisLang: eachlang.name,

@@ -147,7 +147,7 @@ constructor(props){
         //         headers: {
         //           'Content-Type': 'application/json',
         //           'Authorization': localStorage.getItem('given_token'),
-        //           'Accept-Language': currentLanguagecode
+        //           'Accept-Language': localStorage.getItem('Current_lang')
         //         },
         //         body: JSON.stringify({
         //             "key" : "HISTORGAM_INTERVAL"
@@ -173,7 +173,7 @@ constructor(props){
         //         headers: {
         //           'Content-Type': 'application/json',
         //           'Authorization': localStorage.getItem('given_token'),
-        //           'Accept-Language': currentLanguagecode
+        //           'Accept-Language': localStorage.getItem('Current_lang')
         //         },
         //         body: JSON.stringify({
         //             "key" : "TAP_AUTH_RESULT_TYPE"
@@ -197,7 +197,7 @@ constructor(props){
         //         headers: {
         //           'Content-Type': 'application/json',
         //           'Authorization': localStorage.getItem('given_token'),
-        //           'Accept-Language': currentLanguagecode
+        //           'Accept-Language': localStorage.getItem('Current_lang')
         //         },
         //         body: JSON.stringify({
         //             "key" : "STARTING_DATE"

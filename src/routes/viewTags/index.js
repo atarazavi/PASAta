@@ -19,10 +19,6 @@ import { Route, Redirect } from "react-router-dom";
 // app config
 import AppConfig from '../../constants/AppConfig';
 
-const giventoken = localStorage.getItem('given_token')
-// const currentLanguagecode = localStorage.getItem('currentLanguagecode')
-const currentLanguagecode = 'fa'
-
 class DataTable extends React.Component {
 	state = {
 		thetagsslist: []
@@ -35,7 +31,7 @@ class DataTable extends React.Component {
 			headers: {
 				'Content-Type': 'application/json',
                 'Authorization': localStorage.getItem('given_token'),
-                'Accept-Language': currentLanguagecode
+                'Accept-Language': localStorage.getItem('Current_lang')
 			},
 			body: JSON.stringify({
                 "fromDate": "",
