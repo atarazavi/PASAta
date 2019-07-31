@@ -17,7 +17,7 @@ import IconButton from '@material-ui/core/IconButton';
 import { Route, Redirect } from "react-router-dom";
 
 // app config
-import AppConfig from '../../../constants/AppConfig';
+import AppConfig from 'Constants/AppConfig';
 import Tooltip from '@material-ui/core/Tooltip';
 import reactElementToJSXString from 'react-element-to-jsx-string';
 
