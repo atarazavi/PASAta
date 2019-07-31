@@ -87,14 +87,14 @@ export default class Cards extends Component {
                 <div className="row">
                     <div className="col-sm-12 col-md-4 mb-30">
                         <Card body inverse color="success">
-                            <CardTitle>اختصاص برچسب</CardTitle>
-                            <Button onClick={this.handleClick} value="accept" color="light">اختصاص</Button>
+                            <CardTitle><IntlMessages id="ekhtesasebarchasb"/></CardTitle>
+                            <Button onClick={this.handleClick} value="accept" color="light"><IntlMessages id="ekhtesas"/></Button>
                         </Card>
                     </div>
                     <div className="col-sm-12 col-md-4 mb-30">
                         <Card body inverse color="danger">
-                            <CardTitle>عدم اختصاص برچسب</CardTitle>
-                            <Button onClick={this.handleClick} value="reject" color="light">عدم اختصاص</Button>
+                            <CardTitle><IntlMessages id="adame ekhtesase barchasb"/></CardTitle>
+                            <Button onClick={this.handleClick} value="reject" color="light"><IntlMessages id="adame ekhtesas"/></Button>
                         </Card>
                     </div>
                 </div>

@@ -21,14 +21,11 @@ import { Route, Redirect } from "react-router-dom";
 
 import Tooltip from '@material-ui/core/Tooltip';
 // app config
-import AppConfig from '../../constants/AppConfig';
+import AppConfig from 'Constants/AppConfig';
 
 // Components
 import ReactSelect from '../advance-ui-components/autoComplete/component/ReactSelect';
 import {DatePicker} from "react-advance-jalaali-datepicker";
-
-const giventoken = localStorage.getItem('given_token')
-const currentLanguagecode = localStorage.getItem('Current_lang')
 
 class DataTable extends React.Component {
 	state = {
@@ -200,8 +197,8 @@ class DataTable extends React.Component {
 		switch(action) { 
 			case "ViewPackage": { 
 				this.props.history.push({
-					pathname: 'viewPackage',
-					state: { tags_id: id }
+					pathname: 'tagPackagesList',
+					state: { tagRequestId: id }
 				})
 				break;  
 			} 
@@ -292,6 +289,7 @@ class DataTable extends React.Component {
             marginBottom: "-4px"
         }
 		const columns = ["Status", "Tag Status Code", "Created By", "Tag Type", "Package Type", "Number Of Package", "Actions"];
+		const columnsfa = ["وضعیت", "کد وضعیت تگ", "سازنده", "نوع تگ", "نوع بسته", "تعداد پکیج", "اقدامات"];
 		const data = this.state.thetagslist.map(eachtag => {
 			return(
 				[
@@ -314,25 +312,43 @@ class DataTable extends React.Component {
                     eachtag.statusCode, eachtag.creator + " (" + eachtag.productProviderName + ")", eachtag.type, eachtag.packageType , eachtag.packageCount,
                     
 					<div>
-						{eachtag.statusCode == 0 && <IconButton className="text-success" onClick={() => this.actionClickhandler(eachtag.id, 'changeTagRequestStatus')} aria-label="change status">
-							<i className="zmdi zmdi-mail-reply"></i>
-						</IconButton>}
-                        <IconButton className="text-success" onClick={() => this.actionClickhandler(eachtag.id, 'ViewPackage')} aria-label="view package">
-                            <i className="zmdi zmdi-eye"></i>
-                        </IconButton>
-						<IconButton className="text-success" onClick={() => this.actionClickhandler(eachtag.id, 'requestedTagsMoreinfo')} aria-label="more info">
-							<i className="zmdi zmdi-info"></i>
-						</IconButton>
-						<IconButton className="text-danger" onClick={() => this.actionClickhandler(eachtag.id, 'requestedTagsDelete')} aria-label="Delete">
-							<i className="zmdi zmdi-close"></i>
-						</IconButton>
+						{eachtag.statusCode == 0 && 
+							<Tooltip id="tooltip-fab" title={<IntlMessages id="changeTagRequestStatus"/>}>
+								<IconButton className="text-success" onClick={() => this.actionClickhandler(eachtag.id, 'changeTagRequestStatus')} aria-label="change status">
+									<i className="zmdi zmdi-mail-reply"></i>
+								</IconButton>
+							</Tooltip>
+						}
+						{eachtag.statusCode !== 0 &&
+							<Tooltip id="tooltip-fab" title={<IntlMessages id="view package"/>}>
+								<IconButton className="text-success" onClick={() => this.actionClickhandler(eachtag.id, 'ViewPackage')} aria-label="view package">
+									<i className="zmdi zmdi-eye"></i>
+								</IconButton>
+							</Tooltip>
+						}
+						<Tooltip id="tooltip-fab" title={<IntlMessages id="Moreinfo"/>}>
+							<IconButton className="text-success" onClick={() => this.actionClickhandler(eachtag.id, 'requestedTagsMoreinfo')} aria-label="more info">
+								<i className="zmdi zmdi-info"></i>
+							</IconButton>
+						</Tooltip>
+						<Tooltip id="tooltip-fab" title={<IntlMessages id="Delete"/>}>
+							<IconButton className="text-danger" onClick={() => this.actionClickhandler(eachtag.id, 'requestedTagsDelete')} aria-label="Delete">
+								<i className="zmdi zmdi-close"></i>
+							</IconButton>
+						</Tooltip>
 					</div>
 				]
 			)
 		})
 		const options = {
-			filterType: 'dropdown',
-			responsive: 'stacked'
+			filter: false,
+			responsive: 'stacked',
+			selectableRows: false,
+			download: false,
+			print: false,
+			search: false,
+			viewColumns: false,
+			sort: true
 		};
 		
         const ViewNumberOptions = []
@@ -341,61 +357,67 @@ class DataTable extends React.Component {
         }  
 		return (
 			<div className="data-table-wrapper">
-				<PageTitleBar title='لیست برچسب های درخواست شده' match={this.props.match} />
-				<RctCollapsibleCard heading="لیست درخواست ها" fullBlock>
-						<div className="top-filter clearfix p-20">
-							<FormGroup className="w-20">
-								<Label for="startDate">Status:</Label>
-								<ReactSelect makeitlarger='please' id='filter_status' changeHandler={this.handleChangeOnautoComplete} target='statusSuggestion' suggestions={this.state.statusSuggestion} />
-							</FormGroup>
-							<FormGroup className="w-20">
-								<Label for="startDate">Tag Type:</Label>
-								<ReactSelect id='filter_tagtype' changeHandler={this.handleChangeOnautoComplete} target='tagTypeSuggestion' suggestions={this.state.tagTypeSuggestion} />
-							</FormGroup>
-							<FormGroup className="w-20">
-								<Label for="startDate">Tag Provider:</Label>
-								<ReactSelect id='filter_provider' changeHandler={this.handleChangeOnautoComplete} target='productProviderSuggestion' suggestions={this.state.productProviderSuggestion} />
-							</FormGroup>
-							<FormGroup className="w-20">
-								<Label for="startDate">Package Type:</Label>
-								<ReactSelect id='filter_package' changeHandler={this.handleChangeOnautoComplete} target='packageTypeSuggestion' suggestions={this.state.packageTypeSuggestion} />
-							</FormGroup>
-							<FormGroup className="w-20">
-								<Label for="Select">Number of Results:</Label>
-								<Input type="select" onChange={this.handleChange} name="chosennumofresults" id="Select">
-									{ViewNumberOptions}
-								</Input>
-							</FormGroup>
-							<FormGroup className="w-20">
-								<Label for="startDate">Start Date:</Label>
-								<DatePicker
-									inputComponent={this.DatePickerInput}
-									placeholder="انتخاب تاریخ آغاز"
-									format="jYYYY/jMM/jDD"
-									onChange={this.handleChange_DatePicker_StartDate}
-									id="datePicker"
-								/>
-							</FormGroup>
-							<FormGroup className="w-20">
-								<Label for="endDate">End Date:</Label>
-								{/* <Input type="date" onChange={this.handleChange} name="chosenenddate" id="endDate" placeholder="dd/mm/yyyy" /> */}
-								<DatePicker
-									inputComponent={this.DatePickerInput}
-									placeholder="انتخاب تاریخ پایان"
-									format="jYYYY/jMM/jDD"
-									onChange={this.handleChange_DatePicker_EndDate}
-									id="datePicker"
-								/>
-							</FormGroup>
-							<FormGroup className="mb-5">
-								<Label className="d-block">&nbsp;</Label>
-								<Button onClick={this.handleFilterApply} color="primary" variant="raised" className="mr-10 text-white"><IntlMessages id="widgets.apply" /></Button>
-							</FormGroup>
+				<PageTitleBar title={<IntlMessages id="Requested Tags List"/>} match={this.props.match} />
+				<div className="report-status mb-30">
+					<div className="row">
+						<div className="col-md-12">
+							<div className="top-filter clearfix p-20">
+								<FormGroup className="w-20">
+									<Label for="startDate">Status:</Label>
+									<ReactSelect fullWidth makeitlarger='please' id='filter_status' changeHandler={this.handleChangeOnautoComplete} target='statusSuggestion' suggestions={this.state.statusSuggestion} />
+								</FormGroup>
+								<FormGroup className="w-20">
+									<Label for="startDate">Tag Type:</Label>
+									<ReactSelect fullWidth id='filter_tagtype' changeHandler={this.handleChangeOnautoComplete} target='tagTypeSuggestion' suggestions={this.state.tagTypeSuggestion} />
+								</FormGroup>
+								<FormGroup className="w-20">
+									<Label for="startDate">Tag Provider:</Label>
+									<ReactSelect fullWidth id='filter_provider' changeHandler={this.handleChangeOnautoComplete} target='productProviderSuggestion' suggestions={this.state.productProviderSuggestion} />
+								</FormGroup>
+								<FormGroup className="w-20">
+									<Label for="startDate">Package Type:</Label>
+									<ReactSelect fullWidth id='filter_package' changeHandler={this.handleChangeOnautoComplete} target='packageTypeSuggestion' suggestions={this.state.packageTypeSuggestion} />
+								</FormGroup>
+								<FormGroup className="w-20">
+									<Label for="Select">Number of Results:</Label>
+									<Input type="select" onChange={this.handleChange} name="chosennumofresults" id="Select">
+										{ViewNumberOptions}
+									</Input>
+								</FormGroup>
+								<FormGroup className="w-20">
+									<Label for="startDate">Start Date:</Label>
+									<DatePicker
+										inputComponent={this.DatePickerInput}
+										placeholder="انتخاب تاریخ آغاز"
+										format="jYYYY/jMM/jDD"
+										onChange={this.handleChange_DatePicker_StartDate}
+										id="datePicker"
+									/>
+								</FormGroup>
+								<FormGroup className="w-20">
+									<Label for="endDate">End Date:</Label>
+									{/* <Input type="date" onChange={this.handleChange} name="chosenenddate" id="endDate" placeholder="dd/mm/yyyy" /> */}
+									<DatePicker
+										inputComponent={this.DatePickerInput}
+										placeholder="انتخاب تاریخ پایان"
+										format="jYYYY/jMM/jDD"
+										onChange={this.handleChange_DatePicker_EndDate}
+										id="datePicker"
+									/>
+								</FormGroup>
+								<FormGroup className="mb-5">
+									<Label className="d-block">&nbsp;</Label>
+									<Button onClick={this.handleFilterApply} color="primary" variant="raised" className="mr-10 text-white"><IntlMessages id="widgets.apply" /></Button>
+								</FormGroup>
+							</div>
 						</div>
+					</div>
+				</div>
+				<RctCollapsibleCard>
 					<MUIDataTable
-						title={"Users list"}
+						title={<IntlMessages id="Requested Tags List"/>}
 						data={data}
-						columns={columns}
+						columns={localStorage.getItem('Current_lang') == 'en' ? columns : columnsfa}
 						options={options}
 					/>
 				</RctCollapsibleCard>

@@ -24,7 +24,7 @@ import RctCollapsibleCard from 'Components/RctCollapsibleCard/RctCollapsibleCard
 import IntlMessages from 'Util/IntlMessages';
 
 // app config
-import AppConfig from '../../constants/AppConfig';
+import AppConfig from 'Constants/AppConfig';
 
 export default class AutoComplete extends Component {
 	state = {
@@ -88,12 +88,12 @@ export default class AutoComplete extends Component {
 			<div className="formelements-wrapper">
 				<div className="row">
 					<div className="col-sm-12 col-md-12 col-xl-6">
-						<RctCollapsibleCard heading={"More about " + this.props.location.state.tags_id}>
+						<RctCollapsibleCard heading={"More about" + this.props.location.state.tags_id}>
 							<Form>
                                 <List className="p-0 fs-14">
                                     <ListItem className="d-flex justify-content-between border-bottom  align-items-center p-15">
                                         <span>
-                                            Code:
+                                            <IntlMessages id="tag Code"/>:
                                         </span>
                                         <span>
                                             {this.state.tagCode}
@@ -101,7 +101,7 @@ export default class AutoComplete extends Component {
                                     </ListItem>
                                     <ListItem className="d-flex justify-content-between border-bottom  align-items-center p-15">
                                         <span>
-                                            Tag Type:
+                                            <IntlMessages id="Tag type"/>:
                                         </span>
                                         <span>
                                             {this.state.tagType}
@@ -109,7 +109,7 @@ export default class AutoComplete extends Component {
                                     </ListItem>
                                     <ListItem className="d-flex justify-content-between border-bottom  align-items-center p-15">
                                         <span>
-                                            Package Type:
+                                            <IntlMessages id="Package Type"/>:
                                         </span>
                                         <span>
                                             {this.state.tagPackageType}
@@ -117,7 +117,7 @@ export default class AutoComplete extends Component {
                                     </ListItem>
                                     <ListItem className="d-flex justify-content-between border-bottom  align-items-center p-15">
                                         <span>
-                                            Number of Packages:
+                                            <IntlMessages id="Number Of Packages"/>:
                                         </span>
                                         <span>
                                             {this.state.tagPackageCount}
@@ -125,7 +125,7 @@ export default class AutoComplete extends Component {
                                     </ListItem>
                                     <ListItem className="d-flex justify-content-between border-bottom  align-items-center p-15">
                                         <span>
-                                            status:
+                                            <IntlMessages id="Tag Status"/>:
                                         </span>
                                         <span>
                                             {this.state.tagStatus}
@@ -133,7 +133,7 @@ export default class AutoComplete extends Component {
                                     </ListItem>
                                     <ListItem className="d-flex justify-content-between border-bottom  align-items-center p-15">
                                         <span>
-                                            Tag Provider:
+                                            <IntlMessages id="Tag Provider"/>:
                                         </span>
                                         <span>
                                             {this.state.tagRegisterer}
@@ -141,7 +141,7 @@ export default class AutoComplete extends Component {
                                     </ListItem>
                                     <ListItem className="d-flex justify-content-between border-bottom  align-items-center p-15">
                                         <span>
-                                            Creation Date:
+                                            <IntlMessages id="TagCreation Date"/>:
                                         </span>
                                         <span>
                                             {this.state.tagCreationDate}
@@ -149,7 +149,7 @@ export default class AutoComplete extends Component {
                                     </ListItem>
                                     <ListItem className="d-flex justify-content-between border-bottom  align-items-center p-15">
                                         <span>
-                                            Confirmation Date:
+                                            <IntlMessages id="Tag Confirmation Date"/>:
                                         </span>
                                         <span>
                                             {this.state.tagConfirmTime}
