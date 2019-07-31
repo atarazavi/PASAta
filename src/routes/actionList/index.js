@@ -18,10 +18,9 @@ import IntlMessages from 'Util/IntlMessages';
 import IconButton from '@material-ui/core/IconButton';
 import { Route, Redirect } from "react-router-dom";
 
+import Tooltip from '@material-ui/core/Tooltip';
 // app config
-import AppConfig from '../../constants/AppConfig';
-
-const giventoken = localStorage.getItem('given_token')
+import AppConfig from 'Constants/AppConfig';
 
 class DataTable extends React.Component {
 	state = {
@@ -119,12 +118,16 @@ class DataTable extends React.Component {
 			return(
 				[eachaction.name, eachaction.path , eachaction.description, 
 					<div>
-						<IconButton className="text-danger" onClick={() => { this.onDeleteAction(eachaction.id)} } aria-label="Delete">
-							<i className="zmdi zmdi-close"></i>
-						</IconButton>
-						<IconButton className="text-success" onClick={() => this.actionClickhandler(eachaction.id, eachaction.name, 'edit')} aria-label="Edit">
-							<i className="zmdi zmdi-edit"></i>
-						</IconButton>
+						<Tooltip id="tooltip-fab" title={<IntlMessages id="delete"/>}>
+							<IconButton className="text-danger" onClick={() => { this.onDeleteAction(eachaction.id)} } aria-label="Delete">
+								<i className="zmdi zmdi-close"></i>
+							</IconButton>	
+						</Tooltip>
+						<Tooltip id="tooltip-fab" title={<IntlMessages id="edit"/>}>
+							<IconButton className="text-success" onClick={() => this.actionClickhandler(eachaction.id, eachaction.name, 'edit')} aria-label="Edit">
+								<i className="zmdi zmdi-edit"></i>
+							</IconButton>	
+						</Tooltip>
 						<DeleteConfirmationDialog
 							ref="deleteConfirmation"
 							title="Are you sure want to delete?"
@@ -136,14 +139,14 @@ class DataTable extends React.Component {
 			)
 		})
 		const options = {
-			filterType: 'dropdown',
+			filter: false,
 			responsive: 'stacked',
 			selectableRows: false,
-			textLabels: {
-				body: {
-				  noMatch: tablemessage,
-				},
-			}
+			download: false,
+			print: false,
+			// search: false,
+			viewColumns: false,
+			sort: true
 		};
 		return (
 			<div className="data-table-wrapper">
