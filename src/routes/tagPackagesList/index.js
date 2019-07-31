@@ -21,10 +21,7 @@ import { Route, Redirect } from "react-router-dom";
 
 import Tooltip from '@material-ui/core/Tooltip';
 // app config
-import AppConfig from '../../constants/AppConfig';
-
-const giventoken = localStorage.getItem('given_token')
-const currentLanguagecode = localStorage.getItem('Current_lang')
+import AppConfig from 'Constants/AppConfig';
 
 class DataTable extends React.Component {
 	state = {
@@ -32,6 +29,7 @@ class DataTable extends React.Component {
         tagPackageIdStart: 0,
         tagPackageIdEnd: 0,
 		chosennumofresults: 15,
+		tagRequestId: this.props.location.state ? this.props.location.state.tagRequestId : 0
 	}
 	componentDidMount = () => {		
 		this.callMainAPI();
@@ -57,7 +55,7 @@ class DataTable extends React.Component {
                     "tagBulkorderId": 0,
                     "tagPackageIdEnd": this.state.tagPackageIdEnd,
                     "tagPackageIdStart": this.state.tagPackageIdStart,
-                    "tagRequestId": 0
+                    "tagRequestId": this.state.tagRequestId
                   })
 			});
 			const response = await rawResponse.json();
@@ -82,7 +80,8 @@ class DataTable extends React.Component {
 					})
 					return({
                         id: each.id,
-                        statusCode: each.tagRequestDTO.id,
+						statusCode: each.tagRequestDTO.id,
+						status: each.tagRequestDTO.tagrequeststatusDTO.status,
                         packageType: each.tagBulkorderDTO.tagPackageTypeDTO.title,
                         packageCount: each.tagBulkorderDTO.packageCount
 					})
@@ -107,6 +106,7 @@ class DataTable extends React.Component {
 	}
 
 	render() {  
+		const lang=localStorage.getItem('Current_lang')
         const badgestyle = {
             width: "20px",
             height: "20px",
@@ -115,11 +115,12 @@ class DataTable extends React.Component {
             marginBottom: "-4px"
         }
 		const columns = ["Status", "Package Code", "Package Type", "Actions"];
+		const columnsfa = ["وضعیت", "کد بسته", "توع بسته", "اقدامات"];
 		const data = this.state.thetagPackagesList.map(each => {
 			return(
 				[
 					each.statusCode == null ? 
-						<Tooltip id="tooltip-fab" title={each.status}>
+						<Tooltip id="tooltip-fab" title={<IntlMessages id="hanooz ekhtesas dade nashode"/>}>
 							<Badge style={badgestyle} color="success"> </Badge>
 						</Tooltip>
 					: 
@@ -127,16 +128,26 @@ class DataTable extends React.Component {
 							<Badge style={badgestyle} color="warning"> </Badge> 
 						</Tooltip>	
                     ,
-                    each.id, each.packageType ,
-                    <IconButton className="text-success" onClick={() => this.actionClickhandler(each.id, each.name)}>
-                        <i className="zmdi zmdi-eye"></i>
-                    </IconButton>
+					each.id, each.packageType,
+					<div>
+					<Tooltip id="tooltip-fab" title={<IntlMessages id="View Tags"/>}>
+						<IconButton className="text-success" onClick={() => this.actionClickhandler(each.id, each.name)}>
+							<i className="zmdi zmdi-eye"></i>
+						</IconButton>
+					</Tooltip>
+					</div>
 				]
 			)
 		})
 		const options = {
-			filterType: 'dropdown',
-			responsive: 'stacked'
+			filter: false,
+			responsive: 'stacked',
+			selectableRows: false,
+			download: false,
+			print: false,
+			search: false,
+			viewColumns: false,
+			sort: true
 		};
 		
         const ViewNumberOptions = []
@@ -145,32 +156,38 @@ class DataTable extends React.Component {
         }  
 		return (
 			<div className="data-table-wrapper">
-				<PageTitleBar title='لیست برچسب های درخواست شده' match={this.props.match} />
-				<RctCollapsibleCard heading="لیست درخواست ها" fullBlock>
-						<div className="top-filter clearfix p-20">
-							<FormGroup className="w-20">
-								<Label for="tagPackageIdStart">شناسه بسته از:</Label>
-								<Input onChange={this.handleChange} type="text" name="tagPackageIdStart" id="tagPackageIdStart" placeholder="Tag Package ID Start from" />							
-							</FormGroup>
-							<FormGroup className="w-20">
-								<Label for="tagPackageIdEnd">تا:</Label>
-								<Input onChange={this.handleChange} type="text" name="tagPackageIdEnd" id="tagPackageIdEnd" placeholder="Tag Package ID Start to" />							
-							</FormGroup>
-							<FormGroup className="w-20">
-								<Label for="Select">Number of Results:</Label>
-								<Input type="select" onChange={this.handleChange} name="chosennumofresults" id="Select">
-									{ViewNumberOptions}
-								</Input>
-							</FormGroup>
-							<FormGroup className="mb-5">
-								<Label className="d-block">&nbsp;</Label>
-								<Button onClick={this.handleFilterApply} color="primary" variant="raised" className="mr-10 text-white"><IntlMessages id="widgets.apply" /></Button>
-							</FormGroup>
+				<PageTitleBar title={<IntlMessages id="PackageCode.Requested.List" />} match={this.props.match} />
+				<div className="report-status mb-30">
+					<div className="row">
+						<div className="col-md-12">
+							<div className="top-filter clearfix p-20">
+								<FormGroup className="w-20">
+									<Label for="tagPackageIdStart"><IntlMessages id="PackageCode.From" />:</Label>
+									<Input onChange={this.handleChange} type="text" name="tagPackageIdStart" id="tagPackageIdStart" placeholder="Tag Package ID Start from" />							
+								</FormGroup>
+								<FormGroup className="w-20">
+									<Label for="tagPackageIdEnd"><IntlMessages id="PackageCode.to" />:</Label>
+									<Input onChange={this.handleChange} type="text" name="tagPackageIdEnd" id="tagPackageIdEnd" placeholder="Tag Package ID Start to" />							
+								</FormGroup>
+								<FormGroup className="w-20">
+									<Label for="Select"><IntlMessages id="numberofresults" />:</Label>
+									<Input type="select" onChange={this.handleChange} name="chosennumofresults" id="Select">
+										{ViewNumberOptions}
+									</Input>
+								</FormGroup>
+								<FormGroup className="mb-5">
+									<Label className="d-block">&nbsp;</Label>
+									<Button onClick={this.handleFilterApply} color="primary" variant="raised" className="mr-10 text-white"><IntlMessages id="widgets.apply" /></Button>
+								</FormGroup>
+							</div>
 						</div>
+					</div>
+				</div>
+				<RctCollapsibleCard>
 					<MUIDataTable
-						title={"Users list"}
+						title={<IntlMessages id="Packages.requested.list" />}
 						data={data}
-						columns={columns}
+						columns={ lang =="en"?columns:columnsfa}
 						options={options}
 					/>
 				</RctCollapsibleCard>
