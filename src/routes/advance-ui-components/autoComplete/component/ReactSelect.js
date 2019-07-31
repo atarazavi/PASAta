@@ -210,11 +210,11 @@ class IntegrationReactSelect extends React.Component {
   render() {
     
     suggestions = this.props.suggestions
-    const { classes, id, defaultValue } = this.props;
+    const { classes, id, defaultValue, fullWidth } = this.props;
     const { single, multi } = this.state;
     
     return (
-        <div className="col-md-6">
+        <div className={fullWidth ? "col-md-12" : "col-md-6"}>
           <Input
             fullWidth
             inputComponent={SelectWrapped}
