@@ -20,14 +20,11 @@ import { Route, Redirect } from "react-router-dom";
 
 import Tooltip from '@material-ui/core/Tooltip';
 // app config
-import AppConfig from '../../constants/AppConfig';
+import AppConfig from 'Constants/AppConfig';
 
 // Components
 import ReactSelect from '../advance-ui-components/autoComplete/component/ReactSelect';
 import {DatePicker} from "react-advance-jalaali-datepicker";
-
-const giventoken = localStorage.getItem('given_token')
-const currentLanguagecode = localStorage.getItem('Current_lang')
 
 class DataTable extends React.Component {
 	state = {
@@ -45,7 +42,7 @@ class DataTable extends React.Component {
 				headers: {
 					'Content-Type': 'application/json',
 					'Authorization': localStorage.getItem('given_token'),
-					'Accept-Language': currentLanguagecode
+					'Accept-Language': localStorage.getItem('Current_lang')
 				},
 				body: JSON.stringify({
 					"fromDate": "",
@@ -102,7 +99,9 @@ class DataTable extends React.Component {
 		})
 	}
 	render() {  
+		const lang=localStorage.getItem('Current_lang')
 		const columns = ["ID", "Provider Title", "Actions"];
+		const columnsfa = ["آی دی", "تامین کننده", "اقدامات"];
 		const data = this.state.theProviderslist.map(each => {
 			return(
 				[
@@ -119,8 +118,14 @@ class DataTable extends React.Component {
 			)
 		})
 		const options = {
-			filterType: 'dropdown',
-			responsive: 'stacked'
+			filter: false,
+			responsive: 'stacked',
+			selectableRows: false,
+			download: false,
+			print: false,
+			search: false,
+			viewColumns: false,
+			sort: true
 		};
 
         const ViewNumberOptions = []
@@ -129,28 +134,37 @@ class DataTable extends React.Component {
         }  
 		return (
 			<div className="data-table-wrapper">
-				<PageTitleBar title='لیست تامین کنندگان برچسب ها' match={this.props.match} />
-				<RctCollapsibleCard heading="تامین کنندگان" fullBlock>
-						<div className="top-filter clearfix p-20">
-							<FormGroup className="w-20">
-								<Label for="search">Search:</Label>
-								<Input onChange={this.handleChange} type="text" name="toBsearched" id="search" placeholder="type a word to search..." />							
-							</FormGroup>
-							<FormGroup className="w-20">
-								<Label for="Select">Number of Results:</Label>
-								<Input type="select" onChange={this.handleChange} name="chosennumofresults" id="Select">
-									{ViewNumberOptions}
-								</Input>
-							</FormGroup>
-							<FormGroup className="mb-5">
-								<Label className="d-block">&nbsp;</Label>
-								<Button onClick={this.handleFilterApply} color="primary" variant="raised" className="mr-10 text-white"><IntlMessages id="widgets.apply" /></Button>
-							</FormGroup>
+				<PageTitleBar title={<IntlMessages id="providers.list" />} match={this.props.match} />
+				<div className="report-status mb-30">
+					<div className="row">
+						<div className="col-md-12">
+							<div className="top-filter clearfix p-20">
+								<FormGroup className="w-20 mb-5">
+									<Label for="search"><IntlMessages id="searchword" />:</Label>
+									<Input onChange={this.handleChange} type="text" name="toBsearched" id="search" placeholder="type a word to search..." />							
+								</FormGroup>
+								<FormGroup className="w-20 mb-5">
+									<Label for="Select"><IntlMessages id="numberofresults" />:</Label>
+									<Input type="select" onChange={this.handleChange} name="chosennumofresults" id="Select">
+										{ViewNumberOptions}
+									</Input>
+								</FormGroup>
+								<FormGroup className="mb-5">
+									<Label className="d-block">&nbsp;</Label>
+									<Button onClick={this.handleFilterApply} color="primary" variant="raised" className="mr-10 text-white"><IntlMessages id="widgets.apply" /></Button>
+								</FormGroup>
+							</div>
 						</div>
+					</div>
+				</div>
+				<RctCollapsibleCard
+					heading={<IntlMessages id="providers.list" />}
+					fullBlock
+				>
 					<MUIDataTable
-						title={"Users list"}
+						title={<IntlMessages id="providers.list" />}
 						data={data}
-						columns={columns}
+						columns={ lang =="en"?columns:columnsfa}
 						options={options}
 					/>
 				</RctCollapsibleCard>
