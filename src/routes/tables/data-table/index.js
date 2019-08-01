@@ -220,14 +220,15 @@ class DataTable extends React.Component {
 		// 	["Aiden Lloyd", "Business Consultant", "Dallas", 55, "$200,000"],
 		// ];
 		const options = {
-			filterType: 'dropdown',
-			responsive: 'stacked',
+			filter: false,
+			responsive: 'scroll',
 			selectableRows: false,
-			textLabels: {
-				body: {
-				  noMatch: tablemessage,
-				},
-			}
+			download: false,
+			print: false,
+			search: false,
+			viewColumns: false,
+			sort: true,
+			pagination: false
 		};
 		return (
 			<div className="data-table-wrapper">
