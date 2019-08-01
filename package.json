@@ -75,6 +75,7 @@
     "material-ui-pickers": "1.0.0-rc.9",
     "moment": "2.22.2",
     "mui-datatables": "2.0.0-beta-32",
+    "rc-pagination": "^1.20.5",
     "rc-queue-anim": "1.6.1",
     "react-addons-update": "15.6.2",
     "react-advance-jalaali-datepicker": "^1.0.0",
