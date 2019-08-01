@@ -116,7 +116,7 @@ class Header extends Component {
 										</Tooltip>
 									</li>
 								}
-								{!horizontalMenu && <QuickLinks />}
+								{/* {!horizontalMenu && <QuickLinks />}
 								<li className="list-inline-item search-icon d-inline-block">
 									<SearchForm />
 									<IconButton mini="true" className="search-icon-btn" onClick={() => this.openMobileSearchForm()}>
@@ -126,7 +126,7 @@ class Header extends Component {
 										isOpen={isMobileSearchFormVisible}
 										onClose={() => this.setState({ isMobileSearchFormVisible: false })}
 									/>
-								</li>
+								</li> */}
 							</ul>
 						}
 					</div>
@@ -140,17 +140,17 @@ class Header extends Component {
 									className="nav-link"
 										>
 									<i className="zmdi zmdi-lock"></i>
-									<span><IntlMessages id="widgets.logOut"/></span>
+									<span style={{margin: "0 5px"}}><IntlMessages id="widgets.logOut"/></span>
 								</a>
 						</li>
 						<LanguageProvider />
-						<li className="list-inline-item">
+						{/* <li className="list-inline-item">
 							<Tooltip title="Full Screen" placement="bottom">
 								<IconButton aria-label="settings" onClick={() => this.toggleScreenFull()}>
 									<i className="zmdi zmdi-crop-free"></i>
 								</IconButton>
 							</Tooltip>
-						</li>
+						</li> */}
 					</ul>
 					<Drawer
 						anchor={'right'}
