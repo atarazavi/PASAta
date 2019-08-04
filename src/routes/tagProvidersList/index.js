@@ -1,24 +1,16 @@
-/**
- * Data Table
- */
 import React from 'react';
 import MUIDataTable from "mui-datatables";
-import { Form, FormGroup, Label, Input } from 'reactstrap';
+import { FormGroup, Label, Input } from 'reactstrap';
 import Button from '@material-ui/core/Button';
-
 // page title bar
 import PageTitleBar from 'Components/PageTitleBar/PageTitleBar';
-
 // rct card box
 import RctCollapsibleCard from 'Components/RctCollapsibleCard/RctCollapsibleCard';
-
 // intl messages
 import IntlMessages from 'Util/IntlMessages';
-
 import IconButton from '@material-ui/core/IconButton';
-import { Route, Redirect } from "react-router-dom";
-
 import Tooltip from '@material-ui/core/Tooltip';
+import Pagination from 'rc-pagination';
 // app config
 import AppConfig from 'Constants/AppConfig';
 
@@ -26,10 +18,13 @@ import AppConfig from 'Constants/AppConfig';
 import ReactSelect from '../advance-ui-components/autoComplete/component/ReactSelect';
 import {DatePicker} from "react-advance-jalaali-datepicker";
 
-class DataTable extends React.Component {
+class tagProvidersList extends React.Component {
 	state = {
 		theProviderslist: [],
+		pagination: false,
 		chosennumofresults: 10,
+		paginationTotal: 0,
+		paginationCurrentpage: 0,
 		toBsearched: ''
 	}
 	componentDidMount = () => {	
@@ -47,7 +42,7 @@ class DataTable extends React.Component {
 				body: JSON.stringify({
 					"fromDate": "",
 					"needPaginate": true,
-					"pageNumber": 0,
+					"pageNumber": this.state.paginationCurrentpage,
 					"pageSize": this.state.chosennumofresults,
 					"resultSize": 0,
 					"termToFind": this.state.toBsearched,
@@ -63,11 +58,28 @@ class DataTable extends React.Component {
 						name: each.name,
 					})
 				})
-				this.setState(
-					{theProviderslist}
-				)
+				if (response.result.paginateModel.totalCount / this.state.chosennumofresults > 1) {
+					this.setState(
+						{
+							theProviderslist,
+							pagination: true,
+							paginationTotal: response.result.paginateModel.totalCount,
+						}
+					)
+				}else{
+					this.setState(
+						{theProviderslist}
+					)
+				}
 			}
 		})();
+	}
+	paginatehandler = (SelectedPage,PageSize) => {
+		this.setState({
+			paginationCurrentpage: SelectedPage
+		}, () => {
+			this.callMainAPI();
+		});
 	}
 	actionClickhandler = (id, name, action) => {
 		console.log('id', id, 'name', name, 'action', action);
@@ -119,13 +131,14 @@ class DataTable extends React.Component {
 		})
 		const options = {
 			filter: false,
-			responsive: 'stacked',
+			responsive: 'scroll',
 			selectableRows: false,
 			download: false,
 			print: false,
 			search: false,
 			viewColumns: false,
-			sort: true
+			sort: true,
+			pagination: false
 		};
 
         const ViewNumberOptions = []
@@ -162,7 +175,15 @@ class DataTable extends React.Component {
 					fullBlock
 				>
 					<MUIDataTable
-						title={<IntlMessages id="providers.list" />}
+						title={this.state.pagination ? 
+							<Pagination 
+								className="ant-pagination" 
+								onChange={this.paginatehandler} 
+								defaultCurrent={this.state.paginationCurrentpage} 
+								total={this.state.paginationTotal}
+								pageSize={this.state.chosennumofresults} 
+							/> 
+						: ''}
 						data={data}
 						columns={ lang =="en"?columns:columnsfa}
 						options={options}
@@ -173,4 +194,4 @@ class DataTable extends React.Component {
 	}
 }
 
-export default DataTable;
+export default tagProvidersList;

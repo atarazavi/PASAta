@@ -1,11 +1,8 @@
-/**
- * Data Table
- */
 import React from 'react';
 import MUIDataTable from "mui-datatables";
 
-// page title bar
-import PageTitleBar from 'Components/PageTitleBar/PageTitleBar';
+
+import Pagination from 'rc-pagination';
 
 import DeleteConfirmationDialog from "Components/DeleteConfirmationDialog/DeleteConfirmationDialog"
 // rct card box
@@ -15,19 +12,22 @@ import RctCollapsibleCard from 'Components/RctCollapsibleCard/RctCollapsibleCard
 import IntlMessages from 'Util/IntlMessages';
 
 import IconButton from '@material-ui/core/IconButton';
-import { Route, Redirect } from "react-router-dom";
 
 // app config
-import AppConfig from '../../constants/AppConfig';
+import AppConfig from 'Constants/AppConfig';
 
-const giventoken = localStorage.getItem('given_token')
-
-class DataTable extends React.Component {
+class roleList extends React.Component {
 	state = {
-		theRoleslist: []
+		theRoleslist: [],
+		pagination: false,
+		chosennumofresults: 10,
+		paginationTotal: 0,
+		paginationCurrentpage: 0
 	}
-
-	componentDidMount = () => {		
+	componentDidMount = () => {
+		this.callMainAPI()
+	}
+	callMainAPI = () => {		
 		(async () => {
 		const rawResponse = await fetch(AppConfig.baseURL + '/permission/role/filter', {
 			method: 'POST',
@@ -37,9 +37,9 @@ class DataTable extends React.Component {
 			},
 			body: JSON.stringify({
                 "fromDate": "",
-                "needPaginate": true,
-                "pageNumber": 0,
-                "pageSize": 10,
+				"needPaginate": true,
+				"pageNumber": this.state.paginationCurrentpage,
+				"pageSize": this.state.chosennumofresults,
                 "resultSize": 0,
                 "termToFind": "",
                 "toDate": ""
@@ -60,7 +60,13 @@ class DataTable extends React.Component {
 			}
 		})();
 	}
-
+	paginatehandler = (SelectedPage,PageSize) => {
+		this.setState({
+			paginationCurrentpage: SelectedPage
+		}, () => {
+			this.callMainAPI();
+		});
+	}
 	actionClickhandler = (id, uname, action) => {
 		switch(action) { 
 			case "editRole": { 
@@ -78,7 +84,6 @@ class DataTable extends React.Component {
 				break; 
 			}
 			default: { 
-				console.log("Invalid choice"); 
 				break;              
 			} 
 		} 
@@ -89,9 +94,7 @@ class DataTable extends React.Component {
 			eachrole :eachrole
 		})
 	}
-
 	deletehandler = () => {
-		console.log('going to delete', this.state.eachrole);
 		(async () => {
 			const rawResponse = await fetch(AppConfig.baseURL + '/permission/role/delete', {
 				method: 'POST',
@@ -104,7 +107,6 @@ class DataTable extends React.Component {
 				})
 			});
 			const response = await rawResponse.json();
-			console.log('delete response',response);
 			if (response.status == 200 ){
 				
 				this.forceUpdate()
@@ -112,7 +114,6 @@ class DataTable extends React.Component {
 		})();
 		this.refs.deleteConfirmation.close();
 	}
-	
 	render() {
 		const lang=localStorage.getItem('Current_lang')
 		const columns = ["Group Username", "Description", "Actions"];
@@ -142,21 +143,29 @@ class DataTable extends React.Component {
 			)
 		})
 		const options = {
-			filterType: 'dropdown',
-			responsive: 'stacked',
+			filter: false,
+			responsive: 'scroll',
 			selectableRows: false,
-			textLabels: {
-				body: {
-				  noMatch: tablemessage,
-				},
-			}
+			download: false,
+			print: false,
+			search: false,
+			viewColumns: false,
+			sort: true,
+			pagination: false
 		};
 		return (
 			<div className="data-table-wrapper">
-				<PageTitleBar title={<IntlMessages id="sidebar.dataTable" />} match={this.props.match} />
 				<RctCollapsibleCard heading={<IntlMessages id="role.list" />} fullBlock>
 					<MUIDataTable
-						title={<IntlMessages id="role.list" />}
+						title={this.state.pagination ? 
+							<Pagination 
+								className="ant-pagination" 
+								onChange={this.paginatehandler} 
+								defaultCurrent={this.state.paginationCurrentpage} 
+								total={this.state.paginationTotal}
+								pageSize={this.state.chosennumofresults} 
+							/> 
+						: ''}
 						data={data}
 						columns={lang =="en"?columns:columnsfa}
 						options={options}
@@ -167,4 +176,4 @@ class DataTable extends React.Component {
 	}
 }
 
-export default DataTable;
+export default roleList;

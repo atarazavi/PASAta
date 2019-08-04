@@ -1,6 +1,3 @@
-/**
- * Data Table
- */
 import React from 'react';
 import MUIDataTable from "mui-datatables";
 
@@ -14,22 +11,27 @@ import RctCollapsibleCard from 'Components/RctCollapsibleCard/RctCollapsibleCard
 // intl messages
 import IntlMessages from 'Util/IntlMessages';
 
-
 import Tooltip from '@material-ui/core/Tooltip';
 
 import IconButton from '@material-ui/core/IconButton';
-import { Route, Redirect } from "react-router-dom";
 
 // app config
-import AppConfig from '../../constants/AppConfig';
+import AppConfig from 'Constants/AppConfig';
 
 class DataTable extends React.Component {
 	state = {
 		thegroupslist: [],
-		groupid:""
+		groupid:"",
+		pagination: false,
+		chosennumofresults: 10,
+		paginationTotal: 0,
+		paginationCurrentpage: 0
 	}
 
-	componentDidMount = () => {				
+	componentDidMount = () => {		
+		this.callMainAPI()
+	}
+	callMainAPI = () => {		
 		(async () => {
 		const rawResponse = await fetch(AppConfig.baseURL + '/permission/group/filter', {
 			method: 'POST',
@@ -40,18 +42,15 @@ class DataTable extends React.Component {
 			body: JSON.stringify({
 				"fromDate": "",
 				"needPaginate": true,
-				"pageNumber": 0,
-				"pageSize": 10,
+				"pageNumber": this.state.paginationCurrentpage,
+				"pageSize": this.state.chosennumofresults,
 				"resultSize": 0,
 				"termToFind": "",
 				"toDate": ""
 			  })
 			});
 			const response = await rawResponse.json();
-			console.log(response);
 			if (response.status == 200 ){
-				console.log('success');
-				
 				const theList = response.result.dtos.map(each => {	
 					return({
 						id: each.id,
@@ -59,15 +58,31 @@ class DataTable extends React.Component {
 						description: each.description
 					})
 				})
-				
-				this.setState(
-					{thegroupslist: theList}
-				)
-				console.log('state', this.state.thegroupslist);
+				if (response.result.paginateModel.totalCount / this.state.chosennumofresults > 1) {
+					this.setState(
+						{
+							thegroupslist: theList,
+							pagination: true,
+							paginationTotal: response.result.paginateModel.totalCount,
+						}
+					)
+				}else{
+					this.setState(
+						{
+							thegroupslist: theList
+						}
+					)
+				}
 			}
 		})();
 	}
-
+	paginatehandler = (SelectedPage,PageSize) => {
+		this.setState({
+			paginationCurrentpage: SelectedPage
+		}, () => {
+			this.callMainAPI();
+		});
+	}
 	actionClickhandler = (id, uname, action) => {
 		switch(action) { 
 			case "changeGroupRole": { 
@@ -90,10 +105,7 @@ class DataTable extends React.Component {
 			} 
 		} 
 	}
-
 	deletehandler = () => {
-		
-		console.log('going to delete', this.state.groupid);
 		(async () => {
 			const rawResponse = await fetch(AppConfig.baseURL + '/permission/group/delete', {
 				method: 'POST',
@@ -106,7 +118,6 @@ class DataTable extends React.Component {
 				})
 			});
 			const response = await rawResponse.json();
-			console.log('delete response',response);
 			if (response.status == 200 ){
 				this.forceUpdate()
 			}
@@ -165,10 +176,17 @@ class DataTable extends React.Component {
 		};
 		return (
 			<div className="data-table-wrapper">
-				<PageTitleBar title={<IntlMessages id="sidebar.dataTable" />} match={this.props.match} />
 				<RctCollapsibleCard heading={<IntlMessages id="compenets.grouplist" />} fullBlock>
 					<MUIDataTable
-						title={<IntlMessages id="compenets.grouplist" />}
+						title={this.state.pagination ? 
+							<Pagination 
+								className="ant-pagination" 
+								onChange={this.paginatehandler} 
+								defaultCurrent={this.state.paginationCurrentpage} 
+								total={this.state.paginationTotal}
+								pageSize={this.state.chosennumofresults} 
+							/> 
+						: ''}
 						data={data}
 						columns={lang =="en"?columns:columnsfa}
 						options={options}

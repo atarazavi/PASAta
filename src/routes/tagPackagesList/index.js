@@ -1,34 +1,29 @@
-/**
- * Data Table
- */
 import React from 'react';
 import MUIDataTable from "mui-datatables";
-import { Form, FormGroup, Label, Input } from 'reactstrap';
+import { FormGroup, Label, Input } from 'reactstrap';
 import Button from '@material-ui/core/Button';
-
 import { Badge } from 'reactstrap';
+import Pagination from 'rc-pagination';
 // page title bar
 import PageTitleBar from 'Components/PageTitleBar/PageTitleBar';
-
 // rct card box
 import RctCollapsibleCard from 'Components/RctCollapsibleCard/RctCollapsibleCard';
-
 // intl messages
 import IntlMessages from 'Util/IntlMessages';
-
 import IconButton from '@material-ui/core/IconButton';
-import { Route, Redirect } from "react-router-dom";
-
 import Tooltip from '@material-ui/core/Tooltip';
 // app config
 import AppConfig from 'Constants/AppConfig';
 
-class DataTable extends React.Component {
+class tagPackagesList extends React.Component {
 	state = {
         thetagPackagesList: [],
         tagPackageIdStart: 0,
         tagPackageIdEnd: 0,
-		chosennumofresults: 15,
+		pagination: false,
+		chosennumofresults: 10,
+		paginationTotal: 0,
+		paginationCurrentpage: 0,
 		tagRequestId: this.props.location.state ? this.props.location.state.tagRequestId : 0
 	}
 	componentDidMount = () => {		
@@ -47,9 +42,9 @@ class DataTable extends React.Component {
 					'Accept-Language': localStorage.getItem('Current_lang')
 				},
 				body: JSON.stringify({
-                    "needPaginate": true,
-                    "pageNumber": 0,
-                    "pageSize": this.state.chosennumofresults,
+					"needPaginate": true,
+					"pageNumber": this.state.paginationCurrentpage,
+					"pageSize": this.state.chosennumofresults,
                     "resultSize": 0,
                     "tagPackaged": 0,
                     "tagBulkorderId": 0,
@@ -86,11 +81,28 @@ class DataTable extends React.Component {
                         packageCount: each.tagBulkorderDTO.packageCount
 					})
 				})
-				this.setState(
-					{thetagPackagesList}
-				)
+				if (response.result.paginateModel.totalCount / this.state.chosennumofresults > 1) {
+					this.setState(
+						{
+							thetagPackagesList,
+							pagination: true,
+							paginationTotal: response.result.paginateModel.totalCount,
+						}
+					)
+				}else{
+					this.setState(
+						{thetagPackagesList}
+					)
+				}
 			}
 		})();
+	}
+	paginatehandler = (SelectedPage,PageSize) => {
+		this.setState({
+			paginationCurrentpage: SelectedPage
+		}, () => {
+			this.callMainAPI();
+		});
 	}
 	actionClickhandler = (id,name) => {
         this.props.history.push({
@@ -141,13 +153,14 @@ class DataTable extends React.Component {
 		})
 		const options = {
 			filter: false,
-			responsive: 'stacked',
+			responsive: 'scroll',
 			selectableRows: false,
 			download: false,
 			print: false,
 			search: false,
 			viewColumns: false,
-			sort: true
+			sort: true,
+			pagination: false
 		};
 		
         const ViewNumberOptions = []
@@ -185,7 +198,15 @@ class DataTable extends React.Component {
 				</div>
 				<RctCollapsibleCard>
 					<MUIDataTable
-						title={<IntlMessages id="Packages.requested.list" />}
+						title={this.state.pagination ? 
+							<Pagination 
+								className="ant-pagination" 
+								onChange={this.paginatehandler} 
+								defaultCurrent={this.state.paginationCurrentpage} 
+								total={this.state.paginationTotal}
+								pageSize={this.state.chosennumofresults} 
+							/> 
+						: ''}
 						data={data}
 						columns={ lang =="en"?columns:columnsfa}
 						options={options}
@@ -196,4 +217,4 @@ class DataTable extends React.Component {
 	}
 }
 
-export default DataTable;
+export default tagPackagesList;

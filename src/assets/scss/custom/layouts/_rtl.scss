@@ -344,6 +344,12 @@
          }
       }
    }
+   //PAS
+   .rc-pagination.ant-pagination,
+   .rc-pagination.ant-pagination > li
+   {
+      float: right;
+   }
 }
 
 .rtl {

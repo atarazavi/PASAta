@@ -1,13 +1,10 @@
-/**
- * Data Table
- */
 import React from 'react';
 import MUIDataTable from "mui-datatables";
 
 
 import DeleteConfirmationDialog from "Components/DeleteConfirmationDialog/DeleteConfirmationDialog"
-// page title bar
-import PageTitleBar from 'Components/PageTitleBar/PageTitleBar';
+
+import Pagination from 'rc-pagination';
 
 // rct card box
 import RctCollapsibleCard from 'Components/RctCollapsibleCard/RctCollapsibleCard';
@@ -16,19 +13,24 @@ import RctCollapsibleCard from 'Components/RctCollapsibleCard/RctCollapsibleCard
 import IntlMessages from 'Util/IntlMessages';
 
 import IconButton from '@material-ui/core/IconButton';
-import { Route, Redirect } from "react-router-dom";
 
 import Tooltip from '@material-ui/core/Tooltip';
 // app config
 import AppConfig from 'Constants/AppConfig';
 
-class DataTable extends React.Component {
+class ActionList extends React.Component {
 	state = {
 		theactionslist: [],
-		eachaction:""
+		eachaction:"",
+		pagination: false,
+		chosennumofresults: 10,
+		paginationTotal: 0,
+		paginationCurrentpage: 0
 	}
-
-	componentDidMount = () => {		
+	componentDidMount = () => {	
+		this.callMainAPI()	
+	}
+	callMainAPI = () => {
 		(async () => {
 		const rawResponse = await fetch(AppConfig.baseURL + '/permission/action/filter', {
 			method: 'POST',
@@ -38,9 +40,9 @@ class DataTable extends React.Component {
 			},
 			body: JSON.stringify({
                 "fromDate": "",
-                "needPaginate": true,
-                "pageNumber": 0,
-                "pageSize": 500,
+				"needPaginate": true,
+				"pageNumber": this.state.paginationCurrentpage,
+				"pageSize": this.state.chosennumofresults,
                 "resultSize": 0,
                 "termToFind": "",
                 "toDate": ""
@@ -60,13 +62,29 @@ class DataTable extends React.Component {
 					})
 				})
 				
-				this.setState(
-					{theactionslist}
-				)
+				if (response.result.paginateModel.totalCount / this.state.chosennumofresults > 1) {
+					this.setState(
+						{
+							theactionslist,
+							pagination: true,
+							paginationTotal: response.result.paginateModel.totalCount,
+						}
+					)
+				}else{
+					this.setState(
+						{theactionslist}
+					)
+				}
 			}
 		})();
 	}
-
+	paginatehandler = (SelectedPage,PageSize) => {
+		this.setState({
+			paginationCurrentpage: SelectedPage
+		}, () => {
+			this.callMainAPI();
+		});
+	}
 	actionClickhandler = (id, uname, action) => {
 		switch(action) { 
 			case "edit": { 
@@ -77,7 +95,6 @@ class DataTable extends React.Component {
 				break; 
 			}
 			default: { 
-				console.log("Invalid choice"); 
 				break;              
 			} 
 		} 
@@ -89,7 +106,6 @@ class DataTable extends React.Component {
 		})
 	}
 	deletehandler = () => {
-		console.log('going to delete', this.state.eachaction);
 		(async () => {
 			const rawResponse = await fetch(AppConfig.baseURL + '/permission/action/delete', {
 				method: 'POST',
@@ -102,13 +118,11 @@ class DataTable extends React.Component {
 				})
 			});
 			const response = await rawResponse.json();
-			console.log('delete response',response);
 			if (response.status == 200 ){
 				this.forceUpdate()
 			}
 		})();
 	} 
-
 	render() {
 		const columns = ["Action Title", "Action Path", "Action Description", "Actions"];
 		const columnsfa = ["نام اقدام", "مسیر اقدام", "توضیحات", "اقدامات"];
@@ -140,20 +154,28 @@ class DataTable extends React.Component {
 		})
 		const options = {
 			filter: false,
-			responsive: 'stacked',
+			responsive: 'scroll',
 			selectableRows: false,
 			download: false,
 			print: false,
-			// search: false,
+			search: false,
 			viewColumns: false,
-			sort: true
+			sort: true,
+			pagination: false
 		};
 		return (
 			<div className="data-table-wrapper">
-				<PageTitleBar title={<IntlMessages id="sidebar.dataTable" />} match={this.props.match} />
 				<RctCollapsibleCard heading={<IntlMessages id="action.list" />} fullBlock>
 					<MUIDataTable
-						title={<IntlMessages id="action.list" />}
+						title={this.state.pagination ? 
+							<Pagination 
+								className="ant-pagination" 
+								onChange={this.paginatehandler} 
+								defaultCurrent={this.state.paginationCurrentpage} 
+								total={this.state.paginationTotal}
+								pageSize={this.state.chosennumofresults} 
+							/> 
+						: ''}
 						data={data}
 						columns={lang =="en"?columns:columnsfa}
 						options={options}
@@ -164,4 +186,4 @@ class DataTable extends React.Component {
 	}
 }
 
-export default DataTable;
+export default ActionList;

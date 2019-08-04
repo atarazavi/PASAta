@@ -1,11 +1,5 @@
-/**
- * Data Table
- */
 import React from 'react';
 import MUIDataTable from "mui-datatables";
-
-// page title bar
-import PageTitleBar from 'Components/PageTitleBar/PageTitleBar';
 
 // rct card box
 import RctCollapsibleCard from 'Components/RctCollapsibleCard/RctCollapsibleCard';
@@ -14,25 +8,27 @@ import DeleteConfirmationDialog from "Components/DeleteConfirmationDialog/Delete
 import IntlMessages from 'Util/IntlMessages';
 
 import IconButton from '@material-ui/core/IconButton';
-import { Route, Redirect } from "react-router-dom";
+import Pagination from 'rc-pagination';
 
 // app config
 import AppConfig from 'Constants/AppConfig';
 import Tooltip from '@material-ui/core/Tooltip';
-import reactElementToJSXString from 'react-element-to-jsx-string';
 
-const giventoken = localStorage.getItem('given_token')
-const currentLanguagecode = localStorage.getItem('Current_lang')
-
-class DataTable extends React.Component {
+class UsersList extends React.Component {
 	state = {
 		theuserslist: [],
-		open: false
+		open: false,
+		pagination: false,
+		chosennumofresults: 10,
+		paginationTotal: 0,
+		paginationCurrentpage: 0
 	}
-
-	componentDidMount = () => {		
+	componentDidMount = () => {	
+		this.callMainAPI();	
+	}
+	callMainAPI = () => {
 		(async () => {
-		const rawResponse = await fetch(AppConfig.baseURL + '/permission/user/filter', {
+			const rawResponse = await fetch(AppConfig.baseURL + '/permission/user/filter', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -42,8 +38,8 @@ class DataTable extends React.Component {
 				"fromDate": "",
 				"groupId": 0,
 				"needPaginate": true,
-				"pageNumber": 0,
-				"pageSize": 10,
+				"pageNumber": this.state.paginationCurrentpage,
+				"pageSize": this.state.chosennumofresults,
 				"productProviderId": 0,
 				"resultSize": 0,
 				"roleId": 0,
@@ -77,13 +73,29 @@ class DataTable extends React.Component {
 					})
 				})
 				
-				this.setState(
-					{theuserslist: theList}
-				)
+				if (response.result.paginateModel.totalCount / this.state.chosennumofresults > 1) {
+					this.setState(
+						{
+							theuserslist: theList,
+							pagination: true,
+							paginationTotal: response.result.paginateModel.totalCount,
+						}
+					)
+				}else{
+					this.setState(
+						{theuserslist: theList}
+					)
+				}
 			}
 		})();
-		}
-
+	}
+	paginatehandler = (SelectedPage,PageSize) => {
+		this.setState({
+			paginationCurrentpage: SelectedPage
+		}, () => {
+			this.callMainAPI();
+		});
+	}
 	actionClickhandler = (id, uname, action) => {
 		switch(action) { 
 			case "changepass": { 
@@ -120,7 +132,6 @@ class DataTable extends React.Component {
 			} 
 		} 
 	}
-
 	deletehandler = (userid) => {
 		console.log('going to delete', userid);
 		
@@ -144,10 +155,10 @@ class DataTable extends React.Component {
 	}
 	handleTooltipClose = () => {
 		this.setState({ open: false });
-	};
+	}
 	handleTooltipOpen = () => {
 		this.setState({ open: true });
-	};
+	}
 	DeleteConfirm=()=>{
 		this.refs.deleteConfirmation.open();
 	}
@@ -215,10 +226,6 @@ class DataTable extends React.Component {
 				]
 			)
 		})
-		// const data = [
-		// 	["Gabby George", "Business Analyst", "Minneapolis", 30, "$100,000"],
-		// 	["Aiden Lloyd", "Business Consultant", "Dallas", 55, "$200,000"],
-		// ];
 		const options = {
 			filter: false,
 			responsive: 'scroll',
@@ -232,13 +239,19 @@ class DataTable extends React.Component {
 		};
 		return (
 			<div className="data-table-wrapper">
-				<PageTitleBar title={<IntlMessages id="sidebar.listofusers" />} match={this.props.match} />
 				<RctCollapsibleCard heading=
 				{<IntlMessages id="sidebar.UserList" />} fullBlock>
 
 					<MUIDataTable
-					
-						title={<IntlMessages id="sidebar.UserList" />}
+						title={this.state.pagination ? 
+							<Pagination 
+								className="ant-pagination" 
+								onChange={this.paginatehandler} 
+								defaultCurrent={this.state.paginationCurrentpage} 
+								total={this.state.paginationTotal}
+								pageSize={this.state.chosennumofresults} 
+							/> 
+						: ''}
 						data={data}
 						columns={
 							logic
@@ -252,4 +265,4 @@ class DataTable extends React.Component {
 	}
 }
 
-export default DataTable;
+export default UsersList;

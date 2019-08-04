@@ -32,7 +32,7 @@ class DataTable extends React.Component {
 		isQRCodeLoaded: false,
 		pagination: false,
 		paginationTotal: 0,
-		paginationCurrentpage: 1
+		paginationCurrentpage: 0
 	}
 	componentDidMount = () => {		
         this.callMainAPI()
@@ -71,8 +71,6 @@ class DataTable extends React.Component {
 			});
 			const response = await rawResponse.json();
 			if (response.status == 200 ){
-				console.log('response.result.paginateModel', response.result.paginateModel);
-				
 				const thetagPoolList = response.result.dtos.map(each => {
                     return({
                         id: each.id,
@@ -81,11 +79,11 @@ class DataTable extends React.Component {
                         theQRCodeurl: ''
                     })
 				})
-				if (response.result.paginateModel.pages.length > 0) {
+				if (response.result.paginateModel.totalCount / this.state.chosennumofresults > 1) {
 					this.setState(
 						{
 						pagination: true,
-						paginationTotal: response.result.paginateModel.pages.length,
+						paginationTotal: response.result.paginateModel.totalCount,
 						thetagPoolList
 						},
 						()=> this.handleGettingQRCode()
@@ -140,14 +138,11 @@ class DataTable extends React.Component {
 		})
 	}
 	paginatehandler = (SelectedPage,PageSize) => {
-		console.log('SelectedPage', SelectedPage);
-		console.log('PageSize', PageSize);
 		this.setState({
 			paginationCurrentpage: SelectedPage
 		}, () => {
 			this.callMainAPI();
 		});
-		
 	}
 	render() {  
 		const columns = ["QR Code", "Tag ID", "Priority in Package", "Action"];
@@ -218,7 +213,7 @@ class DataTable extends React.Component {
 								className="ant-pagination" 
 								onChange={this.paginatehandler} 
 								defaultCurrent={this.state.paginationCurrentpage} 
-								total={this.state.chosennumofresults * this.state.paginationTotal}
+								total={this.state.paginationTotal}
 								pageSize={this.state.chosennumofresults} 
 							/> 
 						: ''}

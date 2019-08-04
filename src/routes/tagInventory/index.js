@@ -1,39 +1,33 @@
-/**
- * Data Table
- */
 import React from 'react';
 import MUIDataTable from "mui-datatables";
-import { Form, FormGroup, Label, Input } from 'reactstrap';
+import { FormGroup, Label, Input } from 'reactstrap';
 import Button from '@material-ui/core/Button';
-
 import DeleteConfirmationDialog from "Components/DeleteConfirmationDialog/DeleteConfirmationDialog"
 import { Badge } from 'reactstrap';
+import Pagination from 'rc-pagination';
 // page title bar
 import PageTitleBar from 'Components/PageTitleBar/PageTitleBar';
-
 // rct card box
 import RctCollapsibleCard from 'Components/RctCollapsibleCard/RctCollapsibleCard';
-
 // intl messages
 import IntlMessages from 'Util/IntlMessages';
-
 import IconButton from '@material-ui/core/IconButton';
-import { Route, Redirect } from "react-router-dom";
-
 import Tooltip from '@material-ui/core/Tooltip';
 // app config
 import AppConfig from 'Constants/AppConfig';
-
 // Components
 import ReactSelect from '../advance-ui-components/autoComplete/component/ReactSelect';
 import {DatePicker} from "react-advance-jalaali-datepicker";
 
-class DataTable extends React.Component {
+class tagInventory extends React.Component {
 	state = {
 		thetagsslist: [],
 		chosenenddate: '',
 		chosenstartdate: '',
+		pagination: false,
 		chosennumofresults: 10,
+		paginationTotal: 0,
+		paginationCurrentpage: 0,
 		chosenpackagetypeID: 0,
 		chosentagproviderID: 0,
 		chosentagtypeID: 0,
@@ -124,11 +118,9 @@ class DataTable extends React.Component {
             }
 		})();
 	}
-	
 	handleFilterApply = () =>{
 		this.callMainAPI()
 	}
-
 	callMainAPI = () => {
 		(async () => {
 			const rawResponse = await fetch(AppConfig.baseURL + '/tag/bulkorder/filter', {
@@ -141,8 +133,8 @@ class DataTable extends React.Component {
 				body: JSON.stringify({
 					"fromDate": this.state.chosenstartdate,
 					"needPaginate": true,
-					"pageNumber": 0,
-					"pageSize": 10,
+					"pageNumber": this.state.paginationCurrentpage,
+					"pageSize": this.state.chosennumofresults,
 					"productProviderId": 0,
 					"resultSize": 0,
 					"tagBulkorderId": 0,
@@ -172,13 +164,29 @@ class DataTable extends React.Component {
 						packageType: each.tagPackageTypeDTO.title
 					})
 				})
-				this.setState(
-					{thetagsslist}
-				)
+				if (response.result.paginateModel.totalCount / this.state.chosennumofresults > 1) {
+					this.setState(
+						{
+							thetagsslist,
+							pagination: true,
+							paginationTotal: response.result.paginateModel.totalCount,
+						}
+					)
+				}else{
+					this.setState(
+						{thetagsslist}
+					)
+				}
 			}
 		})();
 	}
-
+	paginatehandler = (SelectedPage,PageSize) => {
+		this.setState({
+			paginationCurrentpage: SelectedPage
+		}, () => {
+			this.callMainAPI();
+		});
+	}
 	actionClickhandler = (id, action) => {
 		switch(action) { 
 			case "ViewPackage": { 
@@ -222,7 +230,6 @@ class DataTable extends React.Component {
 			} 
 		} 
 	}
-
 	handleChangeOnautoComplete = (result, target) => {
 		console.log('result', result, 'target', target);
 		
@@ -257,14 +264,12 @@ class DataTable extends React.Component {
 			} 
 		} 
 	}
-
 	handleChange = (event) => {		
 		const {name, value} = event.target
 		this.setState({
 			[name]: value
 		})
 	}
-
 	handleChange_DatePicker_EndDate = (selectedunix, selectedformatted) => {
 		this.setState({
 			chosenenddate: selectedformatted
@@ -275,7 +280,6 @@ class DataTable extends React.Component {
 			chosenstartdate: selectedformatted
 		})
 	}
-
 	render() {  
         const badgestyle = {
             width: "20px",
@@ -337,13 +341,14 @@ class DataTable extends React.Component {
 		})
 		const options = {
 			filter: false,
-			responsive: 'stacked',
+			responsive: 'scroll',
 			selectableRows: false,
 			download: false,
 			print: false,
 			search: false,
 			viewColumns: false,
-			sort: true
+			sort: true,
+			pagination: false
 		};
 		
         const ViewNumberOptions = []
@@ -410,7 +415,15 @@ class DataTable extends React.Component {
 				</div>
 				<RctCollapsibleCard>
 					<MUIDataTable
-						title={<IntlMessages id="tag inventory" />}
+						title={this.state.pagination ? 
+							<Pagination 
+								className="ant-pagination" 
+								onChange={this.paginatehandler} 
+								defaultCurrent={this.state.paginationCurrentpage} 
+								total={this.state.paginationTotal}
+								pageSize={this.state.chosennumofresults} 
+							/> 
+						: ''}
 						data={data}
 						columns={localStorage.getItem('Current_lang') == 'en' ? columns : columnsfa}
 						options={options}
@@ -421,4 +434,4 @@ class DataTable extends React.Component {
 	}
 }
 
-export default DataTable;
+export default tagInventory;
