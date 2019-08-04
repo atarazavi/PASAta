@@ -143,295 +143,319 @@ export default {
 			]
 		}
 	],
+
 	category2: [
-        {
-            "menu_title": "sidebar.UserList",
-            "menu_icon": "zmdi zmdi-account",
-            "path": "/sidemenu/tables/data-table",
-            "child_routes": null
-        },
-        {
-            "menu_title": "sidebar.addUser",
-            "menu_icon": "zmdi zmdi-plus",
-            "path": "/sidemenu/addUser",
-            "child_routes": null
-        },
-        {
-            "menu_title": "sidebar.groupsList",
-            "menu_icon": "zmdi zmdi-collection-video",
-            "path": "/sidemenu/groupsList",
-            "child_routes": null
-        },
-        {
-            "menu_title": "sidebar.addNewGroup",
-            "menu_icon": "zmdi zmdi-dropbox",
-            "path": "/sidemenu/addNewGroup",
-            "child_routes": null
-        },
-        {
-            "menu_title": "sidebar.addNewRole",
-            "menu_icon": "zmdi zmdi-dropbox",
-            "path": "/sidemenu/addNewRole",
-            "child_routes": null
-        },
-        {
-            "menu_title": "sidebar.RoleList",
-            "menu_icon": "zmdi zmdi-dropbox",
-            "path": "/sidemenu/roleList",
-            "child_routes": null
-        },
-        {
-            "menu_title": "sidebar.addNewAction",
-            "menu_icon": "zmdi zmdi-dropbox",
-            "path": "/sidemenu/addNewAction",
-            "child_routes": null
-        },
-        {
-            "menu_title": "sidebar.ActionList",
-            "menu_icon": "zmdi zmdi-dropbox",
-            "path": "/sidemenu/actionList",
-            "child_routes": null
-        }
-    ],
-    category3: [
-        {
-            "menu_title": "sidebar.tagBulkOrder",
-            "menu_icon": "zmdi zmdi-crop",
-            "path": "/sidemenu/tagBulkOrder",
-            "child_routes": null
-        },
-        {
-            "menu_title": "sidebar.tagInventory",
-            "menu_icon": "zmdi zmdi-collection-video",
-            "path": "/sidemenu/tagInventory",
-            "child_routes": null
-        },
-        {
-            "menu_title": "sidebar.tagRequest",
-            "menu_icon": "zmdi zmdi-dropbox",
-            "path": "/sidemenu/tagRequest",
-            "child_routes": null
-        },
-        {
-            "menu_title": "sidebar.requestedTagsList",
-            "menu_icon": "zmdi zmdi-dropbox",
-            "path": "/sidemenu/requestedTagsList",
-            "child_routes": null
-        },
-        {
-            "menu_title": "sidebar.tagProvidersList",
-            "menu_icon": "zmdi zmdi-dropbox",
-            "path": "/sidemenu/tagProvidersList",
-            "child_routes": null
-        },
-        {
-            "menu_title": "sidebar.addTagProvider",
-            "menu_icon": "zmdi zmdi-dropbox",
-            "path": "/sidemenu/addTagProvider",
-            "child_routes": null
-        },
-        {
-            "menu_title": "sidebar.tagPackagesList",
-            "menu_icon": "zmdi zmdi-dropbox",
-            "path": "/sidemenu/tagPackagesList",
-            "child_routes": null
-        }
-    ],
+		{
+			"menu_title": "sidebar.Users",
+			"menu_icon": "zmdi zmdi-user",
+			"child_routes": [
+				{
+					"menu_title": "sidebar.UserList",
+					"path": "/sidemenu/tables/data-table",
+				},
+				{
+					"menu_title": "sidebar.addUser",
+					"path": "/sidemenu/addUser",
+				}
+			]
+		}
+	],
+	category3: [
+		{
+			"menu_title": "sidebar.Groups",
+			"menu_icon": "zmdi zmdi-users",
+			"child_routes": [
+				{
+					"menu_title": "sidebar.groupsList",
+					"path": "/sidemenu/groupsList",
+				},
+				{
+					"menu_title": "sidebar.addNewGroup",
+					"path": "/sidemenu/addNewGroup",
+				}
+			]
+		}
+	],
 	category4: [
 		{
-			"menu_title": "sidebar.forms",
-			"menu_icon": "zmdi zmdi-file-text",
+			"menu_title": "sidebar.roles",
+			"menu_icon": "zmdi zmdi-user",
 			"child_routes": [
 				{
-					"path": "/app/forms/form-elements",
-					"menu_title": "sidebar.formElements"
+					"menu_title": "sidebar.RoleList",
+					"path": "/sidemenu/roleList",
 				},
 				{
-					"path": "/app/forms/text-field",
-					"menu_title": "sidebar.textField"
+					"menu_title": "sidebar.addNewRole",
+					"path": "/sidemenu/addNewRole",
 				},
-				{
-					"path": "/app/forms/select-list",
-					"menu_title": "sidebar.selectList"
-				}
-			]
-		},
-		{
-			"menu_title": "sidebar.charts",
-			"menu_icon": "zmdi zmdi-chart-donut",
-			"child_routes": [
-				{
-					"path": "/app/charts/re-charts",
-					"menu_title": "sidebar.reCharts"
-				},
-				{
-					"path": "/app/charts/react-chartjs2",
-					"menu_title": "sidebar.reactChartjs2"
-				}
-			]
-		},
-		{
-			"menu_title": "sidebar.icons",
-			"menu_icon": "zmdi zmdi-star",
-			"child_routes": [
-				{
-					"path": "/app/icons/themify-icons",
-					"menu_title": "sidebar.themifyIcons"
-				},
-				{
-					"path": "/app/icons/simple-lineIcons",
-					"menu_title": "sidebar.simpleLineIcons"
-				},
-				{
-					"path": "/app/icons/material-icons",
-					"menu_title": "sidebar.materialIcons"
-				}
-			]
-		},
-		{
-			"menu_title": "sidebar.tables",
-			"menu_icon": "zmdi zmdi-grid",
-			"child_routes": [
-				{
-					"path": "/app/tables/basic",
-					"menu_title": "sidebar.basic"
-				},
-				{
-					"path": "/app/tables/data-table",
-					"menu_title": "sidebar.dataTable"
-				},
-				{
-					"path": "/app/tables/responsive",
-					"menu_title": "sidebar.responsive"
-				}
 			]
 		}
 	],
 	category5: [
 		{
-			"menu_title": "sidebar.maps",
-			"menu_icon": "zmdi zmdi-map",
+			"menu_title": "sidebar.actions",
+			"menu_icon": "zmdi zmdi-user",
 			"child_routes": [
 				{
-					"path": "/app/maps/google-maps",
-					"menu_title": "sidebar.googleMaps"
+					"menu_title": "sidebar.addNewAction",
+					"path": "/sidemenu/addNewAction",
 				},
 				{
-					"path": "/app/maps/leaflet-maps",
-					"menu_title": "sidebar.leafletMaps"
+					"menu_title": "sidebar.ActionList",
+					"path": "/sidemenu/actionList",
 				}
 			]
-		},
-		{
-			"menu_title": "sidebar.users",
-			"menu_icon": "zmdi zmdi-accounts",
-			"child_routes": [
-				{
-					"path": "/app/users/user-profile-1",
-					"menu_title": "sidebar.userProfile1"
-				},
-				{
-					"path": "/app/users/user-profile",
-					"menu_title": "sidebar.userProfile2"
-				},
-				{
-					"path": "/app/users/user-management",
-					"menu_title": "sidebar.userManagement"
-				},
-				{
-					"path": "/app/users/user-list",
-					"menu_title": "sidebar.userList"
-				}
-			]
-		},
-		{
-			"menu_title": "sidebar.calendar",
-			"menu_icon": "zmdi zmdi-calendar-note",
-			"child_routes": [
-				{
-					"path": "/app/calendar/basic",
-					"menu_title": "components.basic"
-				},
-				{
-					"path": "/app/calendar/cultures",
-					"menu_title": "sidebar.cultures"
-				},
-				{
-					"path": "/app/calendar/dnd",
-					"menu_title": "sidebar.dnd"
-				},
-				{
-					"path": "/app/calendar/selectable",
-					"menu_title": "sidebar.selectable"
-				},
-				{
-					"path": "/app/calendar/custom-rendering",
-					"menu_title": "sidebar.customRendering"
-				}
-			]
-		},
-		{
-			"menu_title": "sidebar.editor",
-			"menu_icon": "zmdi zmdi-edit",
-			"child_routes": [
-				{
-					"path": "/app/editor/wysiwyg-editor",
-					"menu_title": "sidebar.wysiwygEditor"
-				},
-				{
-					"path": "/app/editor/quill-editor",
-					"menu_title": "sidebar.quillEditor"
-				}
-			]
-		},
-		{
-			"menu_title": "sidebar.dragAndDrop",
-			"menu_icon": "zmdi zmdi-mouse",
-			"child_routes": [
-				{
-					"path": "/app/drag-andDrop/react-dragula",
-					"menu_title": "sidebar.reactDragula"
-				},
-				{
-					"path": "/app/drag-andDrop/react-dnd",
-					"menu_title": "sidebar.reactDnd"
-				}
-			]
-		},
-		{
-			"menu_title": "sidebar.multiLevel",
-			"menu_icon": "zmdi zmdi-view-web",
-			"child_routes": [
-				{
-					"menu_title": "sidebar.level1",
-					"child_routes": [
-						{
-							"path": "/app/level2",
-							"menu_title": "sidebar.level2"
-						}
-					]
-				}
-			]
-		},
+		}
 	],
 	category6: [
 		{
-			"menu_title": "sidebar.imageCropper",
-			"menu_icon": "zmdi zmdi-crop",
-			"path": "/app/image-cropper",
-			"child_routes": null
-		},
+			"menu_title": "sidebar.TagBulkOrder",
+			"menu_icon": "zmdi zmdi-document",
+			"child_routes": [
+				{
+					"menu_title": "sidebar.tagInventory",
+					"path": "/sidemenu/tagInventory",
+				},
+				{
+					"menu_title": "sidebar.NewtagBulkOrder",
+					"path": "/sidemenu/tagBulkOrder",
+				}
+			]
+		}
+	],
+	category7: [
 		{
-			"menu_title": "sidebar.videoPlayer",
-			"menu_icon": "zmdi zmdi-collection-video",
-			"path": "/app/video-player",
-			"child_routes": null
-		},
+			"menu_title": "sidebar.TagRequest",
+			"menu_icon": "zmdi zmdi-document",
+			"child_routes": [
+				{
+					"menu_title": "sidebar.requestedTagsList",
+					"path": "/sidemenu/requestedTagsList",
+				}
+			]
+		}
+	],
+	category8: [
 		{
-			"menu_title": "sidebar.dropzone",
+			"menu_title": "sidebar.TagProvider",
+			"menu_icon": "zmdi zmdi-document",
+			"child_routes": [
+				{
+					"menu_title": "sidebar.tagProvidersList",
+					"path": "/sidemenu/tagProvidersList",
+				},
+				{
+					"menu_title": "sidebar.addTagProvider",
+					"path": "/sidemenu/addTagProvider",
+				}
+			]
+		}
+	],
+	category9: [
+		{
+			"menu_title": "sidebar.tagPackagesList",
 			"menu_icon": "zmdi zmdi-dropbox",
-			"path": "/app/dropzone",
+			"path": "/sidemenu/tagPackagesList",
 			"child_routes": null
 		}
 	]
+	// category4: [
+	// 	{
+	// 		"menu_title": "sidebar.forms",
+	// 		"menu_icon": "zmdi zmdi-file-text",
+	// 		"child_routes": [
+	// 			{
+	// 				"path": "/app/forms/form-elements",
+	// 				"menu_title": "sidebar.formElements"
+	// 			},
+	// 			{
+	// 				"path": "/app/forms/text-field",
+	// 				"menu_title": "sidebar.textField"
+	// 			},
+	// 			{
+	// 				"path": "/app/forms/select-list",
+	// 				"menu_title": "sidebar.selectList"
+	// 			}
+	// 		]
+	// 	},
+	// 	{
+	// 		"menu_title": "sidebar.charts",
+	// 		"menu_icon": "zmdi zmdi-chart-donut",
+	// 		"child_routes": [
+	// 			{
+	// 				"path": "/app/charts/re-charts",
+	// 				"menu_title": "sidebar.reCharts"
+	// 			},
+	// 			{
+	// 				"path": "/app/charts/react-chartjs2",
+	// 				"menu_title": "sidebar.reactChartjs2"
+	// 			}
+	// 		]
+	// 	},
+	// 	{
+	// 		"menu_title": "sidebar.icons",
+	// 		"menu_icon": "zmdi zmdi-star",
+	// 		"child_routes": [
+	// 			{
+	// 				"path": "/app/icons/themify-icons",
+	// 				"menu_title": "sidebar.themifyIcons"
+	// 			},
+	// 			{
+	// 				"path": "/app/icons/simple-lineIcons",
+	// 				"menu_title": "sidebar.simpleLineIcons"
+	// 			},
+	// 			{
+	// 				"path": "/app/icons/material-icons",
+	// 				"menu_title": "sidebar.materialIcons"
+	// 			}
+	// 		]
+	// 	},
+	// 	{
+	// 		"menu_title": "sidebar.tables",
+	// 		"menu_icon": "zmdi zmdi-grid",
+	// 		"child_routes": [
+	// 			{
+	// 				"path": "/app/tables/basic",
+	// 				"menu_title": "sidebar.basic"
+	// 			},
+	// 			{
+	// 				"path": "/app/tables/data-table",
+	// 				"menu_title": "sidebar.dataTable"
+	// 			},
+	// 			{
+	// 				"path": "/app/tables/responsive",
+	// 				"menu_title": "sidebar.responsive"
+	// 			}
+	// 		]
+	// 	}
+	// ],
+	// category5: [
+	// 	{
+	// 		"menu_title": "sidebar.maps",
+	// 		"menu_icon": "zmdi zmdi-map",
+	// 		"child_routes": [
+	// 			{
+	// 				"path": "/app/maps/google-maps",
+	// 				"menu_title": "sidebar.googleMaps"
+	// 			},
+	// 			{
+	// 				"path": "/app/maps/leaflet-maps",
+	// 				"menu_title": "sidebar.leafletMaps"
+	// 			}
+	// 		]
+	// 	},
+	// 	{
+	// 		"menu_title": "sidebar.users",
+	// 		"menu_icon": "zmdi zmdi-accounts",
+	// 		"child_routes": [
+	// 			{
+	// 				"path": "/app/users/user-profile-1",
+	// 				"menu_title": "sidebar.userProfile1"
+	// 			},
+	// 			{
+	// 				"path": "/app/users/user-profile",
+	// 				"menu_title": "sidebar.userProfile2"
+	// 			},
+	// 			{
+	// 				"path": "/app/users/user-management",
+	// 				"menu_title": "sidebar.userManagement"
+	// 			},
+	// 			{
+	// 				"path": "/app/users/user-list",
+	// 				"menu_title": "sidebar.userList"
+	// 			}
+	// 		]
+	// 	},
+	// 	{
+	// 		"menu_title": "sidebar.calendar",
+	// 		"menu_icon": "zmdi zmdi-calendar-note",
+	// 		"child_routes": [
+	// 			{
+	// 				"path": "/app/calendar/basic",
+	// 				"menu_title": "components.basic"
+	// 			},
+	// 			{
+	// 				"path": "/app/calendar/cultures",
+	// 				"menu_title": "sidebar.cultures"
+	// 			},
+	// 			{
+	// 				"path": "/app/calendar/dnd",
+	// 				"menu_title": "sidebar.dnd"
+	// 			},
+	// 			{
+	// 				"path": "/app/calendar/selectable",
+	// 				"menu_title": "sidebar.selectable"
+	// 			},
+	// 			{
+	// 				"path": "/app/calendar/custom-rendering",
+	// 				"menu_title": "sidebar.customRendering"
+	// 			}
+	// 		]
+	// 	},
+	// 	{
+	// 		"menu_title": "sidebar.editor",
+	// 		"menu_icon": "zmdi zmdi-edit",
+	// 		"child_routes": [
+	// 			{
+	// 				"path": "/app/editor/wysiwyg-editor",
+	// 				"menu_title": "sidebar.wysiwygEditor"
+	// 			},
+	// 			{
+	// 				"path": "/app/editor/quill-editor",
+	// 				"menu_title": "sidebar.quillEditor"
+	// 			}
+	// 		]
+	// 	},
+	// 	{
+	// 		"menu_title": "sidebar.dragAndDrop",
+	// 		"menu_icon": "zmdi zmdi-mouse",
+	// 		"child_routes": [
+	// 			{
+	// 				"path": "/app/drag-andDrop/react-dragula",
+	// 				"menu_title": "sidebar.reactDragula"
+	// 			},
+	// 			{
+	// 				"path": "/app/drag-andDrop/react-dnd",
+	// 				"menu_title": "sidebar.reactDnd"
+	// 			}
+	// 		]
+	// 	},
+	// 	{
+	// 		"menu_title": "sidebar.multiLevel",
+	// 		"menu_icon": "zmdi zmdi-view-web",
+	// 		"child_routes": [
+	// 			{
+	// 				"menu_title": "sidebar.level1",
+	// 				"child_routes": [
+	// 					{
+	// 						"path": "/app/level2",
+	// 						"menu_title": "sidebar.level2"
+	// 					}
+	// 				]
+	// 			}
+	// 		]
+	// 	},
+	// ],
+	// category6: [
+	// 	{
+	// 		"menu_title": "sidebar.imageCropper",
+	// 		"menu_icon": "zmdi zmdi-crop",
+	// 		"path": "/app/image-cropper",
+	// 		"child_routes": null
+	// 	},
+	// 	{
+	// 		"menu_title": "sidebar.videoPlayer",
+	// 		"menu_icon": "zmdi zmdi-collection-video",
+	// 		"path": "/app/video-player",
+	// 		"child_routes": null
+	// 	},
+	// 	{
+	// 		"menu_title": "sidebar.dropzone",
+	// 		"menu_icon": "zmdi zmdi-dropbox",
+	// 		"path": "/app/dropzone",
+	// 		"child_routes": null
+	// 	}
+	// ]
+
 }
