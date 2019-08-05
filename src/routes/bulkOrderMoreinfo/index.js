@@ -29,9 +29,7 @@ import RctCollapsibleCard from 'Components/RctCollapsibleCard/RctCollapsibleCard
 import IntlMessages from 'Util/IntlMessages';
 
 // app config
-import AppConfig from '../../constants/AppConfig';
-
-const giventoken = localStorage.getItem('given_token')
+import AppConfig from 'Constants/AppConfig';
 
 export default class AutoComplete extends Component {
 	state = {
