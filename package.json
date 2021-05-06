@@ -59,7 +59,7 @@
     "firebase": "^5.7.0",
     "globalize": "^0.1.1",
     "google-map-react": "^0.34.0",
-    "highcharts": "^7.1.2",
+    "highcharts": "^9.0.0",
     "highcharts-react-official": "^2.2.2",
     "hls.js": "^0.11.0",
     "instantsearch.css": "^7.1.0",
